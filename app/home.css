@@ -1,0 +1,277 @@
+/* Home page only — imported solely by app/page.tsx. All class names below
+   are new and don't exist anywhere in the Webflow-generated stylesheets,
+   so nothing here can leak into the still-legacy case study pages. */
+
+/* Full-bleed wrapper: the shared `.body` class (rendered on every route)
+   paints its own full-width black background, so this repaints over it
+   for the home route only, instead of touching the shared class. */
+.home-page {
+  background: var(--paper);
+  min-height: 100vh;
+  /* .body is `display:flex; align-items:center`, which shrink-wraps
+     block children to their content width instead of stretching them —
+     override that so this repaint covers the full viewport width. */
+  align-self: stretch;
+  width: 100%;
+}
+
+.home {
+  font-family: var(--font-body);
+  color: var(--ink);
+}
+
+/* ---- hero ---- */
+
+.home-hero {
+  max-width: 1280px;
+  margin: 0 auto;
+  min-height: 60vh;
+  padding: 60px 32px 20px;
+}
+
+.home-hero__eyebrow {
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-muted);
+  margin: 0 0 28px;
+}
+
+.home-hero__headline {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.25rem, 1rem + 3.2vw, 3.75rem);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin: 0;
+  max-width: 24ch;
+}
+
+.home-hero__body {
+  font-size: 18px;
+  color: var(--ink-muted);
+  max-width: 56ch;
+  line-height: 1.65;
+  margin: 24px 0 0;
+}
+
+/* ---- selected work ---- */
+
+.home-work {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 40px 32px 60px;
+  border-top: 1px solid var(--line);
+}
+
+.home-work__label {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 2.4rem;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0 0 20px;
+}
+
+.project-list {
+  /* Legacy Webflow CSS has a bare `ul { max-width: 500px }` rule for
+     prose content on the case-study pages — override it here since this
+     is a layout list, not article text. */
+  max-width: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+
+.project-row {
+  display: grid;
+  grid-template-columns: 28px 320px 1fr;
+  gap: 24px;
+  align-items: center;
+  min-height: 70vh;
+  padding: 32px 0;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  color: inherit;
+}
+
+.project-row__index {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--ink-muted);
+  align-self: start;
+  padding-top: 6px;
+}
+
+.project-row__type {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  margin-bottom: 22px;
+}
+
+.project-row__title {
+  font-family: var(--font-display);
+  font-size: 2.1rem;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0 0 14px;
+  transition: color var(--dur-1) var(--ease-out);
+}
+
+.project-row:hover .project-row__title {
+  color: var(--accent);
+}
+
+.project-row__company {
+  font-size: 14px;
+  color: var(--ink-muted);
+  margin: 0 0 28px;
+}
+
+.project-row__desc {
+  font-size: 17px;
+  color: var(--ink-muted);
+  max-width: 38ch;
+  line-height: 1.6;
+  margin: 0 0 32px;
+}
+
+.project-row__meta {
+  font-size: 15px;
+}
+
+.project-row__cta {
+  color: var(--accent);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition: border-color var(--dur-1) var(--ease-out);
+}
+
+.project-row:hover .project-row__cta {
+  border-color: var(--accent);
+}
+
+.project-row__arrow {
+  display: inline-block;
+  transition: transform var(--dur-1) var(--ease-out);
+}
+
+.project-row:hover .project-row__arrow {
+  transform: translateX(5px);
+}
+
+.project-row__visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-row__visual img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 900px;
+  box-shadow: 0 40px 90px rgba(20, 20, 30, 0.18);
+  border-radius: 18px;
+}
+
+.project-row__visual.is-phone img {
+  max-width: 340px;
+}
+
+.project-row.is-disabled {
+  cursor: default;
+}
+
+.project-row.is-disabled .project-row__cta {
+  color: var(--ink-muted);
+}
+
+.project-row.is-disabled .project-row__visual img {
+  opacity: 0.55;
+}
+
+@media (max-width: 900px) {
+  .project-row {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    gap: 24px;
+  }
+
+  .project-row__index {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .home-hero,
+  .home-work {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+/* ---- flow field background, custom cursor, jelly creatures ---- */
+
+.home-page-wrap {
+  position: relative;
+  z-index: 1;
+  /* .body is `display:flex; align-items:center`, which shrink-wraps
+     block children to their content width instead of stretching them —
+     same fix as .home-page below, now needed one level up since this
+     wrapper is the new direct child of .body. */
+  align-self: stretch;
+  width: 100%;
+}
+
+/* Custom cursor is drawn on canvas — hide the native one, but never on
+   touch (no pointer to draw) or reduced motion (no frame loop drawing it). */
+.home-page-wrap {
+  cursor: none;
+}
+
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  .home-page-wrap {
+    cursor: auto;
+  }
+}
+
+.flow-field-canvas,
+.flow-field-cursor {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  pointer-events: none;
+}
+
+.flow-field-canvas {
+  z-index: 0;
+}
+
+/* Sits above .home-page-wrap's own stacking context or the cursor
+   disappears under the nav/hero/work content. */
+.flow-field-cursor {
+  z-index: 999;
+}
+
+.flow-field-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 180px 180px;
+}

@@ -3,14 +3,20 @@
 import { useState } from "react";
 import Link from "next/link";
 
-export default function Nav({ current = "home" }: { current?: "home" | "sub" }) {
+export default function Nav({
+  current = "home",
+  variant = "legacy",
+}: {
+  current?: "home" | "sub";
+  variant?: "light" | "legacy";
+}) {
   const [open, setOpen] = useState(false);
 
   return (
     <div
       data-collapse="medium"
       role="banner"
-      className="navbar w-nav"
+      className={variant === "light" ? "navbar navbar-light w-nav" : "navbar w-nav"}
     >
       <div className="home-header">
         <div className="nav-home">

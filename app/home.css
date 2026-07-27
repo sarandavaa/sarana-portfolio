@@ -2,11 +2,13 @@
    are new and don't exist anywhere in the Webflow-generated stylesheets,
    so nothing here can leak into the still-legacy case study pages. */
 
-/* Full-bleed wrapper: the shared `.body` class (rendered on every route)
-   paints its own full-width black background, so this repaints over it
-   for the home route only, instead of touching the shared class. */
+/* Full-bleed wrapper: sits inside .home-page-wrap (z-index:1), which stacks
+   above the flow-field canvas (z-index:0) — so this must stay transparent,
+   or its own background paints over the canvas and hides the animation
+   entirely. The canvas already fills itself with --paper every frame, so
+   this still reads as a solid paper backdrop; it just comes from the canvas
+   now instead of from this div. */
 .home-page {
-  background: var(--paper);
   min-height: 100vh;
   /* .body is `display:flex; align-items:center`, which shrink-wraps
      block children to their content width instead of stretching them —
@@ -30,6 +32,10 @@
 }
 
 .home-hero__eyebrow {
+  /* Legacy Webflow CSS has a bare `p { font-family: Montserrat }` rule that
+     directly targets this <p> and beats inheritance from .home regardless
+     of specificity — so this has to be set explicitly here. */
+  font-family: var(--font-body);
   font-size: 15px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -49,6 +55,8 @@
 }
 
 .home-hero__body {
+  /* see .home-hero__eyebrow above re: the legacy `p` tag rule */
+  font-family: var(--font-body);
   font-size: 18px;
   color: var(--ink-muted);
   max-width: 56ch;
@@ -82,7 +90,6 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  border-top: 1px solid var(--line);
 }
 
 .project-row {
@@ -135,6 +142,8 @@
 }
 
 .project-row__desc {
+  /* see .home-hero__eyebrow above re: the legacy `p` tag rule */
+  font-family: var(--font-body);
   font-size: 17px;
   color: var(--ink-muted);
   max-width: 38ch;

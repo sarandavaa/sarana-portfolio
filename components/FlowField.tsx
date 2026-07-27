@@ -55,7 +55,7 @@ export default function FlowField() {
     if (!ctx || !cctx) return;
 
     const rootStyle = getComputedStyle(document.documentElement);
-    const paperColor = rootStyle.getPropertyValue("--paper").trim() || "#faf9f5";
+    const paperColor = rootStyle.getPropertyValue("--paper").trim() || "#eef1f5";
     const inkRgb = hexToRgb(rootStyle.getPropertyValue("--ink"), [22, 23, 27]);
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

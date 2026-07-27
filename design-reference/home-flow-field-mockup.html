@@ -1,0 +1,692 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Home mockup — flow field (design reference)</title>
+<!--
+  Extracted from a Claude Artifact (claude.ai/code/artifact/50e4095f-a81a-4f4b-a014-73a0a3daa697)
+  titled "Home mockup — flow field". This is the cleaned-up source: the
+  artifact's iframe/sandbox runtime boilerplate has been stripped, and the
+  two inline base64 project screenshots have been swapped for the real
+  /images/* files already in this project's public/ folder.
+
+  Refreshed against the artifact's current (latest) version — the previous
+  copy of this file was one revision behind components/FlowField.tsx, which
+  had already been updated to the 3-jelly "comet" version below. This file
+  and FlowField.tsx should now match.
+
+  This is a reference file only — not wired into the app. It documents:
+  - Design tokens (paper/ink/accent colors, display+mono font roles)
+  - Home page layout (nav, hero, "Selected Work" rows at 70vh)
+  - A full working flow-field particle canvas: ambient motion + loose
+    flocking + swirl-toward-cursor + a palette-based cursor trail + three
+    wandering "jelly" creatures in the page margins.
+
+  Open this file directly in a browser to see it running.
+-->
+<style>
+  :root {
+    --paper: #eef1f5;
+    --ink: #16171b;
+    --ink-muted: #6b6b75;
+    --accent: #5b4fe8;
+    --line: #b9c0c7;
+    --font-display: ui-serif, Georgia, "Times New Roman", serif; /* real build: Fraunces via next/font */
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace; /* real build: JetBrains Mono via next/font */
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-mono);
+    cursor: none; /* canvas draws its own cursor — see #cursorfx */
+  }
+  .grain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 180px 180px;
+  }
+  .note {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 14px 24px 0;
+    font-size: 12px;
+    color: var(--ink-muted);
+    line-height: 1.5;
+  }
+  #flow {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    display: block;
+    z-index: 0;
+    pointer-events: none;
+  }
+  /* Separate top-layer canvas for the cursor + trail. It has to sit above
+     every other stacking context (nav/hero/work all use z-index:1) or the
+     cursor visually disappears under images/text. */
+  #cursorfx {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    display: block;
+    z-index: 999;
+    pointer-events: none;
+  }
+
+  nav {
+    position: relative;
+    z-index: 1;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 32px 32px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 19px;
+  }
+  nav .name { font-size: 26px; font-weight: 700; color: var(--ink); }
+  nav .links { display: flex; gap: 28px; color: var(--ink-muted); }
+
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 60vh;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 60px 32px 20px;
+  }
+  .hero-content { position: relative; z-index: 1; }
+  .eyebrow {
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+    margin: 0 0 28px;
+  }
+  h1.headline {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2.25rem, 1rem + 3.2vw, 3.75rem);
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+    margin: 0;
+    max-width: 24ch;
+  }
+  .hero-body {
+    font-size: 18px;
+    color: var(--ink-muted);
+    max-width: 56ch;
+    line-height: 1.65;
+    margin: 24px 0 0;
+  }
+
+  .work {
+    position: relative;
+    z-index: 1;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px 32px 60px;
+    border-top: 1px solid var(--line);
+  }
+  .work > h2 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-style: normal; /* Sarana wants this italic in the real build — deviation from this mockup, noted deliberately */
+    font-size: 2.4rem;
+    letter-spacing: -0.01em;
+    margin: 0 0 20px;
+  }
+  .row {
+    display: grid;
+    grid-template-columns: 28px 320px 1fr;
+    gap: 24px;
+    align-items: center;
+    min-height: 70vh;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .row-index {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--ink-muted);
+    align-self: start;
+    padding-top: 6px;
+  }
+  .row-type {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+    margin-bottom: 22px;
+  }
+  .row-text h3 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 2.1rem;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin: 0 0 14px;
+  }
+  .row-company {
+    font-size: 14px;
+    color: var(--ink-muted);
+    margin: 0 0 28px;
+  }
+  .row-text p {
+    font-size: 17px;
+    color: var(--ink-muted);
+    max-width: 38ch;
+    line-height: 1.6;
+    margin: 0 0 32px;
+  }
+  .row-meta { font-size: 15px; }
+  .cta {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: border-color 0.2s ease;
+  }
+  .cta .arrow { display: inline-block; transition: transform 0.2s ease; }
+  .cta:hover { border-color: var(--accent); }
+  .cta:hover .arrow { transform: translateX(5px); }
+
+  .row-visual { display: flex; align-items: center; justify-content: center; height: 100%; }
+  .project-img {
+    display: block;
+    width: 100%;
+    max-width: 900px;
+    box-shadow: 0 40px 90px rgba(20, 20, 30, 0.18);
+    border-radius: 18px;
+  }
+  .project-img.is-phone { max-width: 340px; }
+
+  @media (max-width: 900px) {
+    .row { grid-template-columns: 1fr; min-height: auto; gap: 24px; }
+    .row-index { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="flow"></canvas>
+<canvas id="cursorfx"></canvas>
+<div class="grain"></div>
+
+<p class="note">Design reference only — system fonts approximate Fraunces 800 / mono webfont; real build swaps in next/font. The flow field runs the full page — move your cursor anywhere.</p>
+
+<nav>
+  <span class="name">Sarana Davaa</span>
+  <span class="links"><span>Resume</span><span>Linkedin</span></span>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <p class="eyebrow">Product Designer, San Francisco</p>
+    <h1 class="headline">Designing experiences<br>that awaken possibility.</h1>
+    <p class="hero-body">I design products that simplify complexity and ambiguity, creating space for what matters.</p>
+  </div>
+</section>
+
+<section class="work">
+  <h2>Selected Work</h2>
+
+  <div class="row">
+    <div class="row-index">01</div>
+    <div class="row-text">
+      <div class="row-type">Interaction Design</div>
+      <h3>Sites Page Redesign</h3>
+      <div class="row-company">Verkada</div>
+      <p>Turned an unscalable, spreadsheet-like device manager into a fast, mobile-ready workflow.</p>
+      <div class="row-meta"><a href="#" class="cta">View project <span class="arrow">→</span></a></div>
+    </div>
+    <div class="row-visual">
+      <!-- original artifact embedded a base64 screenshot here; swapped for the real project asset -->
+      <img class="project-img" src="/images/Sites-page---edited.png" alt="" />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="row-index">02</div>
+    <div class="row-text">
+      <div class="row-type">Interaction Design</div>
+      <h3>Security Alert Mobile Design</h3>
+      <div class="row-company">Verkada</div>
+      <p>One alert layout that scales cleanly across cameras, air quality sensors, and access control.</p>
+      <div class="row-meta"><a href="#" class="cta">View project <span class="arrow">→</span></a></div>
+    </div>
+    <div class="row-visual">
+      <!-- original artifact embedded a base64 screenshot here; swapped for the real project asset -->
+      <img class="project-img is-phone" src="/images/vape_detected_alert.png" alt="" />
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  var canvas = document.getElementById('flow');
+  var ctx = canvas.getContext('2d');
+  var cursorCanvas = document.getElementById('cursorfx');
+  var cctx = cursorCanvas.getContext('2d');
+  var W, H, DPR;
+
+  function resize() {
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    canvas.width = W * DPR; canvas.height = H * DPR;
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    cursorCanvas.width = W * DPR; cursorCanvas.height = H * DPR;
+    cctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function lerp(a, b, t) { return a + t * (b - a); }
+
+  // Palette lifted from the abstract splatter painting the user shared —
+  // deep indigo ground with magenta, orange, gold, and cyan splashes. Used
+  // for the cursor trail.
+  var ART_PALETTE = [
+    [38, 42, 165],   // deep indigo (dominant background)
+    [230, 20, 130],  // magenta/pink
+    [240, 130, 30],  // orange
+    [245, 195, 40],  // gold/yellow
+    [40, 170, 220],  // cyan
+    [38, 42, 165]    // back to indigo — closes the loop for cyclic sampling
+  ];
+  // Separate, explicit palette for the jelly beings' strings.
+  var JELLY_PALETTE = [
+    [147, 51, 234],  // purple
+    [249, 115, 22],  // orange
+    [45, 212, 191],  // turquoise
+    [239, 68, 68],   // red
+    [250, 204, 21],  // yellow
+    [147, 51, 234]   // back to purple — closes the loop for cyclic sampling
+  ];
+  function sampleColor(palette, t) {
+    t = ((t % 1) + 1) % 1; // wrap into [0,1) so callers can pass any offset
+    var n = palette.length - 1;
+    var scaled = t * n;
+    var i = Math.min(n - 1, Math.floor(scaled));
+    var lt = scaled - i;
+    var c0 = palette[i], c1 = palette[i + 1];
+    return [
+      Math.round(lerp(c0[0], c1[0], lt)),
+      Math.round(lerp(c0[1], c1[1], lt)),
+      Math.round(lerp(c0[2], c1[2], lt))
+    ];
+  }
+  function artColor(t) { return sampleColor(ART_PALETTE, t); }
+  function jellyColor(t) { return sampleColor(JELLY_PALETTE, t); }
+  function lighten(col, amt) {
+    return [
+      col[0] + (255 - col[0]) * amt,
+      col[1] + (255 - col[1]) * amt,
+      col[2] + (255 - col[2]) * amt
+    ];
+  }
+  // Smooth, lattice-free pseudo-flow field: a sum of rotated/offset sine
+  // waves at different frequencies. No grid cells, so no seam artifacts —
+  // simpler and more robust than a hand-rolled Perlin implementation.
+  function fieldAngle(x, y, timeOffset) {
+    var a = Math.sin(x * 0.0021 + timeOffset * 0.6) + Math.cos(y * 0.0026 - timeOffset * 0.4);
+    var b = Math.sin((x + y) * 0.0017 + timeOffset * 0.5) * 0.8;
+    var c = Math.cos((x - y) * 0.0013 - timeOffset * 0.35) * 0.6;
+    return (a + b + c) * 1.1;
+  }
+  function smoothstep(e0, e1, x) { var t = Math.min(1, Math.max(0, (x - e0) / (e1 - e0))); return t * t * (3 - 2 * t); }
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // The custom cursor is drawn on canvas every animation frame — with
+  // reduced motion there's no frame loop, so fall back to the native
+  // cursor rather than leaving the pointer invisible.
+  if (reduceMotion) document.body.style.cursor = 'auto';
+  var isTouch = window.matchMedia('(hover: none)').matches;
+
+  // Small curated palette — the cursor bloom picks from this per-particle
+  // instead of a single fixed accent, so a cluster near the cursor shows a
+  // mix of colors rather than uniform purple.
+  var PALETTE = [
+    [91, 79, 232],   // indigo
+    [232, 87, 79],   // coral
+    [47, 182, 166],  // teal
+    [224, 163, 57]   // amber
+  ];
+
+  var TRAIL_LEN = 7;
+  var FLOCK_RADIUS = 55;
+  var particles = [];
+  function initParticles() {
+    particles = [];
+    var count = Math.min(800, Math.floor((W * H) / 1000));
+    for (var i = 0; i < count; i++) {
+      var x = Math.random() * W, y = Math.random() * H;
+      var a0 = Math.random() * Math.PI * 2;
+      var trail = [];
+      for (var k = 0; k < TRAIL_LEN; k++) trail.push({ x: x, y: y });
+      particles.push({
+        x: x, y: y,
+        vx: Math.cos(a0), vy: Math.sin(a0),
+        seed: Math.random() * 1000,
+        color: PALETTE[i % PALETTE.length],
+        trail: trail
+      });
+    }
+  }
+  initParticles();
+
+  // Canvas is fixed to the viewport and pointer-events:none, so track the
+  // cursor on window directly — this is how the field reacts everywhere on
+  // the page, not just over the canvas itself.
+  var mouse = { x: -9999, y: -9999, active: false };
+  var cursorTrail = [];
+  var CURSOR_TRAIL_MAX_AGE = 400; // ms — points older than this are dropped every frame,
+                                  // regardless of whether new pointermove events keep firing.
+                                  // (The old bug: expiry was tied to array length, which only
+                                  // updated on new move events, so a fast flick left a trail
+                                  // that never aged out once the mouse stopped.)
+  window.addEventListener('pointermove', function (e) {
+    mouse.x = e.clientX; mouse.y = e.clientY; mouse.active = true;
+    if (!isTouch) cursorTrail.push({ x: mouse.x, y: mouse.y, time: performance.now() });
+  });
+  document.addEventListener('mouseleave', function () { mouse.active = false; mouse.x = -9999; mouse.y = -9999; });
+
+  function drawCursor() {
+    cctx.clearRect(0, 0, W, H);
+    if (!mouse.active || isTouch) return;
+
+    var now = performance.now();
+    while (cursorTrail.length && now - cursorTrail[0].time > CURSOR_TRAIL_MAX_AGE) {
+      cursorTrail.shift();
+    }
+
+    // Pride-flag sweep along the trail's remaining lifetime (not tied to
+    // the animation clock, so it reads as "movement paints the trail"
+    // rather than a color that cycles on its own).
+    for (var i = 1; i < cursorTrail.length; i++) {
+      var a0 = cursorTrail[i - 1], a1 = cursorTrail[i];
+      var age = now - a1.time;
+      var frac = Math.max(0, 1 - age / CURSOR_TRAIL_MAX_AGE);
+      var col = artColor(1 - frac);
+      cctx.strokeStyle = 'rgba(' + col[0] + ',' + col[1] + ',' + col[2] + ',' + (frac * 0.7).toFixed(3) + ')';
+      cctx.lineWidth = 1.5 + frac * 7;
+      cctx.lineCap = 'round';
+      cctx.beginPath(); cctx.moveTo(a0.x, a0.y); cctx.lineTo(a1.x, a1.y); cctx.stroke();
+    }
+
+    // solid black round dot — no color cycling, no flashing
+    cctx.beginPath();
+    cctx.arc(mouse.x, mouse.y, 11, 0, Math.PI * 2);
+    cctx.fillStyle = 'rgba(22,23,27,0.95)';
+    cctx.fill();
+  }
+
+  var RADIUS = 200;
+  var t = 0;
+  var inkColor = [255, 255, 255];
+
+  function drawTrail(p, influence) {
+    var rr = Math.round(lerp(inkColor[0], p.color[0], influence));
+    var gg = Math.round(lerp(inkColor[1], p.color[1], influence));
+    var bb = Math.round(lerp(inkColor[2], p.color[2], influence));
+    var trail = p.trail;
+    for (var k = 1; k < trail.length; k++) {
+      var a0 = trail[k - 1], a1 = trail[k];
+      var frac = k / (trail.length - 1);
+      var alpha = frac * (0.75 + influence * 0.4);
+      ctx.strokeStyle = 'rgba(' + rr + ',' + gg + ',' + bb + ',' + alpha.toFixed(3) + ')';
+      ctx.lineWidth = 1.6 + influence * 1.2;
+      ctx.beginPath(); ctx.moveTo(a0.x, a0.y); ctx.lineTo(a1.x, a1.y); ctx.stroke();
+    }
+  }
+
+  // A little bulb-headed creature — jellyfish/octopus hybrid — that drifts
+  // in the empty margin between the centered content column and the edge
+  // of the viewport. Hidden entirely when there's no margin to roam in.
+  var CONTENT_MAX = 1280, CONTENT_PAD = 32;
+  var JELLY_TRAIL_MAX_AGE = 900; // ms — slower, gentler fade than the cursor's
+  var JELLY_COUNT = 3;
+  var jellies = [];
+
+  function marginBounds() {
+    var contentW = Math.min(CONTENT_MAX, W - CONTENT_PAD * 2);
+    var contentLeft = (W - contentW) / 2;
+    return { left: contentLeft, right: W - contentLeft, w: contentLeft };
+  }
+
+  (function initJellies() {
+    var m = marginBounds();
+    var pad = 30;
+    for (var n = 0; n < JELLY_COUNT; n++) {
+      var useLeft = n % 2 === 0;
+      var x = m.w > pad * 2
+        ? (useLeft ? pad + Math.random() * (m.w - pad * 2) : m.right + pad + Math.random() * (m.w - pad * 2))
+        : Math.random() * W;
+      var y0 = H * 0.1 + Math.random() * H * 0.8;
+      jellies.push({
+        x: x, y: y0,
+        targetX: x, targetY: y0,
+        prevX: x, prevY: y0,
+        speed: 0,
+        moveSpeed: 0.005,
+        phase: Math.random() * 100,
+        // stagger initial retarget so they don't all move in lockstep
+        lastRetarget: -Math.random() * 7000,
+        trail: []
+      });
+    }
+  })();
+
+  function updateJelly(jelly, nowMs) {
+    var m = marginBounds();
+    if (m.w < 70) return false; // no room in the margins on this viewport
+
+    if (nowMs - jelly.lastRetarget > 7000) {
+      jelly.lastRetarget = nowMs;
+      var onLeft = jelly.x < W / 2;
+      // Rarely, dash to the other margin — brief and fast so it reads as a
+      // quick comet crossing rather than something lingering over the content.
+      var crossing = Math.random() < 0.12;
+      var useLeft = crossing ? !onLeft : onLeft;
+      var pad = 30;
+      jelly.targetX = useLeft
+        ? pad + Math.random() * Math.max(1, m.w - pad * 2)
+        : m.right + pad + Math.random() * Math.max(1, m.w - pad * 2);
+      jelly.targetY = H * 0.18 + Math.random() * H * 0.6;
+      // Most laps are a slow, colorful drift. A crossing is always a fast
+      // dash; otherwise there's just an occasional chance of one anyway.
+      jelly.moveSpeed = (crossing || Math.random() < 0.25)
+        ? 0.035 + Math.random() * 0.05
+        : 0.004 + Math.random() * 0.006;
+    }
+
+    jelly.prevX = jelly.x; jelly.prevY = jelly.y;
+    jelly.x = lerp(jelly.x, jelly.targetX, jelly.moveSpeed);
+    jelly.y = lerp(jelly.y, jelly.targetY, jelly.moveSpeed);
+    jelly.speed = Math.hypot(jelly.x - jelly.prevX, jelly.y - jelly.prevY);
+    return true;
+  }
+
+  function drawJelly(jelly, nowT) {
+    var x = jelly.x, y = jelly.y + Math.sin(nowT * 1.2 + jelly.phase) * 16;
+
+    // remember where it's been — this is what the trailing strings are drawn from
+    var now = performance.now();
+    jelly.trail.push({ x: x, y: y, time: now });
+    while (jelly.trail.length && now - jelly.trail[0].time > JELLY_TRAIL_MAX_AGE) {
+      jelly.trail.shift();
+    }
+
+    // Several strings streaming off it as it drifts. How "comet" vs. how
+    // "colorful" they look depends on its current speed: slow drift shows
+    // real saturated color, a fast dart washes toward a bright white streak.
+    var cometFactor = smoothstep(1, 9, jelly.speed);
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    var STRAND_COUNT = 4;
+    for (var s = 0; s < STRAND_COUNT; s++) {
+      var strandOffset = s / STRAND_COUNT;
+      for (var i = 1; i < jelly.trail.length; i++) {
+        var a0 = jelly.trail[i - 1], a1 = jelly.trail[i];
+        var age = now - a1.time;
+        var frac = Math.max(0, 1 - age / JELLY_TRAIL_MAX_AGE);
+        if (frac <= 0) continue;
+        var wob0 = Math.sin(a0.time / 140 + s * 2.1) * (3 + s * 2.4);
+        var wob1 = Math.sin(a1.time / 140 + s * 2.1) * (3 + s * 2.4);
+        var baseCol = jellyColor(strandOffset + (1 - frac) * 0.6);
+        // At full comet speed (crossing to the opposite margin) the strands
+        // fade all the way to pure white — no hue left, just a light streak.
+        var glowCol = lighten(baseCol, lerp(0.05, 1, cometFactor));
+        var coreCol = lighten(baseCol, lerp(0.2, 1, cometFactor));
+
+        ctx.beginPath();
+        ctx.moveTo(a0.x + wob0, a0.y);
+        ctx.lineTo(a1.x + wob1, a1.y);
+
+        // soft wide glow — wider/brighter the faster it's moving
+        ctx.strokeStyle = 'rgba(' + glowCol[0].toFixed(0) + ',' + glowCol[1].toFixed(0) + ',' + glowCol[2].toFixed(0) + ',' + (frac * lerp(0.4, 0.6, cometFactor)).toFixed(3) + ')';
+        ctx.lineWidth = lerp(2.5, 6, cometFactor) + frac * lerp(2, 5, cometFactor);
+        ctx.lineCap = 'round';
+        ctx.stroke();
+
+        // core — saturated color at rest, bright near-white streak when fast
+        ctx.strokeStyle = 'rgba(' + coreCol[0].toFixed(0) + ',' + coreCol[1].toFixed(0) + ',' + coreCol[2].toFixed(0) + ',' + (frac * 0.85).toFixed(3) + ')';
+        ctx.lineWidth = 1 + frac * 1.2;
+        ctx.stroke();
+      }
+    }
+    ctx.restore();
+
+    // the being itself — a soft, subtle point of light, not a solid figure
+    var haloR = 24;
+    var pulse = 0.85 + Math.sin(nowT * 1.8 + jelly.phase) * 0.15;
+    var grad = ctx.createRadialGradient(x, y, 0, x, y, haloR * pulse);
+    grad.addColorStop(0, 'rgba(255,252,240,0.9)');
+    grad.addColorStop(0.5, 'rgba(255,252,240,0.28)');
+    grad.addColorStop(1, 'rgba(255,252,240,0)');
+    ctx.fillStyle = grad;
+    ctx.beginPath(); ctx.arc(x, y, haloR * pulse, 0, Math.PI * 2); ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(x, y, 3.5, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(255,255,250,0.95)';
+    ctx.fill();
+  }
+
+  function drawStatic() {
+    ctx.fillStyle = '#eef1f5';
+    ctx.fillRect(0, 0, W, H);
+    for (var i = 0; i < particles.length; i++) {
+      var p = particles[i];
+      var angle = fieldAngle(p.x, p.y, 0);
+      var vx = Math.cos(angle) * 7, vy = Math.sin(angle) * 7;
+      ctx.strokeStyle = 'rgba(255,255,255,0.6)';
+      ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p.x + vx, p.y + vy); ctx.stroke();
+    }
+  }
+
+  function step() {
+    t += 0.0016;
+    // full clear every frame — no cross-frame canvas accumulation, so no
+    // long-exposure structural artifacts from the field's own geometry.
+    ctx.fillStyle = '#eef1f5';
+    ctx.fillRect(0, 0, W, H);
+
+    var n = particles.length;
+    for (var i = 0; i < n; i++) {
+      var p = particles[i];
+
+      // base ambient current
+      var angle = fieldAngle(p.x, p.y, t * 40);
+      var baseVX = Math.cos(angle), baseVY = Math.sin(angle);
+
+      // loose local alignment ("flocking") — average heading of nearby
+      // particles, weighted by a per-particle slow oscillation so any given
+      // particle drifts in and out of flocking rather than doing it constantly.
+      var nvx = 0, nvy = 0, neighborCount = 0;
+      var flockRadiusSq = FLOCK_RADIUS * FLOCK_RADIUS;
+      for (var j = 0; j < n; j++) {
+        if (j === i) continue;
+        var q = particles[j];
+        var ddx = q.x - p.x, ddy = q.y - p.y;
+        var d2 = ddx * ddx + ddy * ddy;
+        if (d2 < flockRadiusSq) { nvx += q.vx; nvy += q.vy; neighborCount++; }
+      }
+
+      var desiredVX = baseVX, desiredVY = baseVY;
+      if (neighborCount > 0) {
+        var flockStrength = 0.5 + 0.5 * Math.sin(t * 30 + p.seed);
+        nvx /= neighborCount; nvy /= neighborCount;
+        desiredVX = lerp(baseVX, nvx, 0.55 * flockStrength);
+        desiredVY = lerp(baseVY, nvy, 0.55 * flockStrength);
+      }
+
+      // small independent per-particle jitter so coincident particles never
+      // move in perfect lockstep
+      desiredVX += Math.sin(t * 90 + p.seed) * 0.3;
+      desiredVY += Math.cos(t * 97 + p.seed * 1.7) * 0.3;
+
+      var dlen = Math.sqrt(desiredVX * desiredVX + desiredVY * desiredVY) || 1;
+      desiredVX /= dlen; desiredVY /= dlen;
+
+      p.vx = lerp(p.vx, desiredVX, 0.12);
+      p.vy = lerp(p.vy, desiredVY, 0.12);
+
+      var vx = p.vx, vy = p.vy;
+      var influence = 0;
+
+      if (mouse.active && !isTouch) {
+        var dx = p.x - mouse.x, dy = p.y - mouse.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < RADIUS) {
+          influence = 1 - smoothstep(0, RADIUS, dist);
+          var d = dist || 1;
+          var perpX = -dy / d, perpY = dx / d;
+          vx = lerp(vx, perpX, influence * 0.9);
+          vy = lerp(vy, perpY, influence * 0.9);
+        }
+      }
+
+      p.x += vx * 1.1; p.y += vy * 1.1;
+      var wrapped = false;
+      if (p.x < 0) { p.x = W; wrapped = true; } if (p.x > W) { p.x = 0; wrapped = true; }
+      if (p.y < 0) { p.y = H; wrapped = true; } if (p.y > H) { p.y = 0; wrapped = true; }
+
+      if (wrapped) {
+        for (var k = 0; k < p.trail.length; k++) { p.trail[k].x = p.x; p.trail[k].y = p.y; }
+      } else {
+        p.trail.shift();
+        p.trail.push({ x: p.x, y: p.y });
+      }
+
+      drawTrail(p, influence);
+    }
+
+    var nowMs = performance.now();
+    for (var ji = 0; ji < jellies.length; ji++) {
+      if (updateJelly(jellies[ji], nowMs)) drawJelly(jellies[ji], t);
+    }
+
+    drawCursor();
+    requestAnimationFrame(step);
+  }
+
+  if (reduceMotion) { drawStatic(); } else { requestAnimationFrame(step); }
+})();
+</script>
+
+</body>
+</html>

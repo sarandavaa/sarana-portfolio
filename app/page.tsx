@@ -104,7 +104,7 @@ export default function Home() {
   return (
     <>
       <FlowField />
-      <div className="home-page-wrap">
+      <div className="ambient-wrap">
         <Nav current="home" variant="light" />
         <div className="home-page">
           <main className="home">

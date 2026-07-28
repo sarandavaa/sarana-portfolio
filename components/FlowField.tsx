@@ -339,7 +339,11 @@ export default function FlowField() {
       // real saturated color; a fast dart washes all the way to pure white.
       const cometFactor = smoothstep(1, 9, jelly.speed);
       ctx!.save();
-      ctx!.globalCompositeOperation = "lighter";
+      // Deliberately NOT 'lighter': the 4 strands sample different phases of
+      // the palette (near-complementary hues), so additive blending summed
+      // them toward white/gray regardless of speed — the exact opposite of
+      // "colorful at rest, white on a fast crossing." Normal alpha blending
+      // lets each strand's actual hue show through.
       const STRAND_COUNT = 4;
       for (let s = 0; s < STRAND_COUNT; s++) {
         const strandOffset = s / STRAND_COUNT;

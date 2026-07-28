@@ -84,3 +84,59 @@ html {
     scroll-behavior: auto !important;
   }
 }
+
+/* ---- flow field background, custom cursor, jelly creatures ----
+   Shared wrapper for any page that renders <FlowField />: the home page
+   and the case-study pages. Must stay transparent itself — the canvas
+   sits at z-index:0 and repaints --paper every frame, so an opaque
+   background here would paint over it and hide the animation entirely. */
+.ambient-wrap {
+  position: relative;
+  z-index: 1;
+  /* .body is `display:flex; align-items:center`, which shrink-wraps
+     block children to their content width instead of stretching them. */
+  align-self: stretch;
+  width: 100%;
+}
+
+/* Custom cursor is drawn on canvas — hide the native one, but never on
+   touch (no pointer to draw) or reduced motion (no frame loop drawing it). */
+.ambient-wrap {
+  cursor: none;
+}
+
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  .ambient-wrap {
+    cursor: auto;
+  }
+}
+
+.flow-field-canvas,
+.flow-field-cursor {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  pointer-events: none;
+}
+
+.flow-field-canvas {
+  z-index: 0;
+}
+
+/* Sits above .ambient-wrap's own stacking context or the cursor
+   disappears under the page content. */
+.flow-field-cursor {
+  z-index: 999;
+}
+
+.flow-field-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 180px 180px;
+}

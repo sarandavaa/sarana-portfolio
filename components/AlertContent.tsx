@@ -1,7 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import Nav from "@/components/Nav";
+import FlowField from "@/components/FlowField";
 import { useFadeIn } from "@/components/FadeIn";
+import "@/app/case-study.css";
 
 export default function AlertContent() {
   const keyProblemsHeading = useFadeIn<HTMLHeadingElement>();
@@ -11,7 +14,10 @@ export default function AlertContent() {
 
   return (
     <>
-      <Nav current="sub" />
+      <FlowField />
+      <div className="ambient-wrap">
+      <div className="case-study">
+      <Nav current="sub" variant="light" />
       <section className="project-hero">
         <div className="hero-container">
           <div className="hero-info-box">
@@ -257,6 +263,12 @@ export default function AlertContent() {
           </div>
         </div>
       </section>
+
+      <div className="case-study-footer">
+        <Link href="/work/sites-redesign">← Back to Sites Page Redesign</Link>
+      </div>
+      </div>
+      </div>
     </>
   );
 }

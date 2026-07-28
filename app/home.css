@@ -2,7 +2,7 @@
    are new and don't exist anywhere in the Webflow-generated stylesheets,
    so nothing here can leak into the still-legacy case study pages. */
 
-/* Full-bleed wrapper: sits inside .home-page-wrap (z-index:1), which stacks
+/* Full-bleed wrapper: sits inside .ambient-wrap (z-index:1), which stacks
    above the flow-field canvas (z-index:0) — so this must stay transparent,
    or its own background paints over the canvas and hides the animation
    entirely. The canvas already fills itself with --paper every frame, so
@@ -230,57 +230,6 @@
   }
 }
 
-/* ---- flow field background, custom cursor, jelly creatures ---- */
-
-.home-page-wrap {
-  position: relative;
-  z-index: 1;
-  /* .body is `display:flex; align-items:center`, which shrink-wraps
-     block children to their content width instead of stretching them —
-     same fix as .home-page below, now needed one level up since this
-     wrapper is the new direct child of .body. */
-  align-self: stretch;
-  width: 100%;
-}
-
-/* Custom cursor is drawn on canvas — hide the native one, but never on
-   touch (no pointer to draw) or reduced motion (no frame loop drawing it). */
-.home-page-wrap {
-  cursor: none;
-}
-
-@media (hover: none), (prefers-reduced-motion: reduce) {
-  .home-page-wrap {
-    cursor: auto;
-  }
-}
-
-.flow-field-canvas,
-.flow-field-cursor {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  display: block;
-  pointer-events: none;
-}
-
-.flow-field-canvas {
-  z-index: 0;
-}
-
-/* Sits above .home-page-wrap's own stacking context or the cursor
-   disappears under the nav/hero/work content. */
-.flow-field-cursor {
-  z-index: 999;
-}
-
-.flow-field-grain {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 50;
-  opacity: 0.05;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-  background-size: 180px 180px;
-}
+/* Flow field background, custom cursor, jelly creatures: shared with the
+   case-study pages now, so those rules live in theme.css as `.ambient-wrap`
+   instead of being duplicated here. */

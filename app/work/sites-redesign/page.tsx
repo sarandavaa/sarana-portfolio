@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Nav from "@/components/Nav";
+import FlowField from "@/components/FlowField";
+import "../../case-study.css";
 
 export const metadata: Metadata = {
   title: "Sites Page Redesign — Sarana Davaa",
@@ -10,7 +12,10 @@ export const metadata: Metadata = {
 export default function SitesRedesign() {
   return (
     <>
-      <Nav current="sub" />
+      <FlowField />
+      <div className="ambient-wrap">
+      <div className="case-study">
+      <Nav current="sub" variant="light" />
       <section className="project-hero">
         <div className="hero-container">
           <div className="hero-info-box">
@@ -738,6 +743,8 @@ export default function SitesRedesign() {
           </div>
         </div>
       </section>
+      </div>
+      </div>
     </>
   );
 }

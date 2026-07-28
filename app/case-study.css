@@ -22,20 +22,20 @@
 .research,
 .learnings,
 .exploration,
-.section-2 {
+.next-project-section {
   background-color: transparent;
   background-image: none;
 }
 
 /* ---- headings ---- */
 .hero-h1,
-.h2-light-purple,
-.h2-dark,
-.h3-dark,
-.h3-white,
-.h3,
-.h4,
-.heading-8 {
+.section-heading-accent,
+.section-heading-dark,
+.subsection-heading-dark,
+.subsection-heading-white,
+.subsection-heading-plain,
+.problem-heading,
+.next-project-title {
   font-family: var(--font-display);
   color: var(--ink);
   font-weight: 700;
@@ -49,39 +49,39 @@
 }
 
 /* ---- body copy ---- */
-.p1-light,
-.paragraph,
-.paragraph-2,
+.body-copy-light,
+.body-copy,
+.body-copy-tight,
 .list-item-dark,
 .list-item,
-.list-item-bold,
-.text-block,
-.h4-white,
+.checklist-item,
+.problem-text,
+.alert-checklist-item,
 .quote-in-grid-purple,
 .quote-in-grid-transparent,
-.small-text {
+.caption-text {
   font-family: var(--font-body);
   color: var(--ink-muted);
 }
 
 .list-item-dark strong,
 .list-item strong,
-.paragraph strong,
-.p1-light strong,
-.text-block strong {
+.body-copy strong,
+.body-copy-light strong,
+.problem-text strong {
   color: var(--ink);
 }
 
 /* ---- links ---- */
 .link,
-.link-3,
+.credit-link,
 .action-link {
   font-family: var(--font-body);
   color: var(--accent);
 }
 
 .link:hover,
-.link-3:hover {
+.credit-link:hover {
   color: var(--ink);
 }
 
@@ -95,22 +95,23 @@
 /* ---- image panels ----
    Every gradient-back-N / purple-multi / yellow-blue-back / dark-*-back
    variant painted a colorful noise-gradient PNG behind a transparent
-   product screenshot. Replace all of them with one plain card treatment. */
-.column-img,
-.column-50,
-.column-50-copy,
-.full-size-grid-img,
-.grid,
-.dark-back,
-.dark-purple-back,
-.centered-full-img,
-.centered-full-img-copy,
-.padding-10-with-back,
-._50-block,
-._30-block {
-  background-color: #fff;
+   product screenshot. Strip all of it so the ambient background shows
+   through and only the screenshot itself renders. */
+.image-panel,
+.image-panel-half,
+.image-panel-half-alt,
+.image-collage,
+.frustration-grid,
+.frame-dark,
+.frame-dark-purple,
+.image-panel-full,
+.image-panel-full-alt,
+.image-panel-padded,
+.image-panel-md,
+.image-panel-sm {
+  background-color: transparent;
   background-image: none !important;
-  border: 1px solid var(--line);
+  border: none;
 }
 
 /* ---- quote grid ---- */

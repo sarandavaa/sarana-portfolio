@@ -72,7 +72,7 @@ html {
   color: var(--accent);
 }
 
-.navbar.navbar-light .menu-button-2 {
+.navbar.navbar-light .nav-menu-button {
   color: var(--ink);
 }
 
@@ -93,7 +93,7 @@ html {
 .ambient-wrap {
   position: relative;
   z-index: 1;
-  /* .body is `display:flex; align-items:center`, which shrink-wraps
+  /* .site-body is `display:flex; align-items:center`, which shrink-wraps
      block children to their content width instead of stretching them. */
   align-self: stretch;
   width: 100%;

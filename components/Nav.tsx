@@ -18,8 +18,8 @@ export default function Nav({
       role="banner"
       className={variant === "light" ? "navbar navbar-light w-nav" : "navbar w-nav"}
     >
-      <div className="home-header">
-        <div className="nav-home">
+      <div className="nav-inner">
+        <div className="nav-logo-wrap">
           <Link
             href="/"
             aria-current={current === "home" ? "page" : undefined}
@@ -56,10 +56,10 @@ export default function Nav({
         aria-label={open ? "Close menu" : "Open menu"}
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className={open ? "menu-button-2 w-nav-button w--open" : "menu-button-2 w-nav-button"}
+        className={open ? "nav-menu-button w-nav-button w--open" : "nav-menu-button w-nav-button"}
         style={open ? undefined : { background: "transparent", border: "none" }}
       >
-        <div className="icon w-icon-nav-menu" />
+        <div className="nav-menu-icon w-icon-nav-menu" />
       </button>
     </div>
   );

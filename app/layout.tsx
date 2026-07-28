@@ -39,7 +39,7 @@ export default function RootLayout({
       lang="en"
       className={`${fraunces.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
-      <body className="body">
+      <body className="site-body">
         {children}
         <Script
           async

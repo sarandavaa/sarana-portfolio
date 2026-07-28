@@ -1,0 +1,18 @@
+import type { ReactNode } from "react";
+import Nav from "@/components/Nav";
+import FlowField from "@/components/FlowField";
+import "@/app/case-study.css";
+
+export default function CaseStudyShell({ children }: { children: ReactNode }) {
+  return (
+    <>
+      <FlowField />
+      <div className="ambient-wrap">
+        <div className="case-study">
+          <Nav current="sub" variant="light" />
+          {children}
+        </div>
+      </div>
+    </>
+  );
+}

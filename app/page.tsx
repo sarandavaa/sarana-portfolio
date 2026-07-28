@@ -13,7 +13,7 @@ const projects = [
     title: "Sites Page Redesign",
     company: "Verkada",
     description:
-      "Turned an unscalable, spreadsheet-like device manager into a fast, mobile-ready workflow.",
+      "Turned an unscalable, spreadsheet-like site manager page into a scalable, mobile-ready workflow.",
     image: "/images/Sites-page---edited.png",
     width: 5440,
     height: 3512,
@@ -34,18 +34,7 @@ const projects = [
     href: "/work/alert",
     cta: "View project",
   },
-  {
-    type: "Interaction Design",
-    title: "Guest Log Page Design",
-    company: "Verkada Guest",
-    description: "Search and filter, rebuilt for visitor logs at scale.",
-    image: "/images/Guest-log.png",
-    width: 5680,
-    height: 3816,
-    phone: false,
-    href: null,
-    cta: "Coming soon",
-  },
+
 ] as const;
 
 type Project = (typeof projects)[number];

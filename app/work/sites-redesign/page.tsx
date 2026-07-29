@@ -49,7 +49,13 @@ export default function SitesRedesign() {
             </div>
           </div>
           <div className="hero-before-after">
-            <ImagePlaceholder label="Before / after screenshot" style={{ minHeight: 420 }} />
+            <img
+              src="/images/sites-before-after.png"
+              alt="Before / after — legacy grid vs. redesigned Sites page"
+              width={2400}
+              height={750}
+              style={{ width: "100%", height: "auto", display: "block", borderRadius: 20 }}
+            />
             <p style={{ fontFamily: "var(--font-body)", fontSize: 13, color: "var(--ink-muted)", marginTop: 12 }}>
               Before / after — legacy grid vs. redesigned Sites page
             </p>
@@ -215,9 +221,11 @@ export default function SitesRedesign() {
                 </p>
               </div>
             </div>
-            <div className="cs-photo-grid" style={{ marginTop: 32 }}>
-              <ImagePlaceholder label="Research process photo" style={{ minHeight: 260 }} />
-              <ImagePlaceholder label="Research process photo" style={{ minHeight: 260 }} />
+            <div className="cs-content-align" style={{ marginTop: 32 }}>
+              <ImagePlaceholder
+                label="Research process photo"
+                style={{ minHeight: 260, maxWidth: 480 }}
+              />
             </div>
           </section>
 
@@ -234,40 +242,42 @@ export default function SitesRedesign() {
               </div>
             </div>
 
-            <div className="cs-option-list" style={{ marginTop: 32 }}>
-              <div className="cs-option">
-                <ImagePlaceholder label="Panel View screenshot" style={{ minHeight: 150 }} />
-                <div>
-                  <h3 className="cs-h3">Panel View</h3>
-                  <p className="cs-card-desc">
-                    A persistent side panel showing hierarchy alongside detail. Best for admins
-                    who work across many sites at once and need to keep context while drilling
-                    into one.
-                  </p>
+            <div className="cs-content-align" style={{ marginTop: 32 }}>
+              <div className="cs-option-list">
+                <div className="cs-option">
+                  <ImagePlaceholder label="Panel View screenshot" style={{ minHeight: 150 }} />
+                  <div>
+                    <h3 className="cs-h3">Panel View</h3>
+                    <p className="cs-card-desc">
+                      A persistent side panel showing hierarchy alongside detail. Best for admins
+                      who work across many sites at once and need to keep context while drilling
+                      into one.
+                    </p>
+                  </div>
+                </div>
+                <div className="cs-option">
+                  <ImagePlaceholder label="Expanded List View screenshot" style={{ minHeight: 150 }} />
+                  <div>
+                    <h3 className="cs-h3">Expanded List View</h3>
+                    <p className="cs-card-desc">
+                      A flat, scrollable list optimized for scanning device counts and permissions
+                      quickly. Best for smaller sites or narrower device sets.
+                    </p>
+                  </div>
+                </div>
+                <div className="cs-option">
+                  <ImagePlaceholder label="Toggle View screenshot" style={{ minHeight: 150 }} />
+                  <div>
+                    <h3 className="cs-h3">Toggle View (Panel &amp; List)</h3>
+                    <p className="cs-card-desc">Lets the user switch between the two.</p>
+                  </div>
                 </div>
               </div>
-              <div className="cs-option">
-                <ImagePlaceholder label="Expanded List View screenshot" style={{ minHeight: 150 }} />
-                <div>
-                  <h3 className="cs-h3">Expanded List View</h3>
-                  <p className="cs-card-desc">
-                    A flat, scrollable list optimized for scanning device counts and permissions
-                    quickly. Best for smaller sites or narrower device sets.
-                  </p>
-                </div>
-              </div>
-              <div className="cs-option">
-                <ImagePlaceholder label="Toggle View screenshot" style={{ minHeight: 150 }} />
-                <div>
-                  <h3 className="cs-h3">Toggle View (Panel &amp; List)</h3>
-                  <p className="cs-card-desc">Lets the user switch between the two.</p>
-                </div>
-              </div>
-            </div>
 
-            <p className="cs-quote cs-placeholder-text" style={{ marginTop: 24 }}>
-              [One sentence: which one shipped, and the one reason it won.]
-            </p>
+              <p className="cs-quote cs-placeholder-text" style={{ marginTop: 24 }}>
+                [One sentence: which one shipped, and the one reason it won.]
+              </p>
+            </div>
           </section>
 
           <section id="final" className="cs-section">
@@ -277,7 +287,7 @@ export default function SitesRedesign() {
                 <h2 className="cs-h2">Final Design</h2>
               </div>
             </div>
-            <div style={{ marginTop: 32 }}>
+            <div className="cs-content-align" style={{ marginTop: 32 }}>
               <ImagePlaceholder label="Final design screenshot" style={{ minHeight: 480 }} />
               <p className="cs-body" style={{ marginTop: 24 }}>
                 The final design supports the full restructuring workflow — creating, renaming,

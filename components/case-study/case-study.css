@@ -60,7 +60,7 @@
 .hero-h1 {
   font-family: var(--font-display);
   color: var(--ink);
-  font-weight: 700;
+  font-weight: 600;
   font-size: 64px;
   line-height: 80px;
   text-align: center;
@@ -136,7 +136,7 @@
 .next-project-title {
   font-family: var(--font-display);
   color: var(--ink);
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .section-heading-accent,
@@ -241,6 +241,7 @@
 }
 
 @media screen and (max-width: 991px) {
+
   .two-column-wrapper,
   .two-column-wrapper.column-text-right {
     flex-direction: column;
@@ -249,6 +250,7 @@
 }
 
 @media screen and (max-width: 767px) {
+
   .slide-container,
   .slide-container-vertical {
     margin: 0 5%;
@@ -307,7 +309,7 @@
 
 .action-link {
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .link:hover,
@@ -339,7 +341,7 @@
 }
 
 .checklist-item {
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .problem {
@@ -561,6 +563,7 @@
 }
 
 @media screen and (max-width: 991px) {
+
   .image-panel,
   .image-panel-half,
   .image-panel-half-alt {
@@ -624,6 +627,7 @@
 }
 
 @media screen and (max-width: 767px) {
+
   .image-collage,
   .image-collage.frame-purple {
     margin: 0 5%;
@@ -753,7 +757,7 @@
 
 .cs-h2 {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 600;
   font-size: 40px;
   line-height: 1.15;
   letter-spacing: -0.01em;
@@ -763,7 +767,7 @@
 
 .cs-h3 {
   font-family: var(--font-body);
-  font-weight: 700;
+  font-weight: 600;
   font-size: 18px;
   color: var(--ink);
   margin: 0 0 8px;
@@ -795,7 +799,7 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--accent);
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 8px;
 }
 
@@ -867,8 +871,7 @@
 }
 
 .cs-card {
-  background-color: #fff;
-  border: 1px solid var(--line);
+  background-color: rgba(22, 23, 27, 0.035);
   border-radius: 16px;
   padding: 20px;
 }
@@ -883,6 +886,13 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
+}
+
+/* Aligns a block that sits outside a .cs-row with the .cs-content column
+   inside it (56px index + 24px gap = 80px), so images/lists that follow a
+   row's heading/body text share the same left edge. */
+.cs-content-align {
+  margin-left: 80px;
 }
 
 /* ---- layout exploration option cards ---- */
@@ -926,7 +936,7 @@
 
 .cs-check-mark {
   color: var(--accent);
-  font-weight: 700;
+  font-weight: 600;
 }
 
 /* ---- hero meta row (role / team / timeline / tools) ---- */
@@ -1005,6 +1015,10 @@
     grid-template-columns: 1fr;
   }
 
+  .cs-content-align {
+    margin-left: 0;
+  }
+
   .hero-meta-row {
     padding: 24px 20px 0;
     gap: 24px;
@@ -1017,6 +1031,14 @@
 
 /* ---- "Next Project" footer card ---- */
 
+.next-project-section {
+  padding-top: 160px;
+}
+
+.next-project-section .section-heading {
+  margin-bottom: 40px;
+}
+
 .home-project-container {
   display: flex;
   align-items: center;
@@ -1025,8 +1047,7 @@
   margin: 0 10%;
   padding: 60px;
   color: var(--ink);
-  background-color: #fff;
-  border: 1px solid var(--line);
+  background-color: rgba(22, 23, 27, 0.035);
   border-radius: 16px;
 }
 
@@ -1054,6 +1075,14 @@
 }
 
 @media screen and (max-width: 767px) {
+  .next-project-section {
+    padding-top: 100px;
+  }
+
+  .next-project-section .section-heading {
+    margin-bottom: 24px;
+  }
+
   .home-project-container {
     flex-direction: column;
     margin: 0 5%;

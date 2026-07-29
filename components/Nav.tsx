@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import "./Nav.css";
 
@@ -40,6 +41,13 @@ export default function Nav({
             aria-current={current === "home" ? "page" : undefined}
             className={current === "home" ? "name-logo is-current" : "name-logo"}
           >
+            <Image
+              src="/images/logo-spiral.png"
+              alt=""
+              width={24}
+              height={24}
+              className="name-logo-mark"
+            />
             Sarana Davaa
           </Link>
         </div>

@@ -97,14 +97,16 @@ export default function FlowField() {
       [40, 170, 220],
       [38, 42, 165], // closes the loop for cyclic sampling
     ];
-    // Dedicated palette for the jelly creatures' trailing strings.
+    // Dedicated palette for the jelly creatures' trailing string — the
+    // classic 6-color LGBTQ pride flag rainbow.
     const JELLY_PALETTE: RGB[] = [
-      [147, 51, 234],
-      [249, 115, 22],
-      [45, 212, 191],
-      [239, 68, 68],
-      [250, 204, 21],
-      [147, 51, 234],
+      [228, 3, 3],
+      [255, 140, 0],
+      [255, 237, 0],
+      [0, 128, 38],
+      [0, 77, 255],
+      [115, 41, 130],
+      [228, 3, 3],
     ];
     function sampleColor(palette: RGB[], t: number): RGB {
       t = ((t % 1) + 1) % 1;
@@ -334,17 +336,13 @@ export default function FlowField() {
         jelly.trail.shift();
       }
 
-      // Several strings streaming off it as it drifts. How "comet" vs. how
-      // "colorful" they look depends on its current speed: slow drift shows
-      // real saturated color; a fast dart washes all the way to pure white.
+      // A single string streaming off it as it drifts, cycling through the
+      // rainbow palette along its length. How "comet" vs. how "colorful" it
+      // looks depends on its current speed: slow drift shows real saturated
+      // color; a fast dart washes all the way to pure white.
       const cometFactor = smoothstep(1, 9, jelly.speed);
       ctx!.save();
-      // Deliberately NOT 'lighter': the 4 strands sample different phases of
-      // the palette (near-complementary hues), so additive blending summed
-      // them toward white/gray regardless of speed — the exact opposite of
-      // "colorful at rest, white on a fast crossing." Normal alpha blending
-      // lets each strand's actual hue show through.
-      const STRAND_COUNT = 4;
+      const STRAND_COUNT = 1;
       for (let s = 0; s < STRAND_COUNT; s++) {
         const strandOffset = s / STRAND_COUNT;
         for (let i = 1; i < jelly.trail.length; i++) {

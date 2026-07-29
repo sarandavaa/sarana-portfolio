@@ -2,7 +2,7 @@
    Scoped for use by app/home.css and the Nav "light" variant only —
    never referenced by the legacy Webflow stylesheets. */
 html {
-  background: var(--paper, #fff);
+  background: var(--paper, #E5EEFB);
   color-scheme: light;
 }
 
@@ -19,7 +19,7 @@ html {
 
 :root {
   /* color */
-  --paper: #eef1f5;
+  --paper: #E5EEFB;
   --ink: #16171b;
   --ink-muted: #6b6b75;
   --accent: #2844ff;
@@ -116,7 +116,8 @@ html {
   cursor: none;
 }
 
-@media (hover: none), (prefers-reduced-motion: reduce) {
+@media (hover: none),
+(prefers-reduced-motion: reduce) {
   .ambient-wrap {
     cursor: auto;
   }

@@ -47,12 +47,12 @@ export default function SitesRedesign() {
               <div className="hero-meta-label">Timeline</div>
               <div className="hero-meta-value cs-placeholder-text">[rough dates/duration]</div>
             </div>
-            <div className="hero-meta-item">
-              <div className="hero-meta-label">Tools</div>
-              <div className="hero-meta-value">
-                Figma, <span className="cs-placeholder-text">[design system name]</span>
-              </div>
-            </div>
+          </div>
+          <div className="hero-before-after">
+            <ImagePlaceholder label="Before / after screenshot" style={{ minHeight: 420 }} />
+            <p style={{ fontFamily: "var(--font-body)", fontSize: 13, color: "var(--ink-muted)", marginTop: 12 }}>
+              Before / after — legacy grid vs. redesigned Sites page
+            </p>
           </div>
         </div>
       </section>
@@ -85,12 +85,7 @@ export default function SitesRedesign() {
                 </p>
               </div>
             </div>
-            <div style={{ marginTop: 32 }}>
-              <ImagePlaceholder label="Before / after screenshot" style={{ minHeight: 420 }} />
-              <p style={{ fontFamily: "var(--font-body)", fontSize: 13, color: "var(--ink-muted)", marginTop: 12 }}>
-                Before / after — legacy grid vs. redesigned Sites page
-              </p>
-            </div>
+
           </section>
 
           <section id="why" className="cs-section">

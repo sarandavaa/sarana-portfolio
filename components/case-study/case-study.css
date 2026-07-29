@@ -934,6 +934,7 @@
 .hero-meta-row {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 40px;
   max-width: 896px;
   margin: 0 auto;
@@ -944,7 +945,14 @@
 .hero-meta-item {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 6px;
+  text-align: center;
+}
+
+.hero-before-after {
+  align-self: stretch;
+  width: 100%;
 }
 
 .hero-meta-label {

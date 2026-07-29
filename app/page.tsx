@@ -15,9 +15,9 @@ const projects = [
     company: "Verkada",
     description:
       "Turned an unscalable, spreadsheet-like site manager page into a scalable, mobile-ready workflow.",
-    image: "/images/Sites-page---edited.png",
-    width: 5440,
-    height: 3512,
+    image: "/images/sites-redesign-homepage.gif",
+    width: 1760,
+    height: 1100,
     phone: false,
     href: "/work/sites-redesign",
     cta: "View project",
@@ -70,6 +70,8 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
           width={project.width}
           height={project.height}
           sizes={project.phone ? "(max-width: 900px) 100vw, 340px" : "(max-width: 900px) 100vw, 900px"}
+          unoptimized={project.image.endsWith(".gif")}
+          style={{ maxWidth: Math.min(project.width, project.phone ? 340 : 900) }}
         />
       </div>
     </>

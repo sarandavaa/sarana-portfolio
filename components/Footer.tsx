@@ -27,6 +27,9 @@ export default function Footer() {
         </div>
 
         <nav className="site-footer__links" aria-label="Footer">
+          <Link href="/" className="site-footer__link">
+            Home
+          </Link>
           <a href={RESUME_HREF} target="_blank" rel="noreferrer" className="site-footer__link">
             Resume
           </a>
@@ -37,7 +40,7 @@ export default function Footer() {
       </div>
 
       <div className="site-footer__bottom">
-        <span>Designed & Built by Sarana Davaa</span>
+        <span>© {year} Designed and Built by Sarana</span>
       </div>
     </footer>
   );

@@ -62,7 +62,7 @@ export default function AlertContent() {
       </section>
 
       <section className="why-redesign light-bright">
-        <div className="w-layout-blockcontainer slide-container-vertical w-container">
+        <div className="slide-container-vertical">
           <SectionHeading
             as="subsection"
             tag="h1"

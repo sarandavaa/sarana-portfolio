@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import Nav from "@/components/Nav";
 import FlowField from "@/components/FlowField";
-import "@/app/case-study.css";
+import "./case-study.css";
 
 export default function CaseStudyShell({ children }: { children: ReactNode }) {
   return (

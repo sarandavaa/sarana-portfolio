@@ -1,0 +1,1074 @@
+/* Case-study pages (Sites Redesign, Security Alert) — hand-authored,
+   replacing the old Webflow export. Shares the paper/ink/accent tokens
+   and fonts from theme.css. Both pages are built from the shared
+   components in components/case-study/ (Shell, Hero, SectionHeading,
+   TwoColumnSection, ImagePanel) plus a handful of page-specific blocks
+   (quote grid, problem grid, research collage, layout comparison). */
+
+.case-study,
+.project-hero,
+.project-background-section,
+.why-redesign,
+.research,
+.learnings,
+.exploration,
+.design-exploration,
+.final-design,
+.constraints,
+.outcome,
+.reflection,
+.next-project-section {
+  background: transparent;
+}
+
+/* Every image on these pages is a bare <img> sized by its flex-container
+   parent (image-panel, image-collage, etc.), not by its own dimensions —
+   so it needs to grow to fill that container rather than rendering at
+   its intrinsic size. */
+.case-study img {
+  display: block;
+  flex: 1;
+}
+
+/* ---- hero ---- */
+
+.project-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: stretch;
+  width: 100vw;
+}
+
+.hero-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
+  max-width: 1700px;
+  margin: 0 5%;
+  padding: 80px 0;
+}
+
+.hero-info-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.hero-h1 {
+  font-family: var(--font-display);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 80px;
+  text-align: center;
+}
+
+.link.hero-link {
+  text-align: center;
+}
+
+.before-after-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-self: stretch;
+}
+
+.img-rounded-mobile-left {
+  border-radius: 20px 0 0 20px;
+}
+
+.img-rounded-mobile-right {
+  border-radius: 0 20px 20px 0;
+}
+
+.panel-image {
+  flex: 1;
+  align-self: stretch;
+  border-radius: 8px;
+}
+
+@media screen and (max-width: 767px) {
+  .hero-h1 {
+    line-height: 1.25;
+  }
+
+  .before-after-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .img-rounded-mobile-left,
+  .img-rounded-mobile-right {
+    border-radius: 12px;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .hero-container {
+    padding: 40px 10px;
+    gap: 40px;
+  }
+
+  .hero-h1 {
+    font-size: 40px;
+    line-height: 54px;
+  }
+}
+
+/* ---- section & subsection headings ---- */
+
+.section-heading,
+.subsection-heading {
+  display: flex;
+  align-self: stretch;
+  margin: 0 10%;
+}
+
+.section-heading-accent,
+.section-heading-dark,
+.subsection-heading-dark,
+.subsection-heading-white,
+.subsection-heading-plain,
+.problem-heading,
+.next-project-title {
+  font-family: var(--font-display);
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.section-heading-accent,
+.section-heading-dark {
+  font-size: 48px;
+}
+
+.subsection-heading-dark,
+.subsection-heading-white {
+  font-size: 32px;
+  line-height: 36px;
+  margin-bottom: 10px;
+}
+
+.subsection-heading-plain {
+  font-size: 28px;
+}
+
+.next-project-title {
+  font-size: 32px;
+  line-height: 40px;
+}
+
+@media screen and (max-width: 479px) {
+  .section-heading-accent {
+    font-size: 40px;
+    line-height: 48px;
+  }
+}
+
+/* ---- section layout: slide-container, two-column ---- */
+
+.slide-container,
+.slide-container-vertical,
+.column-left-text {
+  color: var(--ink);
+}
+
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: stretch;
+  max-width: 1700px;
+  margin: 0 10%;
+  padding: 40px 0;
+}
+
+.slide-container-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+  max-width: 1200px;
+  margin: 0 10%;
+  padding: 0 0 40px;
+  gap: 40px;
+}
+
+.two-column-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+  gap: 40px;
+  max-width: 1700px;
+}
+
+.two-column-wrapper.column-text-right {
+  gap: 60px;
+}
+
+.column-left-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.column-left-text.wrapped {
+  gap: 12px;
+  align-self: stretch;
+  width: 50%;
+  margin-bottom: 20px;
+}
+
+.column-left-text.text-column-wide {
+  width: 50%;
+}
+
+.column-text-right {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+
+.vertical-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  gap: 20px;
+}
+
+@media screen and (max-width: 991px) {
+  .two-column-wrapper,
+  .two-column-wrapper.column-text-right {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .slide-container,
+  .slide-container-vertical {
+    margin: 0 5%;
+  }
+
+  .column-left-text.wrapped,
+  .column-left-text.text-column-wide {
+    width: 100%;
+  }
+}
+
+/* ---- body copy & links ---- */
+
+.body-copy,
+.body-copy-light,
+.body-copy-tight,
+.list-item-dark,
+.list-item,
+.checklist-item,
+.problem-text,
+.alert-checklist-item,
+.quote-in-grid-purple,
+.quote-in-grid-transparent,
+.caption-text {
+  font-family: var(--font-body);
+  color: var(--ink-muted);
+}
+
+.list-item-dark strong,
+.list-item strong,
+.body-copy strong,
+.body-copy-light strong,
+.problem-text strong {
+  color: var(--ink);
+}
+
+.body-copy-light {
+  max-width: 600px;
+}
+
+.project-type {
+  font-family: var(--font-body);
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 14px;
+}
+
+.link,
+.credit-link,
+.action-link {
+  font-family: var(--font-body);
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.action-link {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.link:hover,
+.credit-link:hover {
+  color: var(--ink);
+}
+
+.caption-text {
+  text-align: right;
+  font-size: 10px;
+}
+
+/* ---- lists ---- */
+
+.list-dark {
+  max-width: 600px;
+}
+
+.list-dark.bold {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 444px;
+}
+
+.checklist-item,
+.alert-checklist-item {
+  list-style-type: none;
+}
+
+.checklist-item {
+  font-weight: 700;
+}
+
+.problem {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.problem-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.problem-heading {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.problem-text {
+  max-width: 500px;
+}
+
+.emoji-title-wrap {
+  display: flex;
+  align-self: stretch;
+  margin-bottom: 10px;
+}
+
+@media screen and (min-width: 1920px) {
+  .list-dark {
+    max-width: 700px;
+    line-height: 32px;
+  }
+
+  .problem {
+    max-width: 600px;
+  }
+}
+
+/* ---- image panels ----
+   All of these used to carry a colorful noise-gradient background; that
+   was stripped (background: none) so the ambient canvas shows through and
+   only the screenshot itself renders. What's left here is pure layout. */
+
+.image-panel,
+.image-panel-half,
+.image-panel-half-alt,
+.image-panel-full,
+.image-panel-full-alt,
+.image-panel-padded,
+.image-panel-md,
+.image-panel-sm,
+.image-collage,
+.frustration-grid,
+.layout-comparison-grid,
+.frame-dark,
+.frame-dark-purple {
+  background: none;
+  border: none;
+}
+
+.image-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  max-height: 600px;
+  padding: 20px;
+  border-radius: 16px;
+}
+
+.image-panel.image-panel-variant-5 {
+  min-width: 50%;
+}
+
+.image-panel.image-panel-variant-7 {
+  width: 70%;
+}
+
+.image-panel.image-panel-variant-pink {
+  align-items: flex-end;
+}
+
+.image-panel-half,
+.image-panel-half-alt {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  min-width: 50%;
+  padding: 40px;
+  border-radius: 20px;
+}
+
+.image-panel-half-alt.wrapped {
+  min-width: auto;
+}
+
+.image-panel-full {
+  align-self: stretch;
+  margin: 0 10%;
+  padding: 40px;
+  border-radius: 20px;
+}
+
+.image-panel-full.frame-colorful {
+  margin: 0;
+}
+
+.image-panel-full-alt {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  border-radius: 20px;
+}
+
+.image-panel-padded {
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.image-panel-md {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.image-panel-sm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.frame-dark,
+.frame-dark-purple {
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.photo-framed {
+  height: 60%;
+  padding: 40px;
+  border-radius: 8px;
+}
+
+.photo-framed.centered-image {
+  align-self: center;
+  padding: 0;
+}
+
+.photo-fixed-240 {
+  max-width: 240px;
+  border-radius: 16px;
+  mix-blend-mode: hard-light;
+}
+
+.photo-md {
+  width: 200px;
+  border-radius: 12px;
+}
+
+.centered-image {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.centered-image.left-aligned {
+  flex: 0 auto;
+  justify-content: flex-start;
+}
+
+.goal-image-frame,
+.alert-scenario-frame {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.mobile-img,
+.business-problem-photo {
+  align-self: center;
+}
+
+.alert-mobile-frame,
+.alert-types-photo {
+  width: auto;
+}
+
+.alert-outcome-photo {
+  max-height: 444px;
+}
+
+.frustration-photo-1 {
+  max-height: 200px;
+}
+
+.frustration-photo-2 {
+  max-height: 260px;
+}
+
+.roadblock-photo {
+  max-width: 150px;
+}
+
+@media screen and (max-width: 991px) {
+  .image-panel,
+  .image-panel-half,
+  .image-panel-half-alt {
+    width: 100%;
+    min-width: 0;
+    padding: 20px;
+  }
+}
+
+/* ---- research photo collage ---- */
+
+.image-collage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 0 5%;
+  padding: 10px;
+  border-radius: 12px;
+}
+
+.image-collage.frame-purple {
+  gap: 8px;
+  margin: 0 10%;
+  padding: 60px;
+}
+
+.research-photo-main,
+.research-photo-desk,
+.research-photo-sketch,
+.research-photo-desk-2 {
+  border-radius: 8px;
+}
+
+.research-scribble-photo {
+  border-radius: 12px;
+}
+
+.frustration-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  align-items: center;
+  gap: 8px;
+  padding: 40px;
+  border-radius: 20px;
+}
+
+.layout-comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  align-self: stretch;
+  padding: 40px;
+  border-radius: 20px;
+}
+
+.layout-comparison-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+@media screen and (max-width: 767px) {
+  .image-collage,
+  .image-collage.frame-purple {
+    margin: 0 5%;
+    padding: 10px;
+  }
+
+  .layout-comparison-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ---- quote grid ---- */
+
+.quote-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  align-self: stretch;
+}
+
+.quote-in-grid-purple,
+.quote-in-grid-transparent {
+  background-color: #fff;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 20px;
+}
+
+@media screen and (max-width: 991px) {
+  .quote-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .quote-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---- editorial case-study layout (Sites Redesign) ----
+   A denser, narrower-measure system than the rest of case-study.css —
+   modeled on the case-study artifact mockup's grid: a marginal numeral
+   column beside a fixed-measure content column, with a quieter type
+   scale than the section-heading-accent/subsection-heading-dark pairing
+   used elsewhere on this page. Namespaced `cs-` and additive only —
+   nothing here touches the classes above, which the Alert page still
+   relies on. Uses the same color/font tokens as the rest of the site
+   (var(--ink), var(--accent), var(--font-display), var(--font-body))
+   rather than the mockup's own literal palette/typeface, so the page
+   stays visually part of the site. */
+
+.cs-section {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 120px 32px 0;
+  scroll-margin-top: 32px;
+}
+
+.cs-section-end {
+  padding-bottom: 140px;
+}
+
+/* ---- page grid: sticky tab rail + content column (Sites Redesign) ---- */
+
+.cs-page {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 0 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+  align-items: start;
+}
+
+.cs-page-content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.cs-page-content .cs-section {
+  max-width: none;
+  margin: 0;
+  padding: 120px 0 0;
+}
+
+.cs-page-content .cs-section-end {
+  padding-bottom: 140px;
+}
+
+.cs-page-content .hero-meta-row {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  border-top: none;
+}
+
+@media screen and (max-width: 900px) {
+  .cs-page {
+    grid-template-columns: 1fr;
+    padding: 0 20px;
+  }
+}
+
+.cs-row {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 0 24px;
+}
+
+.cs-index {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 24px;
+  line-height: 1;
+  padding-top: 8px;
+  color: var(--accent);
+}
+
+.cs-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 680px;
+}
+
+.cs-h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0;
+}
+
+.cs-h3 {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--ink);
+  margin: 0 0 8px;
+}
+
+.cs-h3-serif {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--ink);
+  margin: 16px 0 0;
+}
+
+.cs-body {
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--ink-muted);
+  margin: 0;
+}
+
+.cs-body strong {
+  color: var(--ink);
+}
+
+.cs-label {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.cs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink-muted);
+}
+
+.cs-list li strong {
+  color: var(--ink);
+}
+
+.cs-quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 19px;
+  line-height: 1.5;
+  color: var(--ink);
+  border-left: 2px solid var(--accent);
+  padding-left: 20px;
+  max-width: 640px;
+  margin: 0;
+}
+
+/* ---- placeholder-copy styling (bracketed notes awaiting real input) ---- */
+
+.cs-placeholder-text {
+  font-style: italic;
+  color: var(--ink-muted);
+  border-bottom: 1px dashed var(--line);
+  padding-bottom: 1px;
+}
+
+/* ---- image placeholder (asset not yet uploaded) ---- */
+
+.cs-placeholder-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 220px;
+  border: 1px dashed var(--line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.35);
+  text-align: center;
+  padding: 24px;
+}
+
+.cs-placeholder-image-label {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-style: italic;
+  color: var(--ink-muted);
+}
+
+/* ---- research question cards ---- */
+
+.cs-card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.cs-card {
+  background-color: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.cs-card-desc {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--ink-muted);
+}
+
+.cs-photo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* ---- layout exploration option cards ---- */
+
+.cs-option-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cs-option {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 24px;
+  align-items: start;
+  border: 1px solid var(--line);
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 24px;
+}
+
+/* ---- outcome checklist ---- */
+
+.cs-check-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+}
+
+.cs-check-item {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  font-family: var(--font-body);
+  font-size: 17px;
+  color: var(--ink);
+}
+
+.cs-check-mark {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* ---- hero meta row (role / team / timeline / tools) ---- */
+
+.hero-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  max-width: 896px;
+  margin: 0 auto;
+  padding: 32px 32px 0;
+  border-top: 1px solid var(--line);
+}
+
+.hero-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hero-meta-label {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.hero-meta-value {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--ink);
+}
+
+@media screen and (max-width: 600px) {
+  .cs-section {
+    padding: 64px 20px 0;
+  }
+
+  .cs-section-end {
+    padding-bottom: 100px;
+  }
+
+  .cs-page-content .cs-section {
+    padding: 64px 0 0;
+  }
+
+  .cs-page-content .cs-section-end {
+    padding-bottom: 100px;
+  }
+
+  .cs-row {
+    grid-template-columns: 1fr;
+    gap: 8px 0;
+  }
+
+  .cs-index {
+    padding-top: 0;
+  }
+
+  .cs-h2 {
+    font-size: 28px;
+  }
+
+  .cs-card-grid,
+  .cs-option,
+  .cs-photo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-meta-row {
+    padding: 24px 20px 0;
+    gap: 24px;
+  }
+
+  .cs-page-content .hero-meta-row {
+    padding: 24px 0 0;
+  }
+}
+
+/* ---- "Next Project" footer card ---- */
+
+.home-project-container {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  max-width: 1700px;
+  margin: 0 10%;
+  padding: 60px;
+  color: var(--ink);
+  background-color: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+
+.home-project-container .project-type {
+  color: var(--ink-muted);
+}
+
+.home-project-container a {
+  color: var(--accent);
+  font-family: var(--font-body);
+}
+
+.home-page-project-info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: stretch;
+}
+
+.title-and-desc {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+@media screen and (max-width: 767px) {
+  .home-project-container {
+    flex-direction: column;
+    margin: 0 5%;
+    padding: 40px;
+  }
+}
+
+/* ---- case-study footer (Alert page has no "Next Project" card) ---- */
+
+.case-study-footer {
+  max-width: 1700px;
+  margin: 0 10%;
+  padding: 60px 0 100px;
+  text-align: center;
+}
+
+.case-study-footer a {
+  font-family: var(--font-body);
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.case-study-footer a:hover {
+  color: var(--ink);
+}

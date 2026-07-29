@@ -29,7 +29,7 @@ export default function CaseStudyHero({
             {linkLabel}
           </a>
         </div>
-        <div className="w-layout-grid before-after-grid">
+        <div className="before-after-grid">
           <img
             src={beforeSrc}
             loading="lazy"

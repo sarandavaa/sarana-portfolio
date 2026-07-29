@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import "./not-found.css";
 
 export const metadata: Metadata = {
   title: "Not Found — Sarana Davaa",
@@ -16,7 +17,7 @@ export default function NotFound() {
             The page you are looking for doesn&rsquo;t exist or has been moved.
           </div>
         </div>
-        <Link href="/" className="btn btn-white w-inline-block">
+        <Link href="/" className="btn btn-white">
           <div>Go Back to Safety</div>
         </Link>
       </div>

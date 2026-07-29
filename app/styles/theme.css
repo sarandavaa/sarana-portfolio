@@ -6,12 +6,23 @@ html {
   color-scheme: light;
 }
 
+/* <body className="site-body"> — global page shell (layout.tsx). Centers
+   its direct child instead of stretching it, so pages that don't cover
+   the viewport themselves (e.g. the 404 page) still sit on a black
+   backdrop rather than the browser's default white. */
+.site-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #000;
+}
+
 :root {
   /* color */
   --paper: #eef1f5;
   --ink: #16171b;
   --ink-muted: #6b6b75;
-  --accent: #5b4fe8;
+  --accent: #2844ff;
   --line: #b9c0c7;
 
   /* type */

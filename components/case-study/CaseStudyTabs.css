@@ -1,0 +1,98 @@
+/* Sticky left rail of section tabs (Sites Redesign page), modeled on the
+   scroll-spy in-page nav pattern — back button on top, tab list below,
+   active tab tracked by IntersectionObserver in CaseStudyTabs.tsx. */
+
+.cs-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  position: sticky;
+  top: 140px;
+  align-self: start;
+  padding-top: 4px;
+}
+
+.cs-tabs-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-muted);
+  text-decoration: none;
+  transition: color var(--dur-1) var(--ease-out);
+}
+
+.cs-tabs-back:hover {
+  color: var(--accent);
+}
+
+.cs-tabs-back-arrow {
+  font-size: 16px;
+  transition: transform var(--dur-1) var(--ease-out);
+}
+
+.cs-tabs-back:hover .cs-tabs-back-arrow {
+  transform: translateX(-3px);
+}
+
+.cs-tabs-list {
+  position: relative;
+  padding-left: 16px;
+}
+
+.cs-tabs-list::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--line);
+  opacity: 0.4;
+}
+
+.cs-tabs-indicator {
+  position: absolute;
+  left: -1px;
+  top: 10px;
+  width: 2px;
+  height: 20px;
+  background: var(--accent);
+  border-radius: 1px;
+  transition: transform var(--dur-2) var(--ease-out);
+}
+
+.cs-tabs-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cs-tab {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--ink-muted);
+  text-decoration: none;
+  transition: color var(--dur-1) var(--ease-out);
+}
+
+.cs-tab:hover {
+  color: var(--accent);
+}
+
+.cs-tab-active {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+@media screen and (max-width: 900px) {
+  .cs-tabs {
+    display: none;
+  }
+}

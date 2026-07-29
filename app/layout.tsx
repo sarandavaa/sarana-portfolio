@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
+import { IBM_Plex_Mono, Inter, Instrument_Sans } from "next/font/google";
 import "./styles/globals.css";
 import "./styles/theme.css";
 
-const fraunces = Fraunces({
+const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
-  variable: "--font-fraunces",
+  weight: "600",
+  style: ["normal", "italic"],
+  variable: "--font-instrument-sans",
 });
 
 const inter = Inter({
@@ -14,9 +16,10 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-const jetbrainsMono = JetBrains_Mono({
+const ibmPlexMono = IBM_Plex_Mono({
   subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-ibm-plex-mono",
 });
 
 export const metadata: Metadata = {
@@ -37,7 +40,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${inter.variable} ${jetbrainsMono.variable}`}
+      className={`${instrumentSans.variable} ${inter.variable} ${ibmPlexMono.variable}`}
     >
       <body className="site-body">
         {children}

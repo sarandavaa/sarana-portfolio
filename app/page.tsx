@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Nav from "@/components/Nav";
+import Footer from "@/components/Footer";
 import FlowField from "@/components/FlowField";
 import { useFadeIn } from "@/components/FadeIn";
 import "./home.css";
@@ -119,6 +120,7 @@ export default function Home() {
               </ul>
             </section>
           </main>
+          <Footer />
         </div>
       </div>
     </>

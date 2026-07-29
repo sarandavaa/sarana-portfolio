@@ -26,8 +26,8 @@ html {
   --line: #b9c0c7;
 
   /* type */
-  --font-display: var(--font-fraunces), Georgia, serif;
-  --font-body: var(--font-jetbrains-mono), ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font-display: var(--font-instrument-sans), Arial, sans-serif;
+  --font-body: var(--font-ibm-plex-mono), ui-monospace, monospace;
   --text-hero: clamp(2.25rem, 1.2rem + 3.5vw, 4rem);
   --text-h2: clamp(1.375rem, 1.1rem + 1vw, 1.75rem);
   --text-body: 1.0625rem;
@@ -64,7 +64,7 @@ html {
 
 .navbar.navbar-light .name-logo {
   color: var(--ink);
-  font-family: var(--font-body);
+  font-family: var(--font-display);
   font-size: 26px;
   font-weight: 700;
 }

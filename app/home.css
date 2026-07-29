@@ -190,12 +190,8 @@
   display: block;
   width: 100%;
   height: auto;
-  max-width: 900px;
+  max-width: 600px;
   border-radius: 18px;
-}
-
-.project-row__visual.is-phone img {
-  max-width: 340px;
 }
 
 .project-row.is-disabled {

@@ -28,7 +28,7 @@ const projects = [
     company: "Verkada",
     description:
       "One alert layout that scales cleanly across cameras, air quality sensors, and access control.",
-    image: "/images/vape_detected_alert.png",
+    image: "/images/vape-alert.gif",
     width: 1745,
     height: 3520,
     phone: true,
@@ -69,9 +69,9 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
           alt=""
           width={project.width}
           height={project.height}
-          sizes={project.phone ? "(max-width: 900px) 100vw, 340px" : "(max-width: 900px) 100vw, 900px"}
+          sizes="(max-width: 900px) 100vw, 600px"
           unoptimized={project.image.endsWith(".gif")}
-          style={{ maxWidth: Math.min(project.width, project.phone ? 340 : 900) }}
+          style={{ maxWidth: Math.min(project.width, 600) }}
         />
       </div>
     </>

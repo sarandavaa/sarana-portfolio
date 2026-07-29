@@ -83,6 +83,38 @@ html {
   color: var(--accent);
 }
 
+.navbar.navbar-light .nav-dropdown-toggle:hover,
+.navbar.navbar-light .nav-dropdown-toggle.is-open {
+  background-color: var(--ink-muted-10, rgba(0, 0, 0, 0.06));
+}
+
+.navbar.navbar-light .nav-dropdown-menu {
+  background: var(--paper);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.navbar.navbar-light .nav-dropdown-link {
+  color: var(--ink-muted);
+  font-family: var(--font-body);
+  transition: color var(--dur-1) var(--ease-out), background-color var(--dur-1) var(--ease-out);
+}
+
+.navbar.navbar-light .nav-dropdown-link:hover {
+  color: var(--accent);
+  background-color: var(--ink-muted-10, rgba(0, 0, 0, 0.06));
+}
+
+@media screen and (max-width: 991px) {
+  .navbar.navbar-light .nav-dropdown-toggle:hover,
+  .navbar.navbar-light .nav-dropdown-toggle.is-open {
+    background-color: transparent;
+  }
+
+  .navbar.navbar-light .nav-dropdown-menu {
+    box-shadow: none;
+  }
+}
+
 .navbar.navbar-light .nav-menu-button {
   color: var(--ink);
 }

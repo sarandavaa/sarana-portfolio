@@ -1,8 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import "./Nav.css";
+
+const WORK_ITEMS = [
+  { href: "/work/sites-redesign", label: "Sites Page Redesign" },
+  { href: "/work/alert", label: "Alert — Mobile Design" },
+];
 
 export default function Nav({
   current = "home",
@@ -12,6 +17,19 @@ export default function Nav({
   variant?: "light" | "legacy";
 }) {
   const [open, setOpen] = useState(false);
+  const [workOpen, setWorkOpen] = useState(false);
+  const workRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!workOpen) return;
+    const handleClick = (e: MouseEvent) => {
+      if (workRef.current && !workRef.current.contains(e.target as Node)) {
+        setWorkOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [workOpen]);
 
   return (
     <div role="banner" className={variant === "light" ? "navbar navbar-light" : "navbar"}>
@@ -30,6 +48,54 @@ export default function Nav({
           className="nav-menu"
           {...(open ? { "data-nav-menu-open": "" } : {})}
         >
+          <div ref={workRef} className="nav-dropdown">
+            <button
+              type="button"
+              aria-expanded={workOpen}
+              aria-haspopup="true"
+              onClick={() => setWorkOpen((v) => !v)}
+              className={
+                workOpen
+                  ? "nav-link nav-dropdown-toggle is-open"
+                  : "nav-link nav-dropdown-toggle"
+              }
+            >
+              Work
+              <svg
+                className="nav-dropdown-chevron"
+                width="10"
+                height="6"
+                viewBox="0 0 10 6"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M1 1L5 5L9 1"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+            {workOpen && (
+              <div className="nav-dropdown-menu">
+                {WORK_ITEMS.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="nav-dropdown-link"
+                    onClick={() => {
+                      setWorkOpen(false);
+                      setOpen(false);
+                    }}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
           <a
             href="https://docs.google.com/document/d/1b0CAbHsg6YJwmnFgzCj_SvGTTkOfNpmL/edit?usp=sharing&ouid=110912305056131051486&rtpof=true&sd=true"
             target="_blank"

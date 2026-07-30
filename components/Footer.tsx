@@ -15,10 +15,10 @@ export default function Footer() {
         <div className="site-footer__brand">
           <Link href="/" className="site-footer__logo">
             <Image
-              src="/images/logo-spiral.png"
+              src="/images/sarana_spiral_logo.png"
               alt=""
-              width={22}
-              height={22}
+              width={44}
+              height={44}
               className="site-footer__logo-mark"
             />
             Sarana Davaa

@@ -42,10 +42,10 @@ export default function Nav({
             className={current === "home" ? "name-logo is-current" : "name-logo"}
           >
             <Image
-              src="/images/logo-spiral.png"
+              src="/images/sarana_spiral_logo.png"
               alt=""
-              width={24}
-              height={24}
+              width={44}
+              height={44}
               className="name-logo-mark"
             />
             Sarana Davaa

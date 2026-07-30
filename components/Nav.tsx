@@ -105,7 +105,7 @@ export default function Nav({
             )}
           </div>
           <a
-            href="https://docs.google.com/document/d/1b0CAbHsg6YJwmnFgzCj_SvGTTkOfNpmL/edit?usp=sharing&ouid=110912305056131051486&rtpof=true&sd=true"
+            href="https://drive.google.com/file/d/1T0FjDMYIHH_evDWFrttcddN5CTYt0ZAc/view?usp=sharing"
             target="_blank"
             rel="noreferrer"
             className="nav-link"

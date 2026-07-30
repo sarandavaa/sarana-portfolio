@@ -50,7 +50,7 @@ export default function SitesRedesign() {
           </div>
           <div className="hero-before-after">
             <img
-              src="/images/sites-before-after.png"
+              src="/images/Sites_Before-After.png"
               alt="Before / after — legacy grid vs. redesigned Sites page"
               width={2400}
               height={750}

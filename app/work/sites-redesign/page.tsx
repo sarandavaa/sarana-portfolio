@@ -310,9 +310,10 @@ export default function SitesRedesign() {
                 style={{ width: "100%", height: "auto", display: "block", borderRadius: 16 }}
               />
               <p className="cs-body" style={{ marginTop: 24 }}>
-                The final design supports the full restructuring workflow — creating, renaming,
-                moving, and nesting sites — alongside permission management, in a layout that
-                holds up on both desktop and mobile.
+                The final design allows full view of the site lists, as well as the device details, user permission,
+                bandwidth settings, floorplan, and alarm details of the selected site from the panel on the right.
+                Additionally, it supports users in restructuring workflow: renaming, adding subsites, and getting to the devices
+                and user permission easily.
               </p>
             </div>
           </section>
@@ -322,15 +323,11 @@ export default function SitesRedesign() {
               <div className="cs-index">06</div>
               <div className="cs-content">
                 <h2 className="cs-h2">Navigating Constraints</h2>
-                <div>
-                  <h3 className="cs-h3">Drag-and-drop was rejected for technical reasons.</h3>
-                </div>
-                <div>
-                  <h3 className="cs-h3">Bulk actions weren&rsquo;t supported in this phase.</h3>
-                </div>
-                <div>
-                  <h3 className="cs-h3">Bandwidth settings were added mid-project as a new requirement.</h3>
-                </div>
+                <ul className="cs-list cs-list-bulleted">
+                  <li>Drag-and-drop was rejected for technical reasons.</li>
+                  <li>Bulk actions weren&rsquo;t supported in this phase.</li>
+                  <li>Bandwidth settings were added mid-project as a new requirement.</li>
+                </ul>
               </div>
             </div>
           </section>
@@ -374,7 +371,7 @@ export default function SitesRedesign() {
               <div className="cs-content">
                 <h2 className="cs-h2">Reflection</h2>
                 <p className="cs-body">
-                  I want to be over with this
+                  I can't wait to be over with this
                 </p>
               </div>
             </div>

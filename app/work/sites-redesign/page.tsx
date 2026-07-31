@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import CaseStudyShell from "@/components/case-study/CaseStudyShell";
 import CaseStudyTabs from "@/components/case-study/CaseStudyTabs";
 import ImagePlaceholder from "@/components/case-study/ImagePlaceholder";
 import SectionHeading from "@/components/case-study/SectionHeading";
-import ImagePanel from "@/components/case-study/ImagePanel";
+import ProjectRow from "@/components/ProjectRow";
 
 export const metadata: Metadata = {
   title: "Sites Page Redesign — Sarana Davaa",
@@ -37,15 +36,15 @@ export default function SitesRedesign() {
           <div className="hero-meta-row">
             <div className="hero-meta-item">
               <div className="hero-meta-label">Role</div>
-              <div className="hero-meta-value">Product Designer, Lead</div>
-            </div>
-            <div className="hero-meta-item">
-              <div className="hero-meta-label">Team</div>
-              <div className="hero-meta-value cs-placeholder-text">[team size/roles]</div>
+              <div className="hero-meta-value">Product Designer</div>
             </div>
             <div className="hero-meta-item">
               <div className="hero-meta-label">Timeline</div>
-              <div className="hero-meta-value cs-placeholder-text">[rough dates/duration]</div>
+              <div className="hero-meta-value">3 months</div>
+            </div>
+            <div className="hero-meta-item">
+              <div className="hero-meta-label">Skills</div>
+              <div className="hero-meta-value">Research, Interaction Design</div>
             </div>
           </div>
           <div className="hero-before-after">
@@ -72,6 +71,19 @@ export default function SitesRedesign() {
               <div className="cs-index">01</div>
               <div className="cs-content">
                 <h2 className="cs-h2">Project Background</h2>
+                <img
+                  src="/images/Verkada_products.png"
+                  alt="Verkada product lineup — cameras, access control, sensors, and other devices managed from one platform"
+                  width={999}
+                  height={1080}
+                  style={{
+                    width: "100%",
+                    height: 300,
+                    display: "block",
+                    borderRadius: 16,
+                    objectFit: "cover",
+                  }}
+                />
                 <p className="cs-body">
                   Verkada provides enterprise physical security solutions — video surveillance,
                   door access control, air quality monitoring, alarms, intercoms, and visitor
@@ -99,12 +111,20 @@ export default function SitesRedesign() {
               <div className="cs-index">02</div>
               <div className="cs-content">
                 <h2 className="cs-h2">Why It Needed to Change</h2>
+                <div className="cs-image-frame">
+                  <img
+                    src="/images/Sites-Problems.png"
+                    alt="Problems with the existing Sites page — dense, spreadsheet-style grid unusable on mobile"
+                    width={1360}
+                    height={800}
+                    style={{ width: "100%", height: "auto", display: "block" }}
+                  />
+                </div>
                 <div>
                   <h3 className="cs-h3">Not usable on mobile.</h3>
                   <p className="cs-body">
                     Admins rely on the Sites page for time-sensitive tasks — permission changes,
-                    restructuring after an incident, onboarding a new location. By 2023, users
-                    expected core SaaS functions to work on mobile, and this page fell far short.
+                    restructuring after an incident, onboarding a new location.
                   </p>
                 </div>
                 <div>
@@ -117,7 +137,7 @@ export default function SitesRedesign() {
                   </p>
                 </div>
                 <div>
-                  <h3 className="cs-h3">Visually and structurally out of step.</h3>
+                  <h3 className="cs-h3">Visually and structurally outdated.</h3>
                   <p className="cs-body">
                     The page hadn&rsquo;t been touched since before the Verkada 3.0 design system,
                     so it looked and behaved like a legacy tool bolted onto a modern platform.
@@ -140,11 +160,13 @@ export default function SitesRedesign() {
                 <div className="cs-card-grid">
                   <div className="cs-card">
                     <div className="cs-label">Jobs to be done</div>
-                    <div className="cs-card-desc">What are admins actually trying to accomplish here?</div>
+                    <div className="cs-card-desc">What are the main jobs users accomplish here?
+                      What functions are done here that nowhere else can be done?
+                    </div>
                   </div>
                   <div className="cs-card">
                     <div className="cs-label">Usability issues</div>
-                    <div className="cs-card-desc">What&rsquo;s actively blocking them today?</div>
+                    <div className="cs-card-desc">What&rsquo;s obstacles make the current design difficult to use?</div>
                   </div>
                   <div className="cs-card">
                     <div className="cs-label">Opportunity</div>
@@ -152,7 +174,9 @@ export default function SitesRedesign() {
                   </div>
                   <div className="cs-card">
                     <div className="cs-label">Prioritization</div>
-                    <div className="cs-card-desc">What&rsquo;s noise vs. signal in the current design?</div>
+                    <div className="cs-card-desc">What&rsquo;s noise vs. signal in the current design?
+                      What can be taken out or hidden?
+                    </div>
                   </div>
                 </div>
 
@@ -185,32 +209,29 @@ export default function SitesRedesign() {
                   </li>
                 </ul>
 
-                <p className="cs-body">A few data points that shaped prioritization:</p>
-                <ul className="cs-list">
-                  <li>
-                    A Solutions Engineering Manager noted that one of Verkada&rsquo;s largest
-                    customers restructures roughly 10 subsites into different parents every year.
-                  </li>
-                  <li>
-                    A customer publicly requested drag-and-drop restructuring at a Verkada
-                    customer conference.
-                  </li>
-                  <li>
-                    An engineer described customers needing to change site hierarchy without
-                    deleting and recreating sites — since that meant re-adding every device and
-                    resetting every configuration from scratch.
-                  </li>
-                  <li>
-                    One Solutions Engineer was writing a custom script for a 700+ site enterprise
-                    customer just to help them manage their structure — a strong signal the
-                    built-in tooling had failed them.
-                  </li>
-                  <li>
-                    Design leadership emphasized that naming conventions and device-count
-                    visibility mattered enormously to how customers reasoned about their site
-                    structure.
-                  </li>
-                </ul>
+                <div className="cs-highlight-block">
+                  <p className="cs-body">Some of the data points that shaped prioritization:</p>
+                  <ul className="cs-list">
+                    <li>
+                      One Solutions Engineer was writing a custom script for an enterprise customer
+                      with 700+ sites to help them change the site structure.
+                    </li>
+                    <li>
+                      A Solutions Engineering Manager noted that one of Verkada&rsquo;s largest
+                      customers restructures roughly 10 subsites into different parents every year.
+                    </li>
+                    <li>
+                      A customer requested drag-and-drop restructuring at a Verkada
+                      customer conference.Customers needed to change site hierarchy without
+                      deleting and recreating sites, since that meant re-adding every device and
+                      resetting every configuration from scratch.
+                    </li>
+                    <li>
+                      A customers highlighted the importance of naming convensions and they had to
+                      iterate multiple times.
+                    </li>
+                  </ul>
+                </div>
 
                 <p className="cs-body">
                   Beyond the core friction, a few opportunities stood out: the Sites page had
@@ -221,12 +242,6 @@ export default function SitesRedesign() {
                 </p>
               </div>
             </div>
-            <div className="cs-content-align" style={{ marginTop: 32 }}>
-              <ImagePlaceholder
-                label="Research process photo"
-                style={{ minHeight: 260, maxWidth: 480 }}
-              />
-            </div>
           </section>
 
           <section id="exploration" className="cs-section">
@@ -235,9 +250,8 @@ export default function SitesRedesign() {
               <div className="cs-content">
                 <h2 className="cs-h2">Design Exploration &amp; Rationale</h2>
                 <p className="cs-body">
-                  I explored three layout approaches, each solving for &ldquo;immediate visibility
-                  into site structure&rdquo; differently, because different customer segments
-                  needed different things from the same view:
+                  I explored three layout approaches, each solving for immediate visibility
+                  into site structure.
                 </p>
               </div>
             </div>
@@ -288,7 +302,13 @@ export default function SitesRedesign() {
               </div>
             </div>
             <div className="cs-content-align" style={{ marginTop: 32 }}>
-              <ImagePlaceholder label="Final design screenshot" style={{ minHeight: 480 }} />
+              <img
+                src="/images/Sites-Final.png"
+                alt="Final Sites page design — restructuring and permission management in the redesigned layout"
+                width={2388}
+                height={1063}
+                style={{ width: "100%", height: "auto", display: "block", borderRadius: 16 }}
+              />
               <p className="cs-body" style={{ marginTop: 24 }}>
                 The final design supports the full restructuring workflow — creating, renaming,
                 moving, and nesting sites — alongside permission management, in a layout that
@@ -302,24 +322,11 @@ export default function SitesRedesign() {
               <div className="cs-index">06</div>
               <div className="cs-content">
                 <h2 className="cs-h2">Navigating Constraints</h2>
-                <p className="cs-body">
-                  Senior-level design work is as much about what you push back on and what you let
-                  go of as what you ship. A few trade-offs from this project:
-                </p>
                 <div>
                   <h3 className="cs-h3">Drag-and-drop was rejected for technical reasons.</h3>
-                  <p className="cs-card-desc cs-placeholder-text">
-                    [What did you design instead to cover the same need?]
-                  </p>
                 </div>
                 <div>
                   <h3 className="cs-h3">Bulk actions weren&rsquo;t supported in this phase.</h3>
-                  <p className="cs-card-desc cs-placeholder-text">
-                    [Fast-follow, or dropped? One line.]
-                  </p>
-                </div>
-                <div>
-                  <h3 className="cs-h3">Duplicate/copy functionality was backlogged rather than cut.</h3>
                 </div>
                 <div>
                   <h3 className="cs-h3">Bandwidth settings were added mid-project as a new requirement.</h3>
@@ -353,12 +360,10 @@ export default function SitesRedesign() {
                     <span className="cs-check-mark">✓</span> Faster, lower-friction site
                     restructuring
                   </li>
+                  <li className="cs-check-item">
+                    <span className="cs-check-mark">✓</span> High-level view of the entire site with everything related to the site
+                  </li>
                 </ul>
-                <p className="cs-body cs-placeholder-text">
-                  [Add one number or scale statement if you have it — usage, tickets, or
-                  &ldquo;shipped to X customers.&rdquo; If not, skip it; the checkmarks above are
-                  fine as-is.]
-                </p>
               </div>
             </div>
           </section>
@@ -368,11 +373,8 @@ export default function SitesRedesign() {
               <div className="cs-index">08</div>
               <div className="cs-content">
                 <h2 className="cs-h2">Reflection</h2>
-                <p
-                  className="cs-quote cs-placeholder-text"
-                  style={{ borderLeft: "none", paddingLeft: 0 }}
-                >
-                  [2 sentences: one thing you&rsquo;d do differently, one thing it taught you.]
+                <p className="cs-body">
+                  I want to be over with this
                 </p>
               </div>
             </div>
@@ -384,39 +386,24 @@ export default function SitesRedesign() {
         <SectionHeading tag="h2" variant="section-heading-accent">
           Next Project
         </SectionHeading>
-        <div className="home-project-container">
-          <div className="home-page-project-info">
-            <div className="project-type">Interaction Design</div>
-            <div className="title-and-desc">
-              <h3 className="next-project-title">
-                <strong className="subsection-heading-plain">
-                  Security Alert
-                  <br />
-                  Mobile Design
-                </strong>
-              </h3>
-              <a href="#">Verkada</a>
-              <p className="body-copy-light">
-                Alert design for the core platform&rsquo;s mobile web. Designed the layout and
-                interaction that works for different alerts from camera, air quality sensors, and
-                access control.
-              </p>
-            </div>
-            <Link href="/work/alert" className="action-link">
-              View Project
-            </Link>
-          </div>
-          <ImagePanel
-            wrapperClassName="image-panel image-panel-variant-2"
-            src="/images/vape_detected_alert.png"
-            width={222}
-            alt="Verkada Sites page"
-            sizes="(max-width: 479px) 100vw, 222px"
-            loading="eager"
-            srcSet="/images/vape_detected_alert-p-500.png 500w, /images/vape_detected_alert-p-800.png 800w, /images/vape_detected_alert-p-1080.png 1080w, /images/vape_detected_alert-p-1600.png 1600w, /images/vape_detected_alert.png 1745w"
-            imgClassName="mobile-img"
+        <ul className="project-list">
+          <ProjectRow
+            index={1}
+            project={{
+              type: "Interaction Design",
+              title: "Security Alert Mobile Design",
+              company: "Verkada",
+              description:
+                "One alert layout that scales cleanly across cameras, air quality sensors, and access control.",
+              image: "/images/vape-alert.gif",
+              width: 1745,
+              height: 3520,
+              phone: true,
+              href: "/work/alert",
+              cta: "View project",
+            }}
           />
-        </div>
+        </ul>
       </section>
     </CaseStudyShell>
   );

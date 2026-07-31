@@ -1,6 +1,10 @@
 /* Home page only — imported solely by app/page.tsx. All class names below
    are new and don't exist anywhere in the Webflow-generated stylesheets,
-   so nothing here can leak into the still-legacy case study pages. */
+   so nothing here can leak into the still-legacy case study pages.
+   (.project-row and its descendants are the exception — that design is
+   shared with the case-study "Next Project" card, so it lives in
+   components/ProjectRow.css, imported directly by components/ProjectRow.tsx
+   instead of duplicated here.) */
 
 /* Full-bleed wrapper: sits inside .ambient-wrap (z-index:1), which stacks
    above the flow-field canvas (z-index:0) — so this must stay transparent,
@@ -80,146 +84,6 @@
   letter-spacing: -0.01em;
   color: var(--ink);
   margin: 0 0 20px;
-}
-
-.project-list {
-  /* Legacy Webflow CSS has a bare `ul { max-width: 500px }` rule for
-     prose content on the case-study pages — override it here since this
-     is a layout list, not article text. */
-  max-width: none;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.project-row {
-  display: grid;
-  grid-template-columns: 28px 320px 1fr;
-  gap: 24px;
-  align-items: center;
-  min-height: 70vh;
-  padding: 32px 0;
-  border-bottom: 1px solid var(--line);
-  text-decoration: none;
-  color: inherit;
-}
-
-.project-row__index {
-  font-family: var(--font-body);
-  font-size: 14px;
-  color: var(--ink-muted);
-  align-self: start;
-  padding-top: 6px;
-}
-
-.project-row__type {
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--ink-muted);
-  margin-bottom: 22px;
-}
-
-.project-row__title {
-  font-family: var(--font-display);
-  font-size: 2.1rem;
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-  margin: 0 0 14px;
-  transition: color var(--dur-1) var(--ease-out);
-}
-
-.project-row:hover .project-row__title {
-  color: var(--accent);
-}
-
-.project-row__company {
-  font-size: 14px;
-  color: var(--ink-muted);
-  margin: 0 0 28px;
-}
-
-.project-row__desc {
-  /* see .home-hero__eyebrow above re: the legacy `p` tag rule */
-  font-family: var(--font-body);
-  font-size: 17px;
-  color: var(--ink-muted);
-  max-width: 38ch;
-  line-height: 1.6;
-  margin: 0 0 32px;
-}
-
-.project-row__meta {
-  font-size: 15px;
-}
-
-.project-row__cta {
-  color: var(--accent);
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  border-bottom: 1px solid transparent;
-  padding-bottom: 2px;
-  transition: border-color var(--dur-1) var(--ease-out);
-}
-
-.project-row:hover .project-row__cta {
-  border-color: var(--accent);
-}
-
-.project-row__arrow {
-  display: inline-block;
-  transition: transform var(--dur-1) var(--ease-out);
-}
-
-.project-row:hover .project-row__arrow {
-  transform: translateX(5px);
-}
-
-.project-row__visual {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 40px;
-}
-
-.project-row__visual img {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-width: 600px;
-  border-radius: 18px;
-}
-
-.project-row.is-disabled {
-  cursor: default;
-}
-
-.project-row.is-disabled .project-row__cta {
-  color: var(--ink-muted);
-}
-
-.project-row.is-disabled .project-row__visual img {
-  opacity: 0.55;
-}
-
-@media (max-width: 900px) {
-  .project-row {
-    grid-template-columns: 1fr;
-    min-height: auto;
-    gap: 24px;
-  }
-
-  .project-row__index {
-    display: none;
-  }
-
-  .project-row__visual {
-    margin-left: 0;
-  }
 }
 
 @media (max-width: 640px) {

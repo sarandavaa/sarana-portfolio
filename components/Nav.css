@@ -67,6 +67,12 @@
   text-decoration: none;
 }
 
+.nav-link:hover,
+.nav-link:active,
+.nav-link.is-open {
+  font-weight: 700;
+}
+
 .nav-dropdown {
   position: relative;
   display: inline-block;

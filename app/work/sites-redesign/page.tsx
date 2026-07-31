@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import CaseStudyShell from "@/components/case-study/CaseStudyShell";
 import CaseStudyTabs from "@/components/case-study/CaseStudyTabs";
-import ImagePlaceholder from "@/components/case-study/ImagePlaceholder";
 import SectionHeading from "@/components/case-study/SectionHeading";
 import ProjectRow from "@/components/ProjectRow";
 
@@ -44,7 +43,7 @@ export default function SitesRedesign() {
             </div>
             <div className="hero-meta-item">
               <div className="hero-meta-label">Skills</div>
-              <div className="hero-meta-value">Research, Interaction Design</div>
+              <div className="hero-meta-value">UX Research, Interaction Design</div>
             </div>
           </div>
           <div className="hero-before-after">
@@ -259,7 +258,13 @@ export default function SitesRedesign() {
             <div className="cs-content-align" style={{ marginTop: 32 }}>
               <div className="cs-option-list">
                 <div className="cs-option">
-                  <ImagePlaceholder label="Panel View screenshot" style={{ minHeight: 150 }} />
+                  <img
+                    src="/images/Sites_Panel_View.png"
+                    alt="Panel View — persistent side panel showing hierarchy alongside detail"
+                    width={1200}
+                    height={800}
+                    style={{ width: "100%", height: "auto", display: "block" }}
+                  />
                   <div>
                     <h3 className="cs-h3">Panel View</h3>
                     <p className="cs-card-desc">
@@ -270,7 +275,13 @@ export default function SitesRedesign() {
                   </div>
                 </div>
                 <div className="cs-option">
-                  <ImagePlaceholder label="Expanded List View screenshot" style={{ minHeight: 150 }} />
+                  <img
+                    src="/images/Expanded_List.png"
+                    alt="Expanded List View — flat, scrollable list for scanning device counts and permissions"
+                    width={1200}
+                    height={800}
+                    style={{ width: "100%", height: "auto", display: "block" }}
+                  />
                   <div>
                     <h3 className="cs-h3">Expanded List View</h3>
                     <p className="cs-card-desc">
@@ -280,7 +291,13 @@ export default function SitesRedesign() {
                   </div>
                 </div>
                 <div className="cs-option">
-                  <ImagePlaceholder label="Toggle View screenshot" style={{ minHeight: 150 }} />
+                  <img
+                    src="/images/Toggle_Panel_View.png"
+                    alt="Toggle View — switch between Panel View and Expanded List View"
+                    width={1200}
+                    height={800}
+                    style={{ width: "100%", height: "auto", display: "block" }}
+                  />
                   <div>
                     <h3 className="cs-h3">Toggle View (Panel &amp; List)</h3>
                     <p className="cs-card-desc">Lets the user switch between the two.</p>
@@ -288,8 +305,10 @@ export default function SitesRedesign() {
                 </div>
               </div>
 
-              <p className="cs-quote cs-placeholder-text" style={{ marginTop: 24 }}>
-                [One sentence: which one shipped, and the one reason it won.]
+              <p className="cs-body" style={{ marginTop: 24 }}>
+                Panel view won because it shows the overall site structure and the ability to view
+                site details, devices, users, bandwidth usage, floorplans,etc. It's scalable, responsive, and
+                supports the restructuring workflow.
               </p>
             </div>
           </section>

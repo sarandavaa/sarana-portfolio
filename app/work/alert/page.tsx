@@ -225,10 +225,10 @@ export default function Alert() {
                     <span className="cs-check-mark">✓</span> Unified layout across all alert types
                   </li>
                   <li className="cs-check-item">
-                    <span className="cs-check-mark">✓</span> Mobile experience optimized end-to-end
+                    <span className="cs-check-mark">✓</span> Mobile experience optimized
                   </li>
                   <li className="cs-check-item">
-                    <span className="cs-check-mark">✓</span> Usability improved by relocating interactive elements to the thumb-friendly zone for easier mobile tapping
+                    <span className="cs-check-mark">✓</span> Usability improved by bringing interactive element to the areas comfortable zone for tapping on mobile devices.
                   </li>
                 </ul>
               </div>
@@ -241,10 +241,10 @@ export default function Alert() {
               <div className="cs-content">
                 <h2 className="cs-h2">Reflection</h2>
                 <p
-                  className="cs-body-text"
-                  style={{ textAlign: "center", marginTop: 32 }}
+                  className="cs-body"
+                  style={{ borderLeft: "none", paddingLeft: 0 }}
                 >
-                  How would I do differently?
+                  I optimized for consistency and mobile usability across every alert type. Breaking the ambiguity down into user stories was the move that made this tractable — a technique that's held up across other projects since.
                 </p>
               </div>
             </div>

@@ -208,9 +208,7 @@ export default function Alert() {
                 />
               </div>
               <p className="cs-body" style={{ marginTop: 24 }}>
-                The final design applies this consistent four-part structure across every alert
-                type, replacing the fragmented per-product patterns with one system that scales as
-                new alert types get added.
+                The final pattern applies the same four-part structure — what, when, where, why/who — across every alert type, replacing a dozen fragmented product-specific layouts with one system that scales as new alert types get added.
               </p>
             </div>
           </section>

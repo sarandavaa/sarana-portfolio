@@ -21,20 +21,6 @@ const projects = [
     href: "/work/sites-redesign",
     cta: "View project",
   },
-  {
-    type: "Interaction Design",
-    title: "Security Alert Mobile Design",
-    company: "Verkada",
-    description:
-      "One alert layout that scales cleanly across cameras, air quality sensors, and access control.",
-    image: "/images/vape-alert.gif",
-    width: 1745,
-    height: 3520,
-    phone: true,
-    href: "/work/alert",
-    cta: "View project",
-  },
-
 ] as const;
 
 function FadeInProjectRow({ project, index }: { project: (typeof projects)[number]; index: number }) {

@@ -410,7 +410,7 @@ export default function SitesRedesign() {
               width: 1745,
               height: 3520,
               phone: true,
-              href: "/work/alert",
+              href: "/work/archive/alert",
               cta: "View project",
             }}
           />

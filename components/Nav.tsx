@@ -7,7 +7,6 @@ import "./Nav.css";
 
 const WORK_ITEMS = [
   { href: "/work/sites-redesign", label: "Sites Page Redesign" },
-  { href: "/work/alert", label: "Alert — Mobile Design" },
 ];
 
 export default function Nav({

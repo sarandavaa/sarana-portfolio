@@ -40,7 +40,7 @@ export default function Alert() {
             </div>
             <div className="hero-meta-item">
               <div className="hero-meta-label">Timeline</div>
-              <div className="hero-meta-value">3 months</div>
+              <div className="hero-meta-value">1 month</div>
             </div>
             <div className="hero-meta-item">
               <div className="hero-meta-label">Skills</div>
@@ -92,10 +92,7 @@ export default function Alert() {
                   load of piecing together an incident from multiple disconnected views.
                 </p>
                 <p className="cs-body">
-                  As the lead designer, I owned the migration of every existing alert type into
-                  one consistent system: unifying the design language across products, optimizing
-                  for mobile, and rethinking what information an alert actually needs to surface
-                  to be useful in the moment.
+                  As the designer, I owned the migration of every existing alert type into one consistent system — unifying the design language across products and optimizing for mobile.
                 </p>
               </div>
             </div>
@@ -106,32 +103,35 @@ export default function Alert() {
               <div className="cs-index">02</div>
               <div className="cs-content">
                 <h2 className="cs-h2">Key Problems</h2>
+                <img
+                  src="/images/Alert_probelms.png"
+                  alt="Key problems with the existing alert experience"
+                  width={600}
+                  height={600}
+                  style={{ width: "100%", height: "auto", display: "block", borderRadius: 16, marginBottom: 8 }}
+                />
                 <div>
                   <h3 className="cs-h3">Inconsistent design patterns.</h3>
                   <p className="cs-body">
                     Every product team had built its own alert UI independently — different
-                    layouts, different terminology, different levels of detail — so users had to
-                    relearn the interface every time they moved between alert types.
+                    layouts, different terminology, different levels of detail.
                   </p>
                 </div>
                 <div>
                   <h3 className="cs-h3">Not mobile-optimized.</h3>
                   <p className="cs-body">
                     Alerts are often acted on in the moment, away from a desk. Several existing
-                    designs weren&rsquo;t responsive, which directly undercut that use case.
+                    designs weren&rsquo;t responsive.
                   </p>
                 </div>
                 <div>
                   <h3 className="cs-h3">Lack of contextual information.</h3>
                   <p className="cs-body">
-                    Alerts frequently didn&rsquo;t include enough detail for a user to judge
-                    urgency or decide on next steps without leaving the alert to dig elsewhere.
+                    Alerts frequently didn&rsquo;t include enough detail for a user to determine
+                    urgency or next steps without leaving the alert to dig elsewhere.
                   </p>
                 </div>
               </div>
-            </div>
-            <div className="cs-content-align" style={{ marginTop: 32 }}>
-              <ImagePlaceholder label="Problem illustration" style={{ minHeight: 260 }} />
             </div>
           </section>
 
@@ -140,15 +140,15 @@ export default function Alert() {
               <div className="cs-index">03</div>
               <div className="cs-content">
                 <h2 className="cs-h2">Goals</h2>
-                <ul className="cs-list">
+                <ul className="cs-list cs-list-bulleted">
                   <li>
                     Create one consistent alert design that still flexes to each product&rsquo;s
                     specific needs
                   </li>
                   <li>Ensure full responsiveness and usability on mobile</li>
                   <li>
-                    Surface clear, contextual detail so users can act without hunting for more
-                    information
+                    Prioritize surfacing clear, contextual detail so users could act without
+                    hunting for more information
                   </li>
                 </ul>
               </div>
@@ -161,7 +161,7 @@ export default function Alert() {
               <div className="cs-content">
                 <h2 className="cs-h2">Framing: What Does an Alert Actually Need to Tell You?</h2>
                 <p className="cs-body">
-                  I broke this down into four questions every alert needed to answer, regardless
+                  The core experience broke down to four questions every alert needed to answer, regardless
                   of product line:
                 </p>
 
@@ -189,15 +189,9 @@ export default function Alert() {
                   </div>
                 </div>
 
-                <p className="cs-quote cs-placeholder-text">
-                  [One or two sentences: how did you land on these four specifically — user
-                  interviews, support ticket patterns, stakeholder input?]
-                </p>
               </div>
             </div>
-            <div className="cs-content-align cs-photo-grid" style={{ marginTop: 32 }}>
-              <ImagePlaceholder label="Mobile alert screenshot" style={{ minHeight: 380 }} />
-            </div>
+
           </section>
 
           <section id="final" className="cs-section">
@@ -214,11 +208,6 @@ export default function Alert() {
                 type, replacing the fragmented per-product patterns with one system that scales as
                 new alert types get added.
               </p>
-              <p className="cs-quote cs-placeholder-text">
-                [One sentence on a specific trade-off or constraint you navigated — e.g., a
-                product team that pushed back on losing their custom layout, or a technical limit
-                on what data was available for certain alert types.]
-              </p>
             </div>
           </section>
 
@@ -233,18 +222,13 @@ export default function Alert() {
                     types
                   </li>
                   <li className="cs-check-item">
+                    <span className="cs-check-mark">✓</span> Mobile experience optimized
+                  </li>
+                  <li className="cs-check-item">
                     <span className="cs-check-mark">✓</span> Improved contextual information and
                     support for taking action
                   </li>
-                  <li className="cs-check-item">
-                    <span className="cs-check-mark">✓</span> Mobile experience optimized
-                  </li>
                 </ul>
-                <p className="cs-body cs-placeholder-text">
-                  [Add one number or scale statement if you have it — how many alert types were
-                  migrated, how many products/customers this shipped to, or any usage/support-ticket
-                  shift you&rsquo;re aware of.]
-                </p>
               </div>
             </div>
           </section>
@@ -258,7 +242,7 @@ export default function Alert() {
                   className="cs-quote cs-placeholder-text"
                   style={{ borderLeft: "none", paddingLeft: 0 }}
                 >
-                  [2 sentences: one thing you&rsquo;d do differently, one thing it taught you.]
+                  How would I do differently?
                 </p>
               </div>
             </div>

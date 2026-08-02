@@ -966,8 +966,9 @@
   gap: 12px;
   align-items: baseline;
   font-family: var(--font-body);
-  font-size: 17px;
-  color: var(--ink);
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--ink-muted);
 }
 
 .cs-check-mark {

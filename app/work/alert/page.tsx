@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import CaseStudyShell from "@/components/case-study/CaseStudyShell";
 import CaseStudyTabs from "@/components/case-study/CaseStudyTabs";
-import ImagePlaceholder from "@/components/case-study/ImagePlaceholder";
 import SectionHeading from "@/components/case-study/SectionHeading";
 import ImagePanel from "@/components/case-study/ImagePanel";
 
@@ -202,7 +201,15 @@ export default function Alert() {
               </div>
             </div>
             <div className="cs-content-align" style={{ marginTop: 32 }}>
-              <ImagePlaceholder label="Final design screenshot" style={{ minHeight: 480 }} />
+              <div className="cs-image-frame">
+                <img
+                  src="/images/Alert-Final.png"
+                  alt="Final Alerts Page design"
+                  width={1444}
+                  height={924}
+                  style={{ width: "100%", height: "auto", display: "block" }}
+                />
+              </div>
               <p className="cs-body" style={{ marginTop: 24 }}>
                 The final design applies this consistent four-part structure across every alert
                 type, replacing the fragmented per-product patterns with one system that scales as
@@ -218,15 +225,13 @@ export default function Alert() {
                 <h2 className="cs-h2">Outcome</h2>
                 <ul className="cs-check-list">
                   <li className="cs-check-item">
-                    <span className="cs-check-mark">✓</span> Consistent layout across all alert
-                    types
+                    <span className="cs-check-mark">✓</span> Unified layout across all alert types
                   </li>
                   <li className="cs-check-item">
-                    <span className="cs-check-mark">✓</span> Mobile experience optimized
+                    <span className="cs-check-mark">✓</span> Mobile experience optimized end-to-end
                   </li>
                   <li className="cs-check-item">
-                    <span className="cs-check-mark">✓</span> Improved contextual information and
-                    support for taking action
+                    <span className="cs-check-mark">✓</span> Usability improved by relocating interactive elements to the thumb-friendly zone for easier mobile tapping
                   </li>
                 </ul>
               </div>

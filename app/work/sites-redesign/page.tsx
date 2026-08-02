@@ -122,8 +122,8 @@ export default function SitesRedesign() {
                 <div>
                   <h3 className="cs-h3">Not usable on mobile.</h3>
                   <p className="cs-body">
-                    Admins rely on the Sites page for time-sensitive tasks — permission changes,
-                    restructuring after an incident, onboarding a new location.
+                    Users expect high-quality SaaS products to support core functions on mobile,
+                    and there was a company-wide push to make the entire Verkada web platform usable on mobile devices.
                   </p>
                 </div>
                 <div>
@@ -138,8 +138,7 @@ export default function SitesRedesign() {
                 <div>
                   <h3 className="cs-h3">Visually and structurally outdated.</h3>
                   <p className="cs-body">
-                    The page hadn&rsquo;t been touched since before the Verkada 3.0 design system,
-                    so it looked and behaved like a legacy tool bolted onto a modern platform.
+                    The page hadn't been touched in a while, so it wasn't aligned with the recently rolled out Verkada 3.0.
                   </p>
                 </div>
               </div>
@@ -187,12 +186,11 @@ export default function SitesRedesign() {
 
                 <h3 className="cs-h3-serif">What I learned</h3>
                 <p className="cs-body">
-                  Org Admins and Site Admins use this page primarily to structure and restructure
-                  sites: creating and naming sites and subsites, splitting a site into multiple
-                  subsites, moving a subsite elsewhere in the hierarchy, and managing permissions
-                  as that structure shifts.
+                  One of the intentional constraints of the Verkada platform is that user permissions are granted per site, not per device.
+                  As organizations get more familiar with the platform over time, they often revise their naming conventions and site hierarchy
+                  — and this restructuring surfaced real friction, especially for large enterprises managing hundreds of locations and devices.
+                  The friction was concentrated in three places:
                 </p>
-                <p className="cs-body">The friction was concentrated in three places:</p>
                 <ul className="cs-list">
                   <li>
                     <strong>Cumbersome restructuring</strong> — users had to strip out every
@@ -268,9 +266,7 @@ export default function SitesRedesign() {
                   <div>
                     <h3 className="cs-h3">Panel View</h3>
                     <p className="cs-card-desc">
-                      A persistent side panel showing hierarchy alongside detail. Best for admins
-                      who work across many sites at once and need to keep context while drilling
-                      into one.
+                      A persistent side panel showing hierarchy alongside detail. Best for admins who work across many sites at once and need to keep context while drilling into one.
                     </p>
                   </div>
                 </div>
@@ -285,8 +281,7 @@ export default function SitesRedesign() {
                   <div>
                     <h3 className="cs-h3">Expanded List View</h3>
                     <p className="cs-card-desc">
-                      A flat, scrollable list optimized for scanning device counts and permissions
-                      quickly. Best for smaller sites or narrower device sets.
+                      A flat, scrollable list that expands to disclose details when a user clicks into an item. A matter of preference more than a fit for a particular use case.
                     </p>
                   </div>
                 </div>
@@ -300,16 +295,13 @@ export default function SitesRedesign() {
                   />
                   <div>
                     <h3 className="cs-h3">Toggle View (Panel &amp; List)</h3>
-                    <p className="cs-card-desc">Lets the user switch between the two.</p>
+                    <p className="cs-card-desc">Lets the user switch between the two. Ultimately dropped, since it expanded the scope of the project without much added benefit.</p>
                   </div>
                 </div>
               </div>
 
               <p className="cs-body" style={{ marginTop: 24 }}>
-                Panel view won because it shows the overall site structure and the ability to view
-                site details, devices, users, bandwidth usage, floorplans,etc. It's scalable, responsive, and
-                supports the restructuring workflow.
-              </p>
+                Panel View won. It surfaces the overall site structure while still giving access to site details, devices, users, bandwidth usage, and floorplans in one place — and it's scalable, responsive, and supports the full restructuring workflow.              </p>
             </div>
           </section>
 
@@ -329,10 +321,7 @@ export default function SitesRedesign() {
                 style={{ width: "100%", height: "auto", display: "block", borderRadius: 16 }}
               />
               <p className="cs-body" style={{ marginTop: 24 }}>
-                The final design allows full view of the site lists, as well as the device details, user permission,
-                bandwidth settings, floorplan, and alarm details of the selected site from the panel on the right.
-                Additionally, it supports users in restructuring workflow: renaming, adding subsites, and getting to the devices
-                and user permission easily.
+                The final design gives a full view of the site list alongside a right-hand panel showing device details, user permissions, bandwidth settings, floorplans, and alarm details for the selected site. It also supports the full restructuring workflow — renaming sites, adding subsites, and reaching devices and permissions without leaving the view.
               </p>
             </div>
           </section>
@@ -390,7 +379,13 @@ export default function SitesRedesign() {
               <div className="cs-content">
                 <h2 className="cs-h2">Reflection</h2>
                 <p className="cs-body">
-                  I can't wait to be over with this
+                  I came into this project from a UX research background, and it's where my drive to simplify complexity started. I was excited to work on it going in — the existing page had so much room to improve, and that potential is what drew me to it. Partway through, though, I didn't always have the trust or autonomy from the team to move as freely as I needed to, and I was moved off the project before I could fully close it out.
+                  <br></br>
+                  <br></br>
+                  Looking back, I'd have designed my stakeholder feedback sessions differently — I tried to fix too many things at once. Stakeholders aren't automatically your creative collaboration team; sometimes the better move is to take full ownership and make the decision simple for people to weigh in on, rather than opening everything up for debate.
+                  <br></br>
+                  <br></br>
+                  The research surfaced more complexity than I expected, especially for customers managing multiple locations with hundreds of devices. The team genuinely didn't have enough backend engineering resources to work through everything I surfaced — a real structural constraint, separate from the trust issues above. Through all of it, I kept taking small steps forward instead of waiting for full clarity or approval — that is what I value most from working on this project.
                 </p>
               </div>
             </div>

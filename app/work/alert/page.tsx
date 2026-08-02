@@ -36,19 +36,33 @@ export default function Alert() {
           <div className="hero-meta-row">
             <div className="hero-meta-item">
               <div className="hero-meta-label">Role</div>
-              <div className="hero-meta-value">Product Designer, Lead</div>
-            </div>
-            <div className="hero-meta-item">
-              <div className="hero-meta-label">Team</div>
-              <div className="hero-meta-value cs-placeholder-text">[team size/roles]</div>
+              <div className="hero-meta-value">Product Designer</div>
             </div>
             <div className="hero-meta-item">
               <div className="hero-meta-label">Timeline</div>
-              <div className="hero-meta-value cs-placeholder-text">[rough dates/duration]</div>
+              <div className="hero-meta-value">3 months</div>
+            </div>
+            <div className="hero-meta-item">
+              <div className="hero-meta-label">Skills</div>
+              <div className="hero-meta-value">Interaction Design</div>
             </div>
           </div>
           <div className="hero-before-after">
-            <ImagePlaceholder label="Before / after screenshot" style={{ minHeight: 420 }} />
+            <img
+              src="/images/alert-before-after.png"
+              alt="Before / after — fragmented per-product alerts vs. the unified Alerts Page"
+              width={2000}
+              height={1114}
+              style={{
+                width: "auto",
+                maxWidth: "100%",
+                height: "auto",
+                maxHeight: 480,
+                display: "block",
+                margin: "0 auto",
+                borderRadius: 20,
+              }}
+            />
             <p style={{ fontFamily: "var(--font-body)", fontSize: 13, color: "var(--ink-muted)", marginTop: 12 }}>
               Before / after — fragmented per-product alerts vs. the unified Alerts Page
             </p>

@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import CaseStudyShell from "@/components/case-study/CaseStudyShell";
 import CaseStudyTabs from "@/components/case-study/CaseStudyTabs";
-import SectionHeading from "@/components/case-study/SectionHeading";
-import ImagePanel from "@/components/case-study/ImagePanel";
 
 export const metadata: Metadata = {
   title: "Security Alert Mobile Design — Sarana Davaa",
@@ -244,8 +241,8 @@ export default function Alert() {
               <div className="cs-content">
                 <h2 className="cs-h2">Reflection</h2>
                 <p
-                  className="cs-quote cs-placeholder-text"
-                  style={{ borderLeft: "none", paddingLeft: 0 }}
+                  className="cs-body-text"
+                  style={{ textAlign: "center", marginTop: 32 }}
                 >
                   How would I do differently?
                 </p>
@@ -254,41 +251,6 @@ export default function Alert() {
           </section>
         </div>
       </div>
-
-      <section className="next-project-section">
-        <SectionHeading tag="h2" variant="section-heading-accent">
-          Next Project
-        </SectionHeading>
-        <div className="home-project-container">
-          <div className="home-page-project-info">
-            <div className="project-type">Interaction Design</div>
-            <div className="title-and-desc">
-              <h3 className="next-project-title">
-                <strong className="subsection-heading-plain">Sites Page Redesign</strong>
-              </h3>
-              <a href="#">Verkada</a>
-              <p className="body-copy-light">
-                A redesign of the Sites page — where admins organize devices and manage
-                permissions across every location their organization runs — into something
-                scalable, mobile-capable, and aligned with the Verkada 3.0 design language.
-              </p>
-            </div>
-            <Link href="/work/sites-redesign" className="action-link">
-              View Project
-            </Link>
-          </div>
-          <ImagePanel
-            wrapperClassName="image-panel image-panel-variant-2"
-            src="/images/vape_detected_alert.png"
-            width={222}
-            alt="Verkada Sites page"
-            sizes="(max-width: 479px) 100vw, 222px"
-            loading="eager"
-            srcSet="/images/vape_detected_alert-p-500.png 500w, /images/vape_detected_alert-p-800.png 800w, /images/vape_detected_alert-p-1080.png 1080w, /images/vape_detected_alert-p-1600.png 1600w, /images/vape_detected_alert.png 1745w"
-            imgClassName="mobile-img"
-          />
-        </div>
-      </section>
     </CaseStudyShell>
   );
 }

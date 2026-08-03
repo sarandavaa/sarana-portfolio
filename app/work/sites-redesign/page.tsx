@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import CaseStudyShell from "@/components/case-study/CaseStudyShell";
 import CaseStudyTabs from "@/components/case-study/CaseStudyTabs";
-import SectionHeading from "@/components/case-study/SectionHeading";
-import ProjectRow from "@/components/ProjectRow";
 
 export const metadata: Metadata = {
   title: "Sites Page Redesign — Sarana Davaa",
@@ -392,30 +390,6 @@ export default function SitesRedesign() {
           </section>
         </div>
       </div>
-
-      <section className="next-project-section">
-        <SectionHeading tag="h2" variant="section-heading-accent">
-          Next Project
-        </SectionHeading>
-        <ul className="project-list">
-          <ProjectRow
-            index={1}
-            project={{
-              type: "Interaction Design",
-              title: "Security Alert Mobile Design",
-              company: "Verkada",
-              description:
-                "One alert layout that scales cleanly across cameras, air quality sensors, and access control.",
-              image: "/images/vape-alert.gif",
-              width: 1745,
-              height: 3520,
-              phone: true,
-              href: "/work/archive/alert",
-              cta: "View project",
-            }}
-          />
-        </ul>
-      </section>
     </CaseStudyShell>
   );
 }

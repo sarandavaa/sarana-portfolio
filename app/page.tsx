@@ -40,14 +40,11 @@ export default function Home() {
           <main className="home">
             <div ref={hero.ref} style={hero.style} className="home-hero">
               <p className="home-hero__eyebrow">Product Designer, San Francisco</p>
-              <h1 className="home-hero__headline">
-                Designing experiences
-                <br />
-                that awaken possibility.
-              </h1>
+              <h1 className="home-hero__headline">Product designer</h1>
+              <h1 className="home-hero__headline">who also builds.</h1>
               <p className="home-hero__body">
-                I design products that simplify complexity and ambiguity, creating space for what
-                matters.
+                Design backed by fast, real feedback loops — talking to users, testing, adjusting —
+                plus the range to prototype it myself.
               </p>
             </div>
 

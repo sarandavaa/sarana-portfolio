@@ -380,7 +380,7 @@ export default function SitesRedesign() {
                   I came into this project from a UX research background, and it's where my drive to simplify complexity started. I was excited to work on it going in — the existing page had so much room to improve, and that potential is what drew me to it. Partway through, though, I didn't always have the trust or autonomy from the team to move as freely as I needed to, and I was moved off the project before I could fully close it out.
                   <br></br>
                   <br></br>
-                  Looking back, I'd have designed my stakeholder feedback sessions differently — I tried to fix too many things at once. Stakeholders aren't automatically your creative collaboration team; sometimes the better move is to take full ownership and make the decision simple for people to weigh in on, rather than opening everything up for debate.
+                  Looking back, I'd have designed my stakeholder feedback sessions differently. Stakeholders aren't automatically your creative collaboration team; sometimes the better move is to take full ownership and make the decision simple for people to weigh in on, rather than opening everything up for debate.
                   <br></br>
                   <br></br>
                   The research surfaced more complexity than I expected, especially for customers managing multiple locations with hundreds of devices. The team genuinely didn't have enough backend engineering resources to work through everything I surfaced — a real structural constraint, separate from the trust issues above. Through all of it, I kept taking small steps forward instead of waiting for full clarity or approval — that is what I value most from working on this project.

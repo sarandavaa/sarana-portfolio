@@ -180,15 +180,162 @@ export default function FlowField() {
     }
     initParticles();
 
-    const mouse = { x: -9999, y: -9999, active: false };
+    const mouse = { x: -9999, y: -9999, active: false, speed: 0 };
     let cursorTrail: { x: number; y: number; time: number }[] = [];
     const CURSOR_TRAIL_MAX_AGE = 400; // ms — aged out every frame regardless of new events
+    let prevMouseX = 0;
+    let prevMouseY = 0;
+    let prevMouseTime = 0;
+
+    // Firework burst — when the cursor whips past a speed threshold, sparks
+    // erupt from it and a shockwave ring blooms outward, like the trail
+    // igniting under the motion.
+    interface Spark {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      trail: { x: number; y: number }[];
+      color: RGB;
+      life: number;
+      decay: number;
+    }
+    interface Ring {
+      x: number;
+      y: number;
+      age: number;
+      maxAge: number;
+      maxR: number;
+      color: RGB;
+    }
+    const FIREWORK_SPEED_THRESHOLD = 3.5; // px/ms — roughly a fast flick
+    const FIREWORK_SPEED_MAX = 9; // px/ms — speed at which bursts hit full size
+    const FIREWORK_COOLDOWN = 70; // ms between bursts while cursor stays fast
+    const MAX_SPARKS = 500;
+    let sparks: Spark[] = [];
+    let rings: Ring[] = [];
+    let lastFireworkTime = 0;
+
+    function spawnFirework(x: number, y: number, speed: number) {
+      const intensity = Math.min(
+        1,
+        Math.max(0, (speed - FIREWORK_SPEED_THRESHOLD) / (FIREWORK_SPEED_MAX - FIREWORK_SPEED_THRESHOLD))
+      );
+      const count = Math.round(lerp(18, 46, intensity));
+      const power = lerp(2.6, 7.5, intensity);
+      for (let i = 0; i < count; i++) {
+        if (sparks.length >= MAX_SPARKS) sparks.shift();
+        const angle = Math.random() * Math.PI * 2;
+        const spd = power * (0.35 + Math.random() * 0.9);
+        sparks.push({
+          x,
+          y,
+          vx: Math.cos(angle) * spd,
+          vy: Math.sin(angle) * spd,
+          trail: [
+            { x, y },
+            { x, y },
+            { x, y },
+          ],
+          color: artColor(Math.random()),
+          life: 1,
+          decay: 0.017 + Math.random() * 0.02,
+        });
+      }
+      rings.push({
+        x,
+        y,
+        age: 0,
+        maxAge: 26,
+        maxR: lerp(34, 100, intensity),
+        color: artColor(Math.random()),
+      });
+    }
+
+    function stepAndDrawFireworks() {
+      for (let i = sparks.length - 1; i >= 0; i--) {
+        const s = sparks[i];
+        s.vx *= 0.96;
+        s.vy *= 0.96;
+        s.vy += 0.09;
+        s.x += s.vx;
+        s.y += s.vy;
+        s.trail.shift();
+        s.trail.push({ x: s.x, y: s.y });
+        s.life -= s.decay;
+        if (s.life <= 0) sparks.splice(i, 1);
+      }
+      for (let i = rings.length - 1; i >= 0; i--) {
+        rings[i].age++;
+        if (rings[i].age > rings[i].maxAge) rings.splice(i, 1);
+      }
+      if (!sparks.length && !rings.length) return;
+
+      cctx!.save();
+      cctx!.globalCompositeOperation = "lighter";
+
+      for (let i = 0; i < rings.length; i++) {
+        const r = rings[i];
+        const rt = r.age / r.maxAge;
+        const radius = r.maxR * smoothstep(0, 1, rt);
+        const alpha = (1 - rt) * 0.5;
+        cctx!.beginPath();
+        cctx!.arc(r.x, r.y, radius, 0, Math.PI * 2);
+        cctx!.strokeStyle = `rgba(${r.color[0]},${r.color[1]},${r.color[2]},${alpha.toFixed(3)})`;
+        cctx!.lineWidth = 2 * (1 - rt) + 0.5;
+        cctx!.stroke();
+      }
+
+      for (let i = 0; i < sparks.length; i++) {
+        const s = sparks[i];
+        const life = Math.max(0, s.life);
+        const glow = lighten(s.color, 0.5 * life);
+        const trail = s.trail;
+        for (let k = 1; k < trail.length; k++) {
+          const a0 = trail[k - 1];
+          const a1 = trail[k];
+          const frac = k / (trail.length - 1);
+          cctx!.strokeStyle = `rgba(${glow[0].toFixed(0)},${glow[1].toFixed(0)},${glow[2].toFixed(0)},${(
+            life * frac * 0.9
+          ).toFixed(3)})`;
+          cctx!.lineWidth = 1 + life * 2.2;
+          cctx!.lineCap = "round";
+          cctx!.beginPath();
+          cctx!.moveTo(a0.x, a0.y);
+          cctx!.lineTo(a1.x, a1.y);
+          cctx!.stroke();
+        }
+        cctx!.beginPath();
+        cctx!.arc(s.x, s.y, 1.4 * life + 0.3, 0, Math.PI * 2);
+        cctx!.fillStyle = `rgba(255,255,255,${(life * 0.9).toFixed(3)})`;
+        cctx!.fill();
+      }
+
+      cctx!.restore();
+    }
 
     function onPointerMove(e: PointerEvent) {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
+      const now = performance.now();
+      const nx = e.clientX;
+      const ny = e.clientY;
+      if (prevMouseTime) {
+        const dt = now - prevMouseTime;
+        if (dt > 0) mouse.speed = Math.hypot(nx - prevMouseX, ny - prevMouseY) / dt;
+      }
+      prevMouseX = nx;
+      prevMouseY = ny;
+      prevMouseTime = now;
+
+      mouse.x = nx;
+      mouse.y = ny;
       mouse.active = true;
-      if (!isTouch) cursorTrail.push({ x: mouse.x, y: mouse.y, time: performance.now() });
+      if (!isTouch) {
+        cursorTrail.push({ x: mouse.x, y: mouse.y, time: now });
+        if (mouse.speed > FIREWORK_SPEED_THRESHOLD && now - lastFireworkTime > FIREWORK_COOLDOWN) {
+          lastFireworkTime = now;
+          spawnFirework(mouse.x, mouse.y, mouse.speed);
+        }
+      }
     }
     function onMouseLeave() {
       mouse.active = false;
@@ -200,7 +347,11 @@ export default function FlowField() {
 
     function drawCursor() {
       cctx!.clearRect(0, 0, W, H);
-      if (!mouse.active || isTouch) return;
+      if (isTouch) return;
+
+      stepAndDrawFireworks();
+
+      if (!mouse.active) return;
 
       const now = performance.now();
       while (cursorTrail.length && now - cursorTrail[0].time > CURSOR_TRAIL_MAX_AGE) {

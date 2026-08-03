@@ -84,6 +84,9 @@
   gap: 6px;
   background: none;
   border: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   cursor: pointer;
   font-family: inherit;
   border-radius: 999px;
@@ -157,6 +160,19 @@
     color: inherit;
     border-radius: 0;
   }
+
+  /* Open mobile menu: every item is its own full-width row instead of
+     inline-block links sharing a line. */
+  [data-nav-menu-open] .nav-dropdown-toggle {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+
+  [data-nav-menu-open] .nav-link {
+    display: block;
+    width: 100%;
+  }
 }
 
 /* Mobile menu: the link list hides and the hamburger button takes over
@@ -199,17 +215,38 @@
 }
 
 /* Opened mobile dropdown — Nav.tsx sets this attribute on the menu <nav>
-   itself while open. */
+   itself while open. Glassmorphism: translucent + blurred so the page
+   content (or, on the home page, the flow-field canvas) shows through
+   instead of a flat panel. */
 [data-nav-menu-open] {
-  display: block !important;
+  display: flex !important;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
-  background: #c8c8c8;
+  background: rgba(20, 20, 22, 0.55);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
   text-align: center;
   overflow: visible;
   min-width: 200px;
+}
+
+/* Each row (the .nav-dropdown wrapper, or a .nav-link) is its own glass
+   chip on top of the blurred panel, instead of one undifferentiated sheet. */
+[data-nav-menu-open] > * {
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  transition: background-color var(--dur-1, 180ms) var(--ease-out, ease);
+}
+
+[data-nav-menu-open] > *:hover,
+[data-nav-menu-open] > *:active {
+  background: rgba(255, 255, 255, 0.16);
 }
 
 @media screen and (max-width: 991px) {
@@ -230,10 +267,11 @@
   }
 
   .nav-inner {
-    margin-left: 20px;
+    margin: 0;
   }
 
   .name-logo {
     font-size: 18px;
+    white-space: nowrap;
   }
 }

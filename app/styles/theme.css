@@ -119,6 +119,32 @@ html {
   color: var(--ink);
 }
 
+/* Mobile hamburger + open menu panel — override Nav.css's grey (#c8c8c8),
+   which was tuned for the dark "legacy" navbar, with the light theme's own
+   paper/accent tokens. */
+.navbar.navbar-light .nav-toggle.is-open {
+  background-color: var(--accent);
+  color: #fff;
+}
+
+.navbar.navbar-light [data-nav-menu-open] {
+  /* rgba(229, 238, 251, *) === --paper (#E5EEFB) with alpha, since alpha
+     custom properties aren't supported without color-mix(). */
+  background: rgba(229, 238, 251, 0.6);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-top: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 16px 40px rgba(58, 59, 66, 0.12);
+}
+
+.navbar.navbar-light [data-nav-menu-open] > * {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.navbar.navbar-light [data-nav-menu-open] > *:hover,
+.navbar.navbar-light [data-nav-menu-open] > *:active {
+  background: rgba(255, 255, 255, 0.6);
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.001ms !important;

@@ -39,7 +39,7 @@ export default function Home() {
         <div className="home-page">
           <main className="home">
             <div ref={hero.ref} style={hero.style} className="home-hero">
-              <p className="home-hero__eyebrow">Product Designer, San Francisco</p>
+              <p className="home-hero__eyebrow">San Francisco, Bay Area</p>
               <h1 className="home-hero__headline">Product designer</h1>
               <h1 className="home-hero__headline">who also builds.</h1>
               <p className="home-hero__body">

@@ -347,11 +347,8 @@ export default function FlowField() {
 
     function drawCursor() {
       cctx!.clearRect(0, 0, W, H);
-      if (isTouch) return;
-
       stepAndDrawFireworks();
-
-      if (!mouse.active) return;
+      if (isTouch || !mouse.active) return;
 
       const now = performance.now();
       while (cursorTrail.length && now - cursorTrail[0].time > CURSOR_TRAIL_MAX_AGE) {
@@ -566,6 +563,45 @@ export default function FlowField() {
     let rafId = 0;
     let cancelled = false;
 
+    // Scroll-to-bottom celebration — reaching the end of the page sets off a
+    // scattered volley of fireworks across the whole viewport, not just at
+    // the cursor. Re-arms once the user scrolls back away from the bottom.
+    const FINALE_BURST_COUNT = 9;
+    let scrollFireworksArmed = true;
+    const scrollFireworkTimeouts: number[] = [];
+
+    function isAtPageBottom() {
+      const doc = document.documentElement;
+      return window.innerHeight + window.scrollY >= doc.scrollHeight - 16;
+    }
+
+    function spawnCelebration() {
+      for (let i = 0; i < FINALE_BURST_COUNT; i++) {
+        const delay = i * 90 + Math.random() * 90;
+        const id = window.setTimeout(() => {
+          if (cancelled) return;
+          const x = W * (0.1 + Math.random() * 0.8);
+          const y = H * (0.12 + Math.random() * 0.55);
+          const speed =
+            FIREWORK_SPEED_THRESHOLD + (FIREWORK_SPEED_MAX - FIREWORK_SPEED_THRESHOLD) * (0.7 + Math.random() * 0.5);
+          spawnFirework(x, y, speed);
+        }, delay);
+        scrollFireworkTimeouts.push(id);
+      }
+    }
+
+    function onScroll() {
+      if (reduceMotion) return;
+      const atBottom = isAtPageBottom();
+      if (atBottom && scrollFireworksArmed) {
+        scrollFireworksArmed = false;
+        spawnCelebration();
+      } else if (!atBottom && window.innerHeight + window.scrollY < document.documentElement.scrollHeight - 120) {
+        scrollFireworksArmed = true;
+      }
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+
     function step() {
       if (cancelled) return;
       t += 0.0016;
@@ -686,9 +722,11 @@ export default function FlowField() {
     return () => {
       cancelled = true;
       cancelAnimationFrame(rafId);
+      scrollFireworkTimeouts.forEach((id) => window.clearTimeout(id));
       window.removeEventListener("resize", resize);
       window.removeEventListener("pointermove", onPointerMove);
       document.removeEventListener("mouseleave", onMouseLeave);
+      window.removeEventListener("scroll", onScroll);
     };
   }, []);
 

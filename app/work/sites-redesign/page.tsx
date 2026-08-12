@@ -162,17 +162,17 @@ export default function SitesRedesign() {
                   </div>
                   <div className="cs-card">
                     <div className="cs-label">Usability issues</div>
-                    <div className="cs-card-desc">What&rsquo;s obstacles make the current design difficult to use?</div>
-                  </div>
-                  <div className="cs-card">
-                    <div className="cs-label">Opportunity</div>
-                    <div className="cs-card-desc">Could this page do more than it currently does?</div>
+                    <div className="cs-card-desc">What&rsquo;s are the main usability issues that make the current design difficult to use?</div>
                   </div>
                   <div className="cs-card">
                     <div className="cs-label">Prioritization</div>
                     <div className="cs-card-desc">What&rsquo;s noise vs. signal in the current design?
                       What can be taken out or hidden?
                     </div>
+                  </div>
+                  <div className="cs-card">
+                    <div className="cs-label">Opportunity</div>
+                    <div className="cs-card-desc">Could this page do more than it currently does?</div>
                   </div>
                 </div>
 
@@ -244,10 +244,6 @@ export default function SitesRedesign() {
               <div className="cs-index">04</div>
               <div className="cs-content">
                 <h2 className="cs-h2">Design Exploration &amp; Rationale</h2>
-                <p className="cs-body">
-                  I explored three layout approaches, each solving for immediate visibility
-                  into site structure.
-                </p>
               </div>
             </div>
 
@@ -297,9 +293,6 @@ export default function SitesRedesign() {
                   </div>
                 </div>
               </div>
-
-              <p className="cs-body" style={{ marginTop: 24 }}>
-                Panel View won. It surfaces the overall site structure while still giving access to site details, devices, users, bandwidth usage, and floorplans in one place — and it's scalable, responsive, and supports the full restructuring workflow.              </p>
             </div>
           </section>
 

@@ -162,7 +162,7 @@ export default function SitesRedesign() {
                   </div>
                   <div className="cs-card">
                     <div className="cs-label">Usability issues</div>
-                    <div className="cs-card-desc">What&rsquo;s are the main usability issues that make the current design difficult to use?</div>
+                    <div className="cs-card-desc">What are the main usability issues that make the current design difficult to use?</div>
                   </div>
                   <div className="cs-card">
                     <div className="cs-label">Prioritization</div>
@@ -222,7 +222,7 @@ export default function SitesRedesign() {
                       resetting every configuration from scratch.
                     </li>
                     <li>
-                      A customers highlighted the importance of naming convensions and they had to
+                      Customers highlighted the importance of naming convensions and they had to
                       iterate multiple times.
                     </li>
                   </ul>

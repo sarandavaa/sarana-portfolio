@@ -2,8 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import "./Footer.css";
 
-const RESUME_HREF =
-  "https://docs.google.com/document/d/1b0CAbHsg6YJwmnFgzCj_SvGTTkOfNpmL/edit?usp=sharing&ouid=110912305056131051486&rtpof=true&sd=true";
+const RESUME_HREF = "https://claude.ai/artifact/FMvoMiTD9wcwjcC1XHNvEQ";
 const LINKEDIN_HREF = "https://www.linkedin.com/in/saranadavaa";
 
 export default function Footer() {

@@ -104,7 +104,7 @@ export default function Nav({
             )}
           </div>
           <a
-            href="https://drive.google.com/file/d/1T0FjDMYIHH_evDWFrttcddN5CTYt0ZAc/view?usp=sharing"
+            href="https://claude.ai/artifact/FMvoMiTD9wcwjcC1XHNvEQ"
             target="_blank"
             rel="noreferrer"
             className="nav-link"

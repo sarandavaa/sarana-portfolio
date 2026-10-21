@@ -7,10 +7,10 @@ import "./case-study.css";
 export default function CaseStudyShell({ children }: { children: ReactNode }) {
   return (
     <>
-      <FlowField />
+      <FlowField paper="#000000" ink="#f3f1e9" />
       <div className="ambient-wrap">
         <div className="case-study">
-          <Nav current="sub" variant="light" />
+          <Nav current="sub" />
           {children}
           <Footer />
         </div>

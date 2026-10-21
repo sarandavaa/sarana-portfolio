@@ -67,6 +67,7 @@
   max-width: 38ch;
   line-height: 1.6;
   margin: 0 0 32px;
+  white-space: pre-line;
 }
 
 .project-row__meta {

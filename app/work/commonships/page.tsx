@@ -3,8 +3,8 @@ import CaseStudyShell from "@/components/case-study/CaseStudyShell";
 import CaseStudyTabs from "@/components/case-study/CaseStudyTabs";
 
 export const metadata: Metadata = {
-  title: "Commonships — Sarana Davaa",
-  description: "Commonships",
+  title: "CommonShips — Sarana Davaa",
+  description: "CommonShips",
 };
 
 const tabs = [
@@ -24,7 +24,7 @@ export default function Commonships() {
         <div className="hero-container">
           <div className="hero-info-box">
             <div className="project-type">Case Study — 02</div>
-            <h1 className="hero-h1">Commonships</h1>
+            <h1 className="hero-h1">CommonShips</h1>
             <p className="body-copy-light" style={{ textAlign: "center", margin: "0 auto" }}>
               SF Dharma Collective &amp; Berkeley Alembic — Volunteer Coordination Platform
             </p>
@@ -47,7 +47,7 @@ export default function Commonships() {
           </div>
           <div className="hero-before-after">
             <div className="cs-placeholder cs-placeholder--hero">
-              Image placeholder — product screenshot of Commonships
+              Image placeholder — product screenshot of CommonShips
             </div>
           </div>
         </div>
@@ -63,10 +63,13 @@ export default function Commonships() {
               <div className="cs-content">
                 <h2 className="cs-h2">Overview</h2>
                 <p className="cs-body">
-                  Commonships is a volunteer coordination platform for community-focused
-                  organizations. It&rsquo;s intended to make it clear and easy to contribute to a
-                  community, and to be the system coordinators can rely on &mdash; replacing
-                  manual spreadsheets, email threads, and text chains with automated coordination.
+                  CommonShips is a volunteer coordination platform for community-focused
+                  organizations.
+                  <br></br>
+                  <br></br>
+                  It&rsquo;s intended to make it clear and easy to contribute to a community, and
+                  to be the system coordinators can rely on &mdash; replacing manual spreadsheets,
+                  email threads, and text chains with automated coordination.
                 </p>
 
                 <div className="cs-card-grid">
@@ -361,7 +364,7 @@ export default function Commonships() {
                   </tbody>
                 </table>
                 <p className="cs-body">
-                  Commonships will launch with SF Dharma Collective first. Results will be
+                  CommonShips will launch with SF Dharma Collective first. Results will be
                   incorporated into this case study following an initial four-week deployment
                   period.
                 </p>
@@ -389,7 +392,7 @@ export default function Commonships() {
                     <span>
                       <strong>Existing informal behavior is a stronger design input than a
                       blank-slate solution.</strong>{" "}The most effective backfill mechanism
-                      already existed as an ad hoc group text between regulars; Commonships
+                      already existed as an ad hoc group text between regulars; CommonShips
                       formalizes and extends that pattern rather than replacing it.
                     </span>
                   </li>

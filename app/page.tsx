@@ -23,10 +23,10 @@ const projects = [
   },
   {
     type: "Product Design & Engineering",
-    title: "Commonships",
+    title: "CommonShips",
     company: "SF Dharma Collective & Berkeley Alembic",
     description:
-      "Commonships is a volunteer coordination platform for community-focused organizations. It's intended to make it clear and easy to contribute to a community, and to be the system coordinators can rely on — replacing manual spreadsheets, email threads, and text chains with automated coordination.",
+      "CommonShips is a volunteer coordination platform for community-focused organizations.\n\nIt's intended to make it clear and easy to contribute to a community, and to be the system coordinators can rely on — replacing manual spreadsheets, email threads, and text chains with automated coordination.",
     phone: false,
     href: "/work/commonships",
     cta: "View project",

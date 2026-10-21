@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import "./Footer.css";
 
@@ -13,13 +12,6 @@ export default function Footer() {
       <div className="site-footer__inner">
         <div className="site-footer__brand">
           <Link href="/" className="site-footer__logo">
-            <Image
-              src="/images/sarana_spiral_logo.png"
-              alt=""
-              width={44}
-              height={44}
-              className="site-footer__logo-mark"
-            />
             Sarana Davaa
           </Link>
           <p className="site-footer__tagline">Product Designer, San Francisco</p>

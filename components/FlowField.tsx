@@ -42,7 +42,17 @@ function hexToRgb(hex: string, fallback: RGB): RGB {
   return [(int >> 16) & 255, (int >> 8) & 255, int & 255];
 }
 
-export default function FlowField() {
+export default function FlowField({
+  paper,
+  ink,
+}: {
+  /** Override the background wash / cursor-ink colors instead of reading
+   *  --paper/--ink off :root — lets one page (e.g. a dark home page) run a
+   *  different palette without changing the shared global tokens that the
+   *  case-study pages still rely on. */
+  paper?: string;
+  ink?: string;
+}) {
   const flowRef = useRef<HTMLCanvasElement>(null);
   const cursorRef = useRef<HTMLCanvasElement>(null);
 
@@ -55,8 +65,8 @@ export default function FlowField() {
     if (!ctx || !cctx) return;
 
     const rootStyle = getComputedStyle(document.documentElement);
-    const paperColor = rootStyle.getPropertyValue("--paper").trim() || "#eef1f5";
-    const inkRgb = hexToRgb(rootStyle.getPropertyValue("--ink"), [22, 23, 27]);
+    const paperColor = paper || rootStyle.getPropertyValue("--paper").trim() || "#eef1f5";
+    const inkRgb = hexToRgb(ink || rootStyle.getPropertyValue("--ink"), [22, 23, 27]);
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isTouch = window.matchMedia("(hover: none)").matches;
@@ -97,16 +107,23 @@ export default function FlowField() {
       [40, 170, 220],
       [38, 42, 165], // closes the loop for cyclic sampling
     ];
-    // Dedicated palette for the jelly creatures' trailing string — the
-    // classic 6-color LGBTQ pride flag rainbow.
+    // Dedicated palette for the jelly creatures' trailing string — a shade
+    // just lighter than the page background (not literally black: drawn
+    // with normal blending on a canvas that's already filled with that
+    // background color each frame, an exact match would be a no-op, same
+    // as it would be against black with "lighter" blending), so against
+    // this dark void they read as faint shadow-beings rather than light.
+    // JELLY_DIM scales every alpha used to draw them, independent of the
+    // cursor's own colorful trail (drawTrail, below) which stays untouched.
+    const JELLY_DIM = 0.22;
+    const jellyBaseRgb = hexToRgb(paperColor, [0, 0, 0]).map((c) => Math.min(255, c + 26)) as RGB;
     const JELLY_PALETTE: RGB[] = [
-      [228, 3, 3],
-      [255, 140, 0],
-      [255, 237, 0],
-      [0, 128, 38],
-      [0, 77, 255],
-      [115, 41, 130],
-      [228, 3, 3],
+      jellyBaseRgb,
+      jellyBaseRgb,
+      jellyBaseRgb,
+      jellyBaseRgb,
+      jellyBaseRgb,
+      jellyBaseRgb,
     ];
     function sampleColor(palette: RGB[], t: number): RGB {
       t = ((t % 1) + 1) % 1;
@@ -346,7 +363,8 @@ export default function FlowField() {
     document.addEventListener("mouseleave", onMouseLeave);
 
     function drawCursor() {
-      cctx!.clearRect(0, 0, W, H);
+      // cctx is cleared once per frame at the top of step() now, so the
+      // particle trails and jellies drawn earlier this frame aren't wiped.
       stepAndDrawFireworks();
       if (isTouch || !mouse.active) return;
 
@@ -374,29 +392,61 @@ export default function FlowField() {
       cctx!.arc(mouse.x, mouse.y, 11, 0, Math.PI * 2);
       cctx!.fillStyle = `rgba(${inkRgb[0]},${inkRgb[1]},${inkRgb[2]},0.95)`;
       cctx!.fill();
+      // Ink-colored fill reads fine on the light paper hero, but disappears
+      // on the dark "Selected Work" panels — a light ring keeps the cursor
+      // itself visible against either background.
+      cctx!.lineWidth = 1.5;
+      cctx!.strokeStyle = "rgba(255,255,255,0.85)";
+      cctx!.stroke();
     }
 
     const RADIUS = 200;
     let t = 0;
-    const white: RGB = [255, 255, 255];
+    // The color each particle trail rests at when the cursor is far away —
+    // a quiet grey a little lighter than the page background (not stark
+    // white), so it reads as faint ambient texture rather than a hard dot.
+    const baseRgb = hexToRgb(paperColor, [255, 255, 255]).map((c) => Math.min(255, c + 50)) as RGB;
+    // Below this, a trail is "far enough" from the cursor to go back to
+    // being quiet ambient texture rather than part of the cursor's own
+    // colorful interaction.
+    const NEAR_CURSOR = 0.12;
 
     function drawTrail(p: Particle, influence: number) {
-      const rr = Math.round(lerp(white[0], p.color[0], influence));
-      const gg = Math.round(lerp(white[1], p.color[1], influence));
-      const bb = Math.round(lerp(white[2], p.color[2], influence));
+      // Near the cursor (colorful), draw on cctx — the top layer (z-index
+      // 999) — so the interactive effect reads over every section,
+      // including the opaque dark "Selected Work" panels. Far from the
+      // cursor (the quiet base-color state), draw on ctx — the background
+      // layer (z-index 0) that sits *behind* all page content — so the
+      // ambient texture stays out of the way of images and text instead of
+      // floating distractingly on top of them, and only shows where a
+      // section is actually open/transparent (like the hero).
+      const onTop = influence > NEAR_CURSOR;
+      const target = onTop ? cctx! : ctx!;
+      const rr = Math.round(lerp(baseRgb[0], p.color[0], influence));
+      const gg = Math.round(lerp(baseRgb[1], p.color[1], influence));
+      const bb = Math.round(lerp(baseRgb[2], p.color[2], influence));
       const trail = p.trail;
+      target.save();
+      // "lighter" (additive) is what makes the colorful cursor-proximity
+      // blend glow on top of arbitrary content. The background layer
+      // doesn't need that — it's drawn fresh over its own known fill each
+      // frame, so normal blending is both correct and (for the near-black
+      // base color) actually necessary, since additive blending of a dark
+      // color is a no-op.
+      if (onTop) target.globalCompositeOperation = "lighter";
       for (let k = 1; k < trail.length; k++) {
         const a0 = trail[k - 1];
         const a1 = trail[k];
         const frac = k / (trail.length - 1);
         const alpha = frac * (0.75 + influence * 0.4);
-        ctx!.strokeStyle = `rgba(${rr},${gg},${bb},${alpha.toFixed(3)})`;
-        ctx!.lineWidth = 1.6 + influence * 1.2;
-        ctx!.beginPath();
-        ctx!.moveTo(a0.x, a0.y);
-        ctx!.lineTo(a1.x, a1.y);
-        ctx!.stroke();
+        target.strokeStyle = `rgba(${rr},${gg},${bb},${alpha.toFixed(3)})`;
+        target.lineWidth = 1.6 + influence * 1.2;
+        target.beginPath();
+        target.moveTo(a0.x, a0.y);
+        target.lineTo(a1.x, a1.y);
+        target.stroke();
       }
+      target.restore();
     }
 
     // Bulb-headed creatures — jellyfish/octopus hybrids — that drift in the
@@ -475,6 +525,10 @@ export default function FlowField() {
     }
 
     function drawJelly(jelly: Jelly, nowT: number) {
+      // Drawn on the background canvas (ctx), same as drawTrail's base
+      // state — these are quiet ambient texture, not part of the cursor's
+      // own interaction, so they stay behind page content (hidden by the
+      // opaque dark "Selected Work" panels) and only show in open space.
       const x = jelly.x;
       const y = jelly.y + Math.sin(nowT * 1.2 + jelly.phase) * 16;
 
@@ -487,7 +541,9 @@ export default function FlowField() {
       // A single string streaming off it as it drifts, cycling through the
       // rainbow palette along its length. How "comet" vs. how "colorful" it
       // looks depends on its current speed: slow drift shows real saturated
-      // color; a fast dart washes all the way to pure white.
+      // color; a fast dart washes all the way to pure white. JELLY_DIM keeps
+      // the whole creature barely-there — ambient texture, not a second
+      // focal point competing with the cursor's own colorful interaction.
       const cometFactor = smoothstep(1, 9, jelly.speed);
       ctx!.save();
       const STRAND_COUNT = 1;
@@ -510,14 +566,14 @@ export default function FlowField() {
           ctx!.lineTo(a1.x + wob1, a1.y);
 
           ctx!.strokeStyle = `rgba(${glowCol[0].toFixed(0)},${glowCol[1].toFixed(0)},${glowCol[2].toFixed(0)},${(
-            frac * lerp(0.4, 0.6, cometFactor)
+            frac * lerp(0.4, 0.6, cometFactor) * JELLY_DIM
           ).toFixed(3)})`;
           ctx!.lineWidth = lerp(2.5, 6, cometFactor) + frac * lerp(2, 5, cometFactor);
           ctx!.lineCap = "round";
           ctx!.stroke();
 
           ctx!.strokeStyle = `rgba(${coreCol[0].toFixed(0)},${coreCol[1].toFixed(0)},${coreCol[2].toFixed(0)},${(
-            frac * 0.85
+            frac * 0.85 * JELLY_DIM
           ).toFixed(3)})`;
           ctx!.lineWidth = 1 + frac * 1.2;
           ctx!.stroke();
@@ -525,13 +581,14 @@ export default function FlowField() {
       }
       ctx!.restore();
 
-      // the being itself — a soft, subtle point of light, not a solid figure
+      // the being itself — a soft, subtle point of shadow, not a solid figure
       const haloR = 24;
       const pulse = 0.85 + Math.sin(nowT * 1.8 + jelly.phase) * 0.15;
+      const [hr, hg, hb] = jellyBaseRgb;
       const grad = ctx!.createRadialGradient(x, y, 0, x, y, haloR * pulse);
-      grad.addColorStop(0, "rgba(255,252,240,0.9)");
-      grad.addColorStop(0.5, "rgba(255,252,240,0.28)");
-      grad.addColorStop(1, "rgba(255,252,240,0)");
+      grad.addColorStop(0, `rgba(${hr},${hg},${hb},${(0.9 * JELLY_DIM).toFixed(3)})`);
+      grad.addColorStop(0.5, `rgba(${hr},${hg},${hb},${(0.28 * JELLY_DIM).toFixed(3)})`);
+      grad.addColorStop(1, `rgba(${hr},${hg},${hb},0)`);
       ctx!.fillStyle = grad;
       ctx!.beginPath();
       ctx!.arc(x, y, haloR * pulse, 0, Math.PI * 2);
@@ -539,7 +596,7 @@ export default function FlowField() {
 
       ctx!.beginPath();
       ctx!.arc(x, y, 3.5, 0, Math.PI * 2);
-      ctx!.fillStyle = "rgba(255,255,250,0.95)";
+      ctx!.fillStyle = `rgba(${hr},${hg},${hb},${(0.95 * JELLY_DIM).toFixed(3)})`;
       ctx!.fill();
     }
 
@@ -607,6 +664,7 @@ export default function FlowField() {
       t += 0.0016;
       ctx!.fillStyle = paperColor;
       ctx!.fillRect(0, 0, W, H);
+      cctx!.clearRect(0, 0, W, H);
 
       const n = particles.length;
       for (let i = 0; i < n; i++) {

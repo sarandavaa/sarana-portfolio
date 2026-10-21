@@ -2,11 +2,44 @@
    replacing the old Webflow export. Shares the paper/ink/accent tokens
    and fonts from theme.css. Both pages are built from the shared
    components in components/case-study/ (Shell, Tabs) plus the editorial
-   `cs-*` layout below. */
+   `cs-*` layout below.
+
+   Dark theme: CaseStudyShell points FlowField at a black paper/ink pair
+   (matching the home page) so these pages read as a continuation of it
+   rather than a jump back to light. Everything below uses these on-black
+   tokens instead of the shared --ink/--ink-muted/--accent (which stay as
+   they are — nothing else on the site reads them off .case-study). */
+.case-study {
+  --on-black: #f3f1e9;
+  --on-black-muted: #8d8b82;
+  --accent-light: #7c87ff;
+}
 
 .case-study,
 .project-hero {
   background: transparent;
+}
+
+/* Footer is rendered inside .case-study (see CaseStudyShell) and defaults
+   to --ink/--ink-muted with a transparent background (so the canvas shows
+   through) — override here rather than in Footer.css, which stays
+   untouched since nothing else on the site needs it dark. */
+.case-study .site-footer {
+  border-top-color: rgba(243, 241, 233, 0.15);
+}
+
+.case-study .site-footer__logo,
+.case-study .site-footer__bottom {
+  color: var(--on-black);
+}
+
+.case-study .site-footer__tagline,
+.case-study .site-footer__link {
+  color: var(--on-black-muted);
+}
+
+.case-study .site-footer__link:hover {
+  color: var(--accent-light);
 }
 
 .case-study img {
@@ -43,7 +76,7 @@
 
 .hero-h1 {
   font-family: var(--font-display);
-  color: var(--ink);
+  color: var(--on-black);
   font-weight: 700;
   font-size: 64px;
   line-height: 80px;
@@ -72,17 +105,17 @@
 
 .body-copy-light {
   font-family: var(--font-body);
-  color: var(--ink-muted);
+  color: var(--on-black-muted);
   max-width: 600px;
 }
 
 .body-copy-light strong {
-  color: var(--ink);
+  color: var(--on-black);
 }
 
 .project-type {
   font-family: var(--font-body);
-  color: var(--ink-muted);
+  color: var(--on-black-muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: 14px;
@@ -91,8 +124,9 @@
 /* ---- editorial case-study layout (Sites Redesign, Security Alert) ----
    A denser, narrower-measure system modeled on the case-study artifact
    mockup's grid: a marginal numeral column beside a fixed-measure
-   content column. Uses the same color/font tokens as the rest of the
-   site (var(--ink), var(--accent), var(--font-display), var(--font-body)). */
+   content column. Uses the on-black/accent-light tokens defined above
+   (var(--font-display), var(--font-body) still come straight from
+   theme.css — only color changes on this dark page). */
 
 .cs-section {
   max-width: 960px;
@@ -159,7 +193,7 @@
   font-size: 24px;
   line-height: 1;
   padding-top: 8px;
-  color: var(--accent);
+  color: var(--accent-light);
 }
 
 .cs-content {
@@ -175,7 +209,7 @@
   font-size: 40px;
   line-height: 1.15;
   letter-spacing: -0.01em;
-  color: var(--ink);
+  color: var(--on-black);
   margin: 0;
 }
 
@@ -183,7 +217,7 @@
   font-family: var(--font-body);
   font-weight: 600;
   font-size: 18px;
-  color: var(--ink);
+  color: var(--on-black);
   margin: 0 0 8px;
 }
 
@@ -191,7 +225,7 @@
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 20px;
-  color: var(--ink);
+  color: var(--on-black);
   margin: 16px 0 0;
 }
 
@@ -199,12 +233,12 @@
   font-family: var(--font-body);
   font-size: 18px;
   line-height: 1.7;
-  color: var(--ink-muted);
+  color: var(--on-black-muted);
   margin: 0;
 }
 
 .cs-body strong {
-  color: var(--ink);
+  color: var(--on-black);
 }
 
 .cs-label {
@@ -212,7 +246,7 @@
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-light);
   font-weight: 600;
   margin-bottom: 8px;
 }
@@ -227,11 +261,11 @@
   font-family: var(--font-body);
   font-size: 18px;
   line-height: 1.7;
-  color: var(--ink-muted);
+  color: var(--on-black-muted);
 }
 
 .cs-list li strong {
-  color: var(--ink);
+  color: var(--on-black);
 }
 
 .cs-list-bulleted {
@@ -248,7 +282,8 @@
 }
 
 .cs-card {
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(243, 241, 233, 0.1);
   border-radius: 16px;
   padding: 20px;
 }
@@ -256,13 +291,14 @@
 .cs-card-desc {
   font-family: var(--font-body);
   font-size: 15px;
-  color: var(--ink-muted);
+  color: var(--on-black-muted);
 }
 
 /* ---- image frame (backdrop behind an inline case-study photo) ---- */
 
 .cs-image-frame {
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(243, 241, 233, 0.1);
   border-radius: 20px;
   padding: 24px;
 }
@@ -277,13 +313,14 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(243, 241, 233, 0.1);
   border-radius: 16px;
   padding: 24px;
 }
 
 .cs-highlight-block > .cs-body {
-  color: var(--ink);
+  color: var(--on-black);
 }
 
 .cs-highlight-block > .cs-list {
@@ -334,11 +371,11 @@
   font-family: var(--font-body);
   font-size: 18px;
   line-height: 1.7;
-  color: var(--ink-muted);
+  color: var(--on-black-muted);
 }
 
 .cs-check-mark {
-  color: var(--accent);
+  color: var(--accent-light);
   font-weight: 600;
 }
 
@@ -354,9 +391,9 @@
   min-height: 260px;
   box-sizing: border-box;
   border-radius: 16px;
-  border: 1.5px dashed var(--line);
-  background: rgba(255, 255, 255, 0.35);
-  color: var(--ink-muted);
+  border: 1.5px dashed rgba(243, 241, 233, 0.25);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--on-black-muted);
   font-family: var(--font-body);
   font-size: 13px;
   line-height: 1.5;
@@ -381,9 +418,9 @@
 .cs-table td {
   text-align: left;
   padding: 14px 16px 14px 0;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid rgba(243, 241, 233, 0.25);
   font-size: 15px;
-  color: var(--ink);
+  color: var(--on-black);
   vertical-align: top;
 }
 
@@ -391,7 +428,7 @@
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--ink-muted);
+  color: var(--on-black-muted);
   font-weight: 600;
 }
 
@@ -405,7 +442,7 @@
   max-width: 896px;
   margin: 0 auto;
   padding: 32px 32px 0;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid rgba(243, 241, 233, 0.25);
 }
 
 .hero-meta-item {
@@ -426,13 +463,13 @@
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--ink-muted);
+  color: var(--on-black-muted);
 }
 
 .hero-meta-value {
   font-family: var(--font-body);
   font-size: 15px;
-  color: var(--ink);
+  color: var(--on-black);
 }
 
 @media screen and (max-width: 600px) {

@@ -112,6 +112,24 @@
   border-radius: 18px;
 }
 
+.project-row__placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 600px;
+  min-height: 320px;
+  box-sizing: border-box;
+  border-radius: 18px;
+  border: 1.5px dashed var(--line);
+  background: rgba(255, 255, 255, 0.35);
+  color: var(--ink-muted);
+  font-family: var(--font-body);
+  font-size: 13px;
+  text-align: center;
+  padding: 24px;
+}
+
 .project-row.is-disabled {
   cursor: default;
 }

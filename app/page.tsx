@@ -21,6 +21,16 @@ const projects = [
     href: "/work/sites-redesign",
     cta: "View project",
   },
+  {
+    type: "Product Design & Engineering",
+    title: "Commonships",
+    company: "SF Dharma Collective & Berkeley Alembic",
+    description:
+      "A volunteer coordination platform with single-step sign-up and automated backfill, replacing manual spreadsheets and phone trees.",
+    phone: false,
+    href: "/work/commonships",
+    cta: "View project",
+  },
 ] as const;
 
 function FadeInProjectRow({ project, index }: { project: (typeof projects)[number]; index: number }) {

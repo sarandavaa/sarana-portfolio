@@ -8,9 +8,9 @@ export type Project = {
   title: string;
   company: string;
   description: string;
-  image: string;
-  width: number;
-  height: number;
+  image?: string;
+  width?: number;
+  height?: number;
   phone: boolean;
   href?: string;
   cta: string;
@@ -49,15 +49,21 @@ export default function ProjectRow({
         </div>
       </div>
       <div className={project.phone ? "project-row__visual is-phone" : "project-row__visual"}>
-        <Image
-          src={project.image}
-          alt=""
-          width={project.width}
-          height={project.height}
-          sizes="(max-width: 900px) 100vw, 600px"
-          unoptimized={project.image.endsWith(".gif")}
-          style={{ maxWidth: Math.min(project.width, 600) }}
-        />
+        {project.image && project.width && project.height ? (
+          <Image
+            src={project.image}
+            alt=""
+            width={project.width}
+            height={project.height}
+            sizes="(max-width: 900px) 100vw, 600px"
+            unoptimized={project.image.endsWith(".gif")}
+            style={{ maxWidth: Math.min(project.width, 600) }}
+          />
+        ) : (
+          <div className="project-row__placeholder">
+            Image placeholder — {project.title}
+          </div>
+        )}
       </div>
     </>
   );

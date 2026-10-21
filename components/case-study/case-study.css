@@ -342,6 +342,59 @@
   font-weight: 600;
 }
 
+/* ---- placeholder (stand-in for an image not shot/exported yet) ---- */
+
+.cs-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 260px;
+  box-sizing: border-box;
+  border-radius: 16px;
+  border: 1.5px dashed var(--line);
+  background: rgba(255, 255, 255, 0.35);
+  color: var(--ink-muted);
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: center;
+  padding: 24px;
+}
+
+.cs-placeholder--hero {
+  min-height: 340px;
+  border-radius: 20px;
+}
+
+/* ---- data table (measures / metrics) ---- */
+
+.cs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-body);
+}
+
+.cs-table th,
+.cs-table td {
+  text-align: left;
+  padding: 14px 16px 14px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 15px;
+  color: var(--ink);
+  vertical-align: top;
+}
+
+.cs-table th {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  font-weight: 600;
+}
+
 /* ---- hero meta row (role / timeline / skills) ---- */
 
 .hero-meta-row {

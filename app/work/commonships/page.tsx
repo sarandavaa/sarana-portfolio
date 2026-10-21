@@ -31,14 +31,6 @@ export default function Commonships() {
           </div>
           <div className="hero-meta-row">
             <div className="hero-meta-item">
-              <div className="hero-meta-label">Role</div>
-              <div className="hero-meta-value">Product Designer &amp; Developer (solo)</div>
-            </div>
-            <div className="hero-meta-item">
-              <div className="hero-meta-label">Timeline</div>
-              <div className="hero-meta-value">2026, ongoing</div>
-            </div>
-            <div className="hero-meta-item">
               <div className="hero-meta-label">Skills</div>
               <div className="hero-meta-value">
                 Research, Product Strategy, UX/UI Design, Full-Stack Development
@@ -75,16 +67,12 @@ export default function Commonships() {
                 <div className="cs-card-grid">
                   <div className="cs-card">
                     <div className="cs-label">Role</div>
-                    <div className="cs-card-desc">
-                      Product designer and developer (solo); concurrent volunteer at SF Dharma
-                      Collective
-                    </div>
+                    <div className="cs-card-desc">Product designer and developer</div>
                   </div>
                   <div className="cs-card">
                     <div className="cs-label">Scope</div>
                     <div className="cs-card-desc">
-                      Research, product strategy, UX and UI design, front-end and back-end
-                      development
+                      Research, product strategy, UX and UI design, develop
                     </div>
                   </div>
                   <div className="cs-card">
@@ -116,7 +104,7 @@ export default function Commonships() {
                   Both organizations are seeing growth in community interest, but not in the
                   number of active volunteers. As a result, a small subset of volunteers absorbs a
                   disproportionate share of the workload, and coordinators absorb whatever is
-                  left &mdash; a pattern that leads directly to coordinator burnout.
+                  left. It&rsquo;s a pattern that leads to coordinator burnout.
                 </p>
                 <p className="cs-body">
                   A review of both organizations&rsquo; sign-up records, combined with first-hand
@@ -148,10 +136,12 @@ export default function Commonships() {
                 </p>
 
                 <p className="cs-body">
-                  The constraint was never volunteer interest &mdash; it was coordinator capacity:
-                  onboarding and training new volunteers, identifying who to contact, and, most
-                  critically, sourcing a last-minute replacement or absorbing the role themselves
-                  when no one else was available.
+                  <strong>
+                    The problem was never lack of volunteer interest, it was coordinator capacity
+                  </strong>
+                  : onboarding and training new volunteers, identifying who to contact, and, most
+                  critically, sourcing a last-minute replacement role themselves when no one else
+                  was available.
                 </p>
               </div>
             </div>
@@ -177,7 +167,7 @@ export default function Commonships() {
                 <h3 className="cs-h3-serif">Design Principles</h3>
                 <ul className="cs-list cs-list-bulleted">
                   <li>Sign-up is simple and unambiguous</li>
-                  <li>Withdrawing a commitment carries no social cost</li>
+                  <li>Withdrawing a commitment carries no guilt cost</li>
                   <li>Coverage can be picked up easily by someone else</li>
                   <li>Coordinators can trust the system to manage the process</li>
                 </ul>
@@ -202,16 +192,8 @@ export default function Commonships() {
                   <div>
                     <h3 className="cs-h3">1. Private, Invitation-Based Workspaces</h3>
                     <p className="cs-card-desc">
-                      Each organization operates within a private workspace, comparable to a
-                      dedicated Slack instance. Coordinators import existing volunteer contact
-                      lists; volunteers join with a single click and no password required.
-                    </p>
-                    <div className="cs-label" style={{ marginTop: 12 }}>
-                      Rationale
-                    </div>
-                    <p className="cs-card-desc">
-                      Onboarding should not require searching through historical email threads to
-                      locate a sign-up link.
+                      Each organization gets a private, invite-only workspace. Coordinators import
+                      existing contact lists; volunteers join with a single click.
                     </p>
                   </div>
                 </div>
@@ -225,43 +207,8 @@ export default function Commonships() {
                       2. Single-Tap Sign-Up with Minimal Onboarding
                     </h3>
                     <p className="cs-card-desc">
-                      Onboarding collects only two data points: role preference and general
+                      Onboarding requires only two data points: role preference and general
                       availability.
-                    </p>
-                    <div className="cs-label" style={{ marginTop: 12 }}>
-                      Rationale
-                    </div>
-                    <p className="cs-card-desc">
-                      Each additional onboarding question reduces conversion. These two inputs are
-                      sufficient for the system to surface the right volunteers later.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="cs-option">
-                  <div className="cs-placeholder" style={{ minHeight: 160 }}>
-                    Screenshot placeholder — coordinator outreach email
-                  </div>
-                  <div>
-                    <h3 className="cs-h3">
-                      3. Coordinator-Directed Outreach for Open Shifts
-                    </h3>
-                    <p className="cs-card-desc">
-                      When a shift opens &mdash; whether from a cancellation or an unstaffed new
-                      event &mdash; the coordinator receives a single email identifying likely
-                      candidates, based on role history or stated availability, with a one-click
-                      &ldquo;Ask&rdquo; action. The first volunteer to respond is confirmed, and
-                      all parties are notified automatically.
-                    </p>
-                    <div className="cs-label" style={{ marginTop: 12 }}>
-                      Rationale
-                    </div>
-                    <p className="cs-card-desc">
-                      This formalizes a process regulars already manage informally, and extends it
-                      to the full volunteer base. Not every open shift requires outreach, so the
-                      system surfaces candidates while leaving the decision to the coordinator.
-                      Because historical sign-up data is imported at setup, recommendations are
-                      accurate from launch.
                     </p>
                   </div>
                 </div>
@@ -271,19 +218,10 @@ export default function Commonships() {
                     Screenshot placeholder — notification preferences &amp; opt-out
                   </div>
                   <div>
-                    <h3 className="cs-h3">4. Notification Discipline by Design</h3>
+                    <h3 className="cs-h3">3. Notification Discipline by Design</h3>
                     <p className="cs-card-desc">
-                      The system issues a single reminder per commitment, asks each volunteer
-                      about a given open shift no more than once, and treats non-response as a
-                      neutral outcome. Every outreach includes a one-click opt-out for that
-                      specific request.
-                    </p>
-                    <div className="cs-label" style={{ marginTop: 12 }}>
-                      Rationale
-                    </div>
-                    <p className="cs-card-desc">
-                      Volunteers who feel pressured for declining a request are less likely to
-                      sign up again.
+                      One reminder per commitment. Each volunteer is asked about a given shift
+                      once. Every ask includes a one-click opt-out.
                     </p>
                   </div>
                 </div>
@@ -297,32 +235,21 @@ export default function Commonships() {
               <div className="cs-content">
                 <h2 className="cs-h2">Scope &amp; Constraints</h2>
                 <p className="cs-body">
-                  To validate the core workflow quickly, the initial release is scoped to what one
-                  organization needs to operate without a spreadsheet for one month. The following
-                  were designed but deferred to a later release:
+                  To validate the core workflow quickly, the initial release is scoped to what SF
+                  Dharma Collective alone needs to replace its spreadsheet for one month.
+                  Everything else was designed, then deliberately held back:
                 </p>
                 <ul className="cs-list cs-list-bulleted">
-                  <li>Role-specific training and approval workflows</li>
                   <li>Notification preferences and a paused status for inactive volunteers</li>
-                  <li>Organization-wide announcement emails</li>
+                  <li>Announcements and reach outs</li>
                   <li>SMS notifications</li>
-                  <li>Berkeley Alembic&rsquo;s onboarding</li>
+                  <li>Role-specific training and approval workflows</li>
+                  <li>
+                    <strong>A second organization.</strong> Hold off Berkeley Alembic&rsquo;s
+                    onboarding, proving the workflow for one community first keeps the initial
+                    release small enough to ship and learn quickly.
+                  </li>
                 </ul>
-
-                <h3 className="cs-h3-serif">Initial Design Direction (Discarded)</h3>
-                <div className="cs-image-frame">
-                  <div className="cs-placeholder">
-                    Image placeholder — early browse-card design direction (discarded)
-                  </div>
-                </div>
-                <p className="cs-body">
-                  An earlier iteration redesigned the volunteer home screen around a browsable,
-                  Luma-inspired event-card layout. While visually polished, it was designed for
-                  the wrong user: recurring volunteers already know their slot and have no need to
-                  browse, while the volunteers who do need visibility &mdash; newcomers and
-                  occasional contributors &mdash; needed a list of open shifts, not an event
-                  gallery.
-                </p>
               </div>
             </div>
           </section>
@@ -332,6 +259,9 @@ export default function Commonships() {
               <div className="cs-index">06</div>
               <div className="cs-content">
                 <h2 className="cs-h2">Success Metrics</h2>
+                <div className="cs-label" style={{ marginBottom: 12 }}>
+                  KPIs
+                </div>
                 <table className="cs-table">
                   <thead>
                     <tr>
@@ -352,7 +282,7 @@ export default function Commonships() {
                       <td>Decrease</td>
                     </tr>
                     <tr>
-                      <td>Share of shifts held by the coordinator</td>
+                      <td>Share of shifts held by the coordinators</td>
                       <td>~33%</td>
                       <td>Decrease</td>
                     </tr>
@@ -363,11 +293,6 @@ export default function Commonships() {
                     </tr>
                   </tbody>
                 </table>
-                <p className="cs-body">
-                  CommonShips will launch with SF Dharma Collective first. Results will be
-                  incorporated into this case study following an initial four-week deployment
-                  period.
-                </p>
               </div>
             </div>
           </section>
@@ -383,8 +308,8 @@ export default function Commonships() {
                     <span>
                       <strong>Coordinator capacity, not volunteer interest, was the binding
                       constraint.</strong>{" "}Designing around the coordinator&rsquo;s available
-                      time, rather than optimizing for sign-up volume, informed every subsequent
-                      decision.
+                      time and to lessen their manual work, rather than optimizing for sign-up
+                      volume, informed every subsequent decision.
                     </span>
                   </li>
                   <li className="cs-check-item">

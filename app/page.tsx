@@ -6,6 +6,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import FlowField from "@/components/FlowField";
 import { useFadeIn } from "@/components/FadeIn";
+import type { Project } from "@/components/ProjectRow";
 import "./home.css";
 
 const projects = [
@@ -38,13 +39,18 @@ const projects = [
 // section: each project locks in place (position: sticky) for a stretch of
 // scroll, then hands off to the next. Lives only on the home page — the
 // shared ProjectRow/ProjectRow.css (used here before, and still used by
-// every case study's "Next Project" card) is intentionally untouched.
+// every case study's "Next Project" card) is intentionally untouched (this
+// only imports its `Project` type, which has zero runtime footprint).
+// `Project` here, not `(typeof projects)[number]`: every current entry's
+// `href` happens to be a non-empty literal, so the stricter as-const type
+// makes TypeScript narrow the `!project.href` branch below to `never` —
+// Project's `href?: string` keeps that branch legitimately reachable.
 function WorkStep({
   project,
   index,
   total,
 }: {
-  project: (typeof projects)[number];
+  project: Project;
   index: number;
   total: number;
 }) {

@@ -26,7 +26,7 @@ const projects = [
     title: "Commonships",
     company: "SF Dharma Collective & Berkeley Alembic",
     description:
-      "A volunteer coordination platform with single-step sign-up and automated backfill, replacing manual spreadsheets and phone trees.",
+      "Commonships is a volunteer coordination platform for community-focused organizations. It's intended to make it clear and easy to contribute to a community, and to be the system coordinators can rely on — replacing manual spreadsheets, email threads, and text chains with automated coordination.",
     phone: false,
     href: "/work/commonships",
     cta: "View project",

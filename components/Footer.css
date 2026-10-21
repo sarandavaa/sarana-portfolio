@@ -37,20 +37,6 @@
   text-decoration: none;
 }
 
-.site-footer__logo-mark {
-  width: 44px;
-  height: 44px;
-  flex-shrink: 0;
-}
-
-/* Case-study pages apply `.case-study img { flex: 1 }` globally (to make
-   bare screenshots fill their flex containers) which otherwise overrides
-   the width/height above and stretches the logo — reassert it here with
-   higher specificity so the footer logo stays 44x44 on every page. */
-.site-footer .site-footer__logo-mark {
-  flex: 0 0 44px;
-}
-
 .site-footer__tagline {
   font-family: var(--font-body);
   font-size: 14px;

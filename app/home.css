@@ -9,9 +9,12 @@
 /* Full-bleed wrapper: sits inside .ambient-wrap (z-index:1), which stacks
    above the flow-field canvas (z-index:0) — so this must stay transparent,
    or its own background paints over the canvas and hides the animation
-   entirely. The canvas already fills itself with --paper every frame, so
-   this still reads as a solid paper backdrop; it just comes from the canvas
-   now instead of from this div. */
+   entirely. app/page.tsx points FlowField at a dark paper/ink pair for this
+   page only (the shared --paper/--ink tokens stay untouched, since the
+   case-study pages still use the light theme), so the canvas now washes the
+   whole home page dark instead of just the "Selected Work" section — these
+   on-black tokens give every home-page surface (hero, work, footer) a
+   shared light-on-dark palette to read against it. */
 .home-page {
   min-height: 100vh;
   /* .body is `display:flex; align-items:center`, which shrink-wraps
@@ -19,20 +22,36 @@
      override that so this repaint covers the full viewport width. */
   align-self: stretch;
   width: 100%;
+
+  --on-black: #f3f1e9;
+  --on-black-muted: #8d8b82;
+  --accent-light: #7c87ff;
 }
 
 .home {
   font-family: var(--font-body);
-  color: var(--ink);
+  color: var(--on-black);
 }
 
-/* ---- hero ---- */
+/* ---- hero : full height, cloudstudio.es-inspired ---- */
 
 .home-hero {
+  /* 100vh alone double-counts the navbar, which sits above this in normal
+     flow (not sticky/overlaid) and is ~108px tall itself — so "100vh of
+     hero" plus the navbar was taller than one screen. Subtracting its
+     height here makes navbar + hero together fill exactly one viewport. */
+  position: relative;
+  min-height: calc(100vh - 108px);
+  min-height: calc(100svh - 108px);
+  display: flex;
+  align-items: center;
+}
+
+.home-hero__content {
+  width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  min-height: 70vh;
-  padding: 120px 40px 40px;
+  padding: var(--space-7) 40px;
 }
 
 .home-hero__eyebrow {
@@ -43,38 +62,102 @@
   font-size: 16px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--ink-muted);
+  color: var(--on-black-muted);
   margin: 0 0 28px;
 }
 
 .home-hero__headline {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(2.25rem, 1rem + 3.2vw, 3.75rem);
-  line-height: 1.2;
+  font-size: clamp(2.75rem, 1rem + 5.5vw, 5.5rem);
+  line-height: 1.03;
   letter-spacing: -0.015em;
-  color: var(--ink);
+  color: var(--on-black);
   margin: 0;
-  max-width: 24ch;
+  max-width: 20ch;
 }
 
 .home-hero__body {
   /* see .home-hero__eyebrow above re: the legacy `p` tag rule */
   font-family: var(--font-body);
   font-size: 18px;
-  color: var(--ink-muted);
+  color: var(--on-black-muted);
   max-width: 56ch;
   line-height: 1.65;
   margin: 24px 0 0;
 }
 
-/* ---- selected work ---- */
+.home-hero__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  margin-top: var(--space-7);
+  flex-wrap: wrap;
+}
+
+.home-cta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  color: #0e0e0c;
+  background: var(--on-black);
+  border-radius: 999px;
+  padding: 14px 24px;
+  text-decoration: none;
+  transition: background-color var(--dur-1) var(--ease-out), transform var(--dur-1) var(--ease-out);
+}
+
+.home-cta-pill:hover {
+  background: var(--accent-light);
+  transform: translateY(-1px);
+}
+
+.home-cta-ghost {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--on-black);
+  text-decoration: none;
+  border-bottom: 1px solid var(--on-black-muted);
+  padding-bottom: 2px;
+  transition: border-color var(--dur-1) var(--ease-out), color var(--dur-1) var(--ease-out);
+}
+
+.home-cta-ghost:hover {
+  color: var(--accent-light);
+  border-color: var(--accent-light);
+}
+
+/* ---- selected work : black, pinned 01/02 stepper ----
+   Full-bleed black section whose rounded top corners + negative margin pull
+   it up over the hero as you scroll (cloudstudio.es's "peel" effect). This
+   is homepage-only markup/CSS — distinct from the shared
+   components/ProjectRow.(tsx|css), which stays untouched so case-study
+   "Next Project" cards keep their current light styling. */
 
 .home-work {
+  position: relative;
+  background: #000000;
+
+  --panel-pink: #f6d2e4;
+  --panel-blue: #c7e3fb;
+}
+
+/* Keeps the navbar (components/Nav.css, pure #000 by default) matching
+   this page's black void instead of reading as a visibly different
+   black — scoped by :has() so Nav.css itself, and every case-study page
+   that reuses it, stays untouched. */
+.ambient-wrap:has(.home-page) .navbar {
+  background-color: #000000;
+}
+
+.home-work__inner {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 40px 40px 60px;
-  border-top: 1px solid var(--line);
+  padding: var(--space-10) 40px 0;
 }
 
 .home-work__label {
@@ -82,17 +165,305 @@
   font-weight: 700;
   font-size: 2.4rem;
   letter-spacing: -0.01em;
+  color: var(--on-black);
+  margin: 0 0 var(--space-9);
+}
+
+.work-steps {
+  display: flex;
+  flex-direction: column;
+}
+
+.work-step {
+  /* A step's "dwell" (how long it stays pinned) is its own height minus
+     the 100vh sticky panel — and that dwell has to be long enough to
+     fully contain the *next* step's entire rise (always exactly 100vh,
+     the viewport height, regardless of margin — see the margin comment
+     below) with room on both sides, or this step unsticks and starts
+     scrolling away mid-rise instead of staying put until fully covered. */
+  position: relative;
+  min-height: 240vh;
+}
+
+.work-step:last-child {
+  min-height: 100vh;
+}
+
+.work-step:not(:first-child) {
+  /* This has to be a large, viewport-relative overlap (not a cosmetic few
+     pixels) because of how position:sticky actually behaves: before a step
+     "catches" at top:0 it's still in normal flow, sliding up with scroll
+     like any content — and that rise always takes exactly 100vh of scroll
+     (the viewport height) to complete, no matter the margin.
+     This must be *exactly* -100vh (one step's own base height), not more:
+     a larger value (e.g. -110vh) leaves the previous step's own box
+     reaching 10vh past where this one ends — invisible for a step with
+     something after it to cover that excess, but for the *last* step,
+     nothing does, so the previous step's un-stuck fallback content peeks
+     out below this one, right before the footer. At exactly -100vh, this
+     step's box ends in exactly the same place the previous step's box
+     does, so there's no leftover to peek out. */
+  margin-top: -100vh;
+}
+
+.work-step__sticky {
+  position: sticky;
+  top: 0;
+  min-height: 100vh;
+  display: flex;
+}
+
+.work-step__panel {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-radius: 48px 48px 0 0;
+  padding: 64px 0;
+}
+
+.work-step__panel.is-pink {
+  background: var(--panel-pink);
+}
+
+.work-step__panel.is-blue {
+  background: var(--panel-blue);
+}
+
+/* Both panels are light again (not the earlier saturated #9c27b0/#03a9f4
+   pass), closer to the site's own light theme than to the black void — so
+   back to the dark-ink tokens the rest of the light theme already uses,
+   not the on-black tokens the hero/footer use against the black void. */
+.work-step__index {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--ink-muted);
+  margin-bottom: 28px;
+  letter-spacing: 0.04em;
+}
+
+.work-step__index .is-active {
   color: var(--ink);
-  margin: 0 0 20px;
+  font-weight: 600;
+}
+
+.work-step__index-line {
+  width: 28px;
+  height: 1px;
+  background: var(--ink-muted);
+}
+
+.work-step__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 64px;
+  align-items: center;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.work-step__type {
+  font-family: var(--font-body);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  margin-bottom: 22px;
+}
+
+.work-step__title {
+  font-family: var(--font-display);
+  font-size: 2.1rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0 0 14px;
+}
+
+.work-step__company {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--ink-muted);
+  margin: 0 0 28px;
+}
+
+.work-step__desc {
+  font-family: var(--font-body);
+  font-size: 17px;
+  color: var(--ink-muted);
+  max-width: 38ch;
+  line-height: 1.6;
+  margin: 0 0 32px;
+  white-space: pre-line;
+}
+
+.work-step__meta {
+  font-size: 15px;
+}
+
+.work-step__cta {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition: border-color var(--dur-1) var(--ease-out);
+}
+
+.work-step__cta:hover {
+  border-color: var(--accent);
+}
+
+.work-step__cta.is-disabled {
+  color: var(--ink-muted);
+  cursor: default;
+}
+
+.work-step__arrow {
+  display: inline-block;
+  transition: transform var(--dur-1) var(--ease-out);
+}
+
+.work-step__cta:hover .work-step__arrow {
+  transform: translateX(5px);
+}
+
+.work-step__visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.work-step__visual img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  box-shadow: 0 30px 70px rgba(58, 59, 66, 0.25);
+}
+
+.work-step__placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 320px;
+  box-sizing: border-box;
+  border-radius: 14px;
+  border: 1.5px dashed rgba(58, 59, 66, 0.25);
+  color: var(--ink-muted);
+  font-family: var(--font-body);
+  font-size: 13px;
+  text-align: center;
+  padding: 24px;
+}
+
+/* ---- contact ----
+   Sits in the same black void as the hero and the gaps around the work
+   panels — no background of its own needed, just continues it. */
+.home-contact {
+  position: relative;
+}
+
+.home-contact__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--space-10) 40px var(--space-11);
+}
+
+.home-contact__label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2.4rem;
+  letter-spacing: -0.01em;
+  color: var(--on-black);
+  margin: 0 0 var(--space-3);
+}
+
+.home-contact__sub {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--on-black-muted);
+  margin: 0 0 var(--space-7);
+}
+
+.home-contact__links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+  .work-step {
+    min-height: auto;
+  }
+
+  .work-step:not(:first-child) {
+    margin-top: -28px;
+  }
+
+  .work-step__sticky {
+    position: relative;
+    top: auto;
+    min-height: auto;
+  }
+
+  .work-step__panel {
+    border-radius: 28px 28px 0 0;
+    padding: 48px 0;
+  }
+
+  .work-step__grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
 }
 
 @media (max-width: 640px) {
+  .home-hero {
+    min-height: calc(100vh - 80px);
+    min-height: calc(100svh - 80px);
+  }
 
-  .home-hero,
-  .home-work {
+  .home-hero__content,
+  .home-work__inner,
+  .home-contact__inner {
     padding-left: 20px;
     padding-right: 20px;
   }
+}
+
+/* ---- footer, on this (dark) page only ----
+   components/Footer.tsx/css is shared with every case-study page and
+   defaults to the light --ink/--ink-muted tokens with a transparent
+   background (so the canvas shows through). Scoping by ancestor here keeps
+   Footer.tsx itself untouched — the case studies' own footer is unaffected. */
+.home-page .site-footer {
+  border-top-color: rgba(243, 241, 233, 0.15);
+}
+
+.home-page .site-footer__logo,
+.home-page .site-footer__bottom {
+  color: var(--on-black);
+}
+
+.home-page .site-footer__tagline,
+.home-page .site-footer__link {
+  color: var(--on-black-muted);
+}
+
+.home-page .site-footer__link:hover {
+  color: var(--accent-light);
 }
 
 /* Flow field background, custom cursor, jelly creatures: shared with the

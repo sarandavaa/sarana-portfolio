@@ -11,6 +11,7 @@ const tabs = [
   { id: "overview", label: "Overview" },
   { id: "problem", label: "Problem Statement" },
   { id: "objectives", label: "Objectives" },
+  { id: "principles", label: "Design Principles" },
   { id: "decisions", label: "Key Decisions" },
   { id: "scope", label: "Scope & Constraints" },
   { id: "metrics", label: "Success Metrics" },
@@ -63,34 +64,6 @@ export default function Commonships() {
                   to be the system coordinators can rely on &mdash; replacing manual spreadsheets,
                   email threads, and text chains with automated coordination.
                 </p>
-
-                <div className="cs-card-grid">
-                  <div className="cs-card">
-                    <div className="cs-label">Role</div>
-                    <div className="cs-card-desc">Product designer and developer</div>
-                  </div>
-                  <div className="cs-card">
-                    <div className="cs-label">Scope</div>
-                    <div className="cs-card-desc">
-                      Research, product strategy, UX and UI design, develop
-                    </div>
-                  </div>
-                  <div className="cs-card">
-                    <div className="cs-label">Pilots</div>
-                    <div className="cs-card-desc">
-                      SF Dharma Collective, a community-run meditation center; Berkeley Alembic, a
-                      community-focused spiritual learning center
-                    </div>
-                  </div>
-                  <div className="cs-card">
-                    <div className="cs-label">Timeline</div>
-                    <div className="cs-card-desc">2026, ongoing</div>
-                  </div>
-                  <div className="cs-card">
-                    <div className="cs-label">Status</div>
-                    <div className="cs-card-desc">MVP in deployment with SF Dharma Collective</div>
-                  </div>
-                </div>
               </div>
             </div>
           </section>
@@ -163,8 +136,15 @@ export default function Commonships() {
                     automatically when a volunteer cancels, without requiring manual follow-up.
                   </li>
                 </ul>
+              </div>
+            </div>
+          </section>
 
-                <h3 className="cs-h3-serif">Design Principles</h3>
+          <section id="principles" className="cs-section">
+            <div className="cs-row">
+              <div className="cs-index">04</div>
+              <div className="cs-content">
+                <h2 className="cs-h2">Design Principles</h2>
                 <ul className="cs-list cs-list-bulleted">
                   <li>Sign-up is simple and unambiguous</li>
                   <li>Withdrawing a commitment carries no guilt cost</li>
@@ -177,7 +157,7 @@ export default function Commonships() {
 
           <section id="decisions" className="cs-section">
             <div className="cs-row">
-              <div className="cs-index">04</div>
+              <div className="cs-index">05</div>
               <div className="cs-content">
                 <h2 className="cs-h2">Key Decisions</h2>
               </div>
@@ -231,7 +211,7 @@ export default function Commonships() {
 
           <section id="scope" className="cs-section">
             <div className="cs-row">
-              <div className="cs-index">05</div>
+              <div className="cs-index">06</div>
               <div className="cs-content">
                 <h2 className="cs-h2">Scope &amp; Constraints</h2>
                 <p className="cs-body">
@@ -256,7 +236,7 @@ export default function Commonships() {
 
           <section id="metrics" className="cs-section">
             <div className="cs-row">
-              <div className="cs-index">06</div>
+              <div className="cs-index">07</div>
               <div className="cs-content">
                 <h2 className="cs-h2">Success Metrics</h2>
                 <div className="cs-label" style={{ marginBottom: 12 }}>
@@ -299,7 +279,7 @@ export default function Commonships() {
 
           <section id="reflection" className="cs-section cs-section-end">
             <div className="cs-row">
-              <div className="cs-index">07</div>
+              <div className="cs-index">08</div>
               <div className="cs-content">
                 <h2 className="cs-h2">Reflection</h2>
                 <ul className="cs-check-list">

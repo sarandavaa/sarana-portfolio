@@ -346,7 +346,7 @@
 
 .cs-option {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 1fr;
   gap: 24px;
   align-items: start;
   border-radius: 16px;
@@ -502,8 +502,7 @@
     font-size: 28px;
   }
 
-  .cs-card-grid,
-  .cs-option {
+  .cs-card-grid {
     grid-template-columns: 1fr;
   }
 

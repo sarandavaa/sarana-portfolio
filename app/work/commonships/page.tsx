@@ -26,7 +26,7 @@ export default function Commonships() {
             <div className="project-type">Case Study — 02</div>
             <h1 className="hero-h1">CommonShips</h1>
             <p className="body-copy-light" style={{ textAlign: "center", margin: "0 auto" }}>
-              SF Dharma Collective &amp; Berkeley Alembic — Volunteer Coordination Platform
+              Volunteer Coordination Tool for Community-Focused Organizations
             </p>
           </div>
           <div className="hero-meta-row">

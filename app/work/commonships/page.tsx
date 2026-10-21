@@ -239,9 +239,6 @@ export default function Commonships() {
               <div className="cs-index">07</div>
               <div className="cs-content">
                 <h2 className="cs-h2">Success Metrics</h2>
-                <div className="cs-label" style={{ marginBottom: 12 }}>
-                  KPIs
-                </div>
                 <table className="cs-table">
                   <thead>
                     <tr>

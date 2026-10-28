@@ -11,7 +11,6 @@ const tabs = [
   { id: "overview", label: "Overview" },
   { id: "problem", label: "Problem Statement" },
   { id: "objectives", label: "Objectives" },
-  { id: "principles", label: "Design Principles" },
   { id: "decisions", label: "Key Decisions" },
   { id: "scope", label: "Scope & Constraints" },
   { id: "metrics", label: "Success Metrics" },
@@ -60,9 +59,9 @@ export default function Commonships() {
                   organizations.
                   <br></br>
                   <br></br>
-                  It&rsquo;s intended to make it clear and easy to contribute to a community, and
-                  to be the system coordinators can rely on &mdash; replacing manual spreadsheets,
-                  email threads, and text chains with automated coordination.
+                  It&rsquo;s intension is to make it clear and easy to contribute to a community,
+                  and to be the system coordinators can rely on. Current workflow involves manual
+                  spreadsheets, email threads, and text chains.
                 </p>
               </div>
             </div>
@@ -92,7 +91,7 @@ export default function Commonships() {
                   <li>
                     <strong>New and one-off events go unstaffed.</strong>{" "}These events have no
                     established volunteer base, and visibility is limited to whoever happens to
-                    locate the relevant sign-up sheet.
+                    come across the relevant sign-up sheet or open.
                   </li>
                 </ul>
 
@@ -112,9 +111,10 @@ export default function Commonships() {
                   <strong>
                     The problem was never lack of volunteer interest, it was coordinator capacity
                   </strong>
-                  : onboarding and training new volunteers, identifying who to contact, and, most
-                  critically, sourcing a last-minute replacement role themselves when no one else
-                  was available.
+                  : identifying who to contact, sourcing a last-minute replacement, covering
+                  shifts when no one else was available, and onboarding and training new
+                  volunteers. How may we reduce coordinator&rsquo;s attentional and manual
+                  workload and give them more time and space?
                 </p>
               </div>
             </div>
@@ -127,29 +127,23 @@ export default function Commonships() {
                 <h2 className="cs-h2">Objectives</h2>
                 <ul className="cs-list">
                   <li>
-                    <strong>Reduce the barrier to signing up for any volunteer</strong>
-                    &mdash;new, occasional, or recurring&mdash;to broaden participation beyond the
-                    current core group.
+                    <strong>Reduce the barrier to signing up for any volunteer</strong>: new,
+                    occasional, or recurring and broaden participation beyond the current core
+                    group.
                   </li>
                   <li>
-                    <strong>Provide a system coordinators can rely on</strong>{" "}to surface coverage
-                    automatically when a volunteer cancels, without requiring manual follow-up.
+                    <strong>Make it easy and guilt free to cancel</strong>: trust the system to
+                    notify relevant people and someone will pick it up.
                   </li>
-                </ul>
-              </div>
-            </div>
-          </section>
-
-          <section id="principles" className="cs-section">
-            <div className="cs-row">
-              <div className="cs-index">04</div>
-              <div className="cs-content">
-                <h2 className="cs-h2">Design Principles</h2>
-                <ul className="cs-list cs-list-bulleted">
-                  <li>Sign-up is simple and unambiguous</li>
-                  <li>Withdrawing a commitment carries no guilt cost</li>
-                  <li>Coverage can be picked up easily by someone else</li>
-                  <li>Coordinators can trust the system to manage the process</li>
+                  <li>
+                    <strong>Surface coverage automatically</strong>: when a volunteer cancels, the
+                    system will reach out to people that may be able to cover without requiring
+                    coordinator&rsquo;s manual follow-up.
+                  </li>
+                  <li>
+                    <strong>Provide a system coordinators can rely on:</strong> get
+                    coordinator&rsquo;s attention when there is coverage at risk.
+                  </li>
                 </ul>
               </div>
             </div>
@@ -157,7 +151,7 @@ export default function Commonships() {
 
           <section id="decisions" className="cs-section">
             <div className="cs-row">
-              <div className="cs-index">05</div>
+              <div className="cs-index">04</div>
               <div className="cs-content">
                 <h2 className="cs-h2">Key Decisions</h2>
               </div>
@@ -211,24 +205,38 @@ export default function Commonships() {
 
           <section id="scope" className="cs-section">
             <div className="cs-row">
-              <div className="cs-index">06</div>
+              <div className="cs-index">05</div>
               <div className="cs-content">
                 <h2 className="cs-h2">Scope &amp; Constraints</h2>
                 <p className="cs-body">
-                  To validate the core workflow quickly, the initial release is scoped to what SF
-                  Dharma Collective alone needs to replace its spreadsheet for one month.
-                  Everything else was designed, then deliberately held back:
+                  V1 &mdash; this release &mdash; answers two of the four objectives above:
+                  reducing the barrier to sign up (Decisions 1 and 2) and making cancellation
+                  guilt-free (Decision 3). It&rsquo;s scoped to what SF Dharma Collective alone
+                  needs to replace its spreadsheet for one month. The remaining two objectives,
+                  and the second organization named in the problem statement, are sequenced into
+                  later phases rather than cut:
+                </p>
+
+                <p className="cs-body">
+                  <strong>V2 &mdash; close the coverage loop.</strong> The two objectives V1
+                  doesn&rsquo;t yet deliver: surfacing coverage automatically, and getting
+                  coordinators&rsquo; attention when a shift is at risk.
                 </p>
                 <ul className="cs-list cs-list-bulleted">
+                  <li>Automated outreach to a wider volunteer pool when a shift goes unstaffed</li>
                   <li>Notification preferences and a paused status for inactive volunteers</li>
-                  <li>Announcements and reach outs</li>
-                  <li>SMS notifications</li>
                   <li>Role-specific training and approval workflows</li>
-                  <li>
-                    <strong>A second organization.</strong> Hold off Berkeley Alembic&rsquo;s
-                    onboarding, proving the workflow for one community first keeps the initial
-                    release small enough to ship and learn quickly.
-                  </li>
+                </ul>
+
+                <p className="cs-body">
+                  <strong>V3 &mdash; expand reach and scale.</strong> Berkeley Alembic, the second
+                  organization from the problem statement, comes on once the workflow is proven
+                  with one community.
+                </p>
+                <ul className="cs-list cs-list-bulleted">
+                  <li>Announcements and reach-outs</li>
+                  <li>SMS notifications</li>
+                  <li>Berkeley Alembic&rsquo;s onboarding</li>
                 </ul>
               </div>
             </div>
@@ -236,9 +244,15 @@ export default function Commonships() {
 
           <section id="metrics" className="cs-section">
             <div className="cs-row">
-              <div className="cs-index">07</div>
+              <div className="cs-index">06</div>
               <div className="cs-content">
                 <h2 className="cs-h2">Success Metrics</h2>
+                <p className="cs-body">
+                  Two of these track the objectives V1 was scoped to deliver &mdash; signing up,
+                  and canceling without pulling the coordinator in. The other two are the broader
+                  signal from the problem statement: whether coordinator capacity is actually
+                  freeing up.
+                </p>
                 <table className="cs-table">
                   <thead>
                     <tr>
@@ -276,7 +290,7 @@ export default function Commonships() {
 
           <section id="reflection" className="cs-section cs-section-end">
             <div className="cs-row">
-              <div className="cs-index">08</div>
+              <div className="cs-index">07</div>
               <div className="cs-content">
                 <h2 className="cs-h2">Reflection</h2>
                 <ul className="cs-check-list">
@@ -285,8 +299,8 @@ export default function Commonships() {
                     <span>
                       <strong>Coordinator capacity, not volunteer interest, was the binding
                       constraint.</strong>{" "}Designing around the coordinator&rsquo;s available
-                      time and to lessen their manual work, rather than optimizing for sign-up
-                      volume, informed every subsequent decision.
+                      time and workload, rather than optimizing for sign-up volume, informed
+                      every subsequent decision.
                     </span>
                   </li>
                   <li className="cs-check-item">
@@ -294,16 +308,17 @@ export default function Commonships() {
                     <span>
                       <strong>Existing informal behavior is a stronger design input than a
                       blank-slate solution.</strong>{" "}The most effective backfill mechanism
-                      already existed as an ad hoc group text between regulars; CommonShips
-                      formalizes and extends that pattern rather than replacing it.
+                      already existed as an ad hoc group text between regulars; V2&rsquo;s
+                      automated outreach is designed to formalize and extend that pattern rather
+                      than replace it.
                     </span>
                   </li>
                   <li className="cs-check-item">
                     <span className="cs-check-mark">✓</span>
                     <span>
                       <strong>Scoping down is a design decision, not a compromise.</strong>{" "}
-                      Deferring the majority of the originally designed feature set was necessary
-                      to get a working system into a real organization&rsquo;s hands.
+                      Sequencing the rest into V2 and V3, rather than cutting it, was what got a
+                      working system into a real organization&rsquo;s hands fast.
                     </span>
                   </li>
                 </ul>
